@@ -1,18 +1,135 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+
+  <ion-navbar color='navbarColor'>
+      <button ion-button menuToggle> 
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+<ion-content>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-slides pager="true">
+<ion-slide>
+<img class="home_sliderbox" src="./assets/imgs/s1.jpg">
+</ion-slide>
+<ion-slide>
+<img class="home_sliderbox" src="./assets/imgs/s2.jpg">
+</ion-slide>
+<ion-slide>
+<img class="home_sliderbox" src="./assets/imgs/s3.png">
+</ion-slide>
+</ion-slides>
+
+
+<ion-searchbar></ion-searchbar>
+
+
+<ion-grid>
+
+<h4 style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
+
+<ion-row>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/p1.jpg">
+  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
+  <ion-row>
+    <ion-col style="text-align:left; color: #2a8d2a;">
+      <del>$25</del>
+    </ion-col>
+    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
+  </ion-row>
+</ion-col>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/p1.jpg">
+  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
+  <ion-row>
+    <ion-col style="text-align:left; color: #2a8d2a;">
+      <del>$25</del>
+    </ion-col>
+    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
+  </ion-row>
+</ion-col>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/p1.jpg">
+  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
+  <ion-row>
+    <ion-col style="text-align:left; color: #2a8d2a;">
+      <del>$25</del>
+    </ion-col>
+    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
+  </ion-row>
+</ion-col>
+
+</ion-row>
+
+<h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Daily Deals</b></h4>
+
+<ion-row>
+
+<ion-col *ngFor="let i of dealproducts | slice:0:3"  class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/p1.jpg">
+  <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{i.productName}}</div>
+  <ion-row>
+    <ion-col style="text-align:left; color: #2a8d2a;">
+      <del>$25</del>
+    </ion-col>
+    <ion-col style="text-align:right; color: #2a8d2a;">{{i.unitPrice}}</ion-col>
+  </ion-row>
+  <div style="color:#2a8d2a; font-size:10px;"> <img style="width:14px" src="./assets/icon/tag.png">
+    Lightning Deal</div>
+</ion-col>
+</ion-row>
+
+
+<h4 (click)="categoryGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Categories</b></h4>
+
+<ion-row>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/m1.jpg">
+  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">HYBRID</div>
+</ion-col>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/m2.jpeg">
+  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">INDIANA</div>
+</ion-col>
+
+<ion-col class="home_product_image_column">
+  <img class="home_product_image" src="./assets/imgs/m3.jpg">
+  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">SATIVA</div>
+</ion-col>
+
+</ion-row>
+</ion-grid>  
+
 </ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='home'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='person'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='cart'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='search'></ion-icon>
+             </button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

@@ -1,28 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { DailyDealsPage } from '../daily-deals/daily-deals'
 
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-daily-deals',
+  templateUrl: 'daily-deals.html',
 })
-export class HomePage {
+export class DailyDealsPage {
   data: Observable<any>;
   dealproducts: any = [];
 
-
-  constructor(public navCtrl: NavController, public http: HttpClient) {
-
-  }
-
-  categoryGo(){
-  }
-
-  dailydealsGo(){
-    this.navCtrl.push(DailyDealsPage)
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: HttpClient) {
   }
 
   ionViewDidLoad() {
@@ -35,5 +26,4 @@ export class HomePage {
   })
   
   }
-  
 }

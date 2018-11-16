@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-navbar color='navbarColor'>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Signup</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+ 
+
+    <!-- ***** ID Details ***** -->
+  
+    <ion-list-header>
+      Basic Information
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="firstname" name="first" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="lastname" name="last" ></ion-input>
+    </ion-item>
+
+    <ion-item class="itemSelectBox">
+      <ion-label>Sex</ion-label>
+      <ion-select [(ngModel)]="sex">
+        <ion-option value="male">Male</ion-option>
+        <ion-option value="female">Female</ion-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Date of Birth</ion-label>
+      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="dob" name="dob" ></ion-datetime>
+    </ion-item>
+   
+
+    <ion-item>
+      <ion-label floating>Street Name 1</ion-label>
+      <ion-input type="text" [(ngModel)]="addr1" name="street1" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Street Name 2</ion-label>
+      <ion-input type="text" [(ngModel)]="addr2" name="street2" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>City</ion-label>
+      <ion-input type="text" [(ngModel)]="city" name="city" ></ion-input>
+    </ion-item>
+
+    <ion-item  class="itemSelectBox">
+      <ion-label>Country</ion-label>
+      <ion-select [(ngModel)]="countrySelect">
+        <ion-option *ngFor="let i of countryList" [value]="i.id">{{i.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>ZIP Code</ion-label>
+      <ion-input type="number" [(ngModel)]="zip" name="zip" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>E-mail</ion-label>
+      <ion-input type="email" [(ngModel)]="email" name="email" ></ion-input>
+    </ion-item>
+
+
+    <ion-list class="radioButton" [(ngModel)]="customerType" radio-group>
+      <ion-item>
+        <ion-label>Recreational
+          Type</ion-label>
+        <ion-radio checked="true" value="recreational"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label> Medical
+          Type</ion-label>
+        <ion-radio value="medical"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <ion-item class="itemSelectBox">
+      <ion-label>Type of ID to be uploaded</ion-label>
+      <ion-select  cancelText="Cancel" okText="Ok" [(ngModel)]="idtypeName">
+        <ion-option *ngFor="let j of idtype" [value]="j.id">{{j.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <!-- <img [src]="idCapture" alt=""/> -->
+
+  <div padding>
+      <button ion-button (click)="takePhoto()" full color="primary">Take Photo</button>
+      <button ion-button (click)="getImage()" full color="secondary">Get Photo From Library</button>
+      <button ion-button (click)="cropImage()" full color="danger">Crop Image</button>
+      <button ion-button (click)="uploadImage()" full color="dark">Upload Image</button>
+    
+    </div>
+
+    <p align="center"><img src="{{ myphoto }}"></p>
+
+
+  <ion-list>
+    <!-- ***** Medical ID Details ***** -->
+    <ion-list-header>
+      Medical ID Details
+    </ion-list-header>
+
+    <ion-item  class="itemSelectBox">   
+        <ion-label>Type of Medical ID to be uploaded</ion-label>   
+      <ion-select [(ngModel)]="medicalidtypeName">
+        <ion-option value="mmid">California MMID</ion-option>
+        <ion-option value="letter">Physician's Letter</ion-option>
+      </ion-select>
+    </ion-item>
+    
+
+    <ion-item>
+      <ion-label floating>Medical ID Card Number</ion-label>
+      <ion-input type="number" [(ngModel)]="idnum" name="id" ></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label floating>ID Expiry Date</ion-label>
+      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="expiry" name="expiry" ></ion-datetime>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>County of Residence</ion-label>
+      <ion-input type="text" [(ngModel)]="issuedPlace" name="place" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Issuing Physician's name</ion-label>
+      <ion-input type="text" [(ngModel)]="physicianName" name="place" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Issuing Physician's ID</ion-label>
+      <ion-input type="text" [(ngModel)]="physicianID" name="place" ></ion-input>
+    </ion-item>
+
+    <div padding>
+        <button ion-button color='primary' block >Upload Medical Id</button>
+      </div>
+
+      <div padding>
+          <button ion-button color='primary' block >Upload Physician's letter</button>
+        </div>
+
+    <!-- ***** Medical ID /certificate Photo ***** -->
+
+    <!-- ***** Physician's letter Photo ***** -->
+
+  </ion-list>
+
+
+  <div padding>
+    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,zip,email,customerType,idtypeName,medicalidtypeName,idnum,expiry,issuedPlace,physicianName,physicianID)>Sign In</button>
+  </div>
+
+</ion-content>
