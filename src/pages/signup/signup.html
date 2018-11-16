@@ -102,13 +102,16 @@
 
   <div padding>
       <button ion-button (click)="takePhoto()" full color="primary">Take Photo</button>
-      <button ion-button (click)="getImage()" full color="secondary">Get Photo From Library</button>
-      <button ion-button (click)="cropImage()" full color="danger">Crop Image</button>
-      <button ion-button (click)="uploadImage()" full color="dark">Upload Image</button>
+      <p style="text-align: center; color: #2a8d2a;" >OR</p>
+      <button ion-button (click)="getImage()" full color="primary">Get Photo From Library</button>
+
+      <p align="center"><img src="{{ myphoto }}"></p>
+
+      <button ion-button (click)="uploadImage()" full color='navbarColor'>Upload Image</button>
     
     </div>
 
-    <p align="center"><img src="{{ myphoto }}"></p>
+
 
 
   <ion-list>
