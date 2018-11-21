@@ -8,9 +8,12 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+    <ion-list>  
+        <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="homeGo()">
+            <ion-icon name='home'></ion-icon> &nbsp; Home
+          </button>    
+      <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+          <ion-icon name="person-add"></ion-icon> &nbsp; Signup
       </button>
     </ion-list>
   </ion-content>

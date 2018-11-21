@@ -18,7 +18,7 @@ export class DailyDealsPage {
 
   ionViewDidLoad() {
    
-    var url = 'http://192.168.0.23:8066/newreach/product';
+    var url = 'http://198.199.67.147:8075/newreach/product';
   this.data = this.http.get(url);
   this.data.subscribe(data =>{
     this.dealproducts= data.products;

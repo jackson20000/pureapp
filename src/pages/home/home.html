@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color='navbarColor'>
-      <button ion-button menuToggle> 
+      <button ion-button menuToggle side="right"> 
           <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>Home</ion-title>
@@ -31,44 +31,23 @@
 
 <ion-grid>
 
-<h4 style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
+    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
 
-<ion-row>
-
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/p1.jpg">
-  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
-  <ion-row>
-    <ion-col style="text-align:left; color: #2a8d2a;">
-      <del>$25</del>
+    <ion-row>
+    
+    <ion-col (click)="eachProduct(i)" *ngFor="let i of dealproducts | slice:0:3"  class="home_product_image_column">
+      <img class="home_product_image" src="./assets/imgs/p1.jpg">
+      <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{i.productName}}</div>
+      <ion-row>
+        <ion-col style="text-align:left; color: #2a8d2a;">
+          <del>$25</del>
+        </ion-col>
+        <ion-col style="text-align:right; color: #2a8d2a;">{{i.unitPrice}}</ion-col>
+      </ion-row>
+      
     </ion-col>
-    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
-  </ion-row>
-</ion-col>
-
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/p1.jpg">
-  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
-  <ion-row>
-    <ion-col style="text-align:left; color: #2a8d2a;">
-      <del>$25</del>
-    </ion-col>
-    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
-  </ion-row>
-</ion-col>
-
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/p1.jpg">
-  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">Cherry Cola Gummy</div>
-  <ion-row>
-    <ion-col style="text-align:left; color: #2a8d2a;">
-      <del>$25</del>
-    </ion-col>
-    <ion-col style="text-align:right; color: #2a8d2a;">25</ion-col>
-  </ion-row>
-</ion-col>
-
-</ion-row>
+    </ion-row>
+    
 
 <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Daily Deals</b></h4>
 
@@ -120,11 +99,11 @@
              </button>
         </ion-col>
         <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor"><ion-icon name='person'></ion-icon>
+            <button no-margin ion-button full large color="navbarColor" (click)="profileGo()"><ion-icon name='person'></ion-icon>
              </button>
         </ion-col>
         <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor"><ion-icon name='cart'></ion-icon>
+            <button no-margin ion-button full large color="navbarColor" (click)="itemGo()"><ion-icon name='cart'></ion-icon>
              </button>
         </ion-col>
         <ion-col no-padding>

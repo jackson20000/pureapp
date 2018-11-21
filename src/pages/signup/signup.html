@@ -80,13 +80,13 @@
       <ion-item>
         <ion-label>Recreational
           Type</ion-label>
-        <ion-radio checked="true" value="recreational"></ion-radio>
+        <ion-radio checked="true" value="adult_customer"></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label> Medical
           Type</ion-label>
-        <ion-radio value="medical"></ion-radio>
+        <ion-radio value="medical_customer"></ion-radio>
       </ion-item>
     </ion-list>
 
@@ -98,6 +98,22 @@
     </ion-item>
   </ion-list>
 
+  <ion-item>
+    <ion-label floating>ID Card Number</ion-label>
+    <ion-input type="number" [(ngModel)]="idnum" name="id" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>ID Issued Place</ion-label>
+    <ion-input type="text" [(ngModel)]="issuedPlace" name="place" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>ID Expiry Date</ion-label>
+    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="idexpiry" name="idexpiry" ></ion-datetime>
+
+  </ion-item>
+
   <!-- <img [src]="idCapture" alt=""/> -->
 
   <div padding>
@@ -106,8 +122,6 @@
       <button ion-button (click)="getImage()" full color="primary">Get Photo From Library</button>
 
       <p align="center"><img src="{{ myphoto }}"></p>
-
-      <button ion-button (click)="uploadImage()" full color='navbarColor'>Upload Image</button>
     
     </div>
 
@@ -120,59 +134,58 @@
       Medical ID Details
     </ion-list-header>
 
-    <ion-item  class="itemSelectBox">   
+    <!-- <ion-item  class="itemSelectBox">   
         <ion-label>Type of Medical ID to be uploaded</ion-label>   
       <ion-select [(ngModel)]="medicalidtypeName">
         <ion-option value="mmid">California MMID</ion-option>
         <ion-option value="letter">Physician's Letter</ion-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
     
 
     <ion-item>
       <ion-label floating>Medical ID Card Number</ion-label>
-      <ion-input type="number" [(ngModel)]="idnum" name="id" ></ion-input>
+      <ion-input type="number" [(ngModel)]="medidnum" name="medidnum" ></ion-input>
     </ion-item>
 
 
     <ion-item>
-      <ion-label floating>ID Expiry Date</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="expiry" name="expiry" ></ion-datetime>
+      <ion-label floating>Medical ID Expiry Date</ion-label>
+      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="medexpiry" name="medexpiry" ></ion-datetime>
 
     </ion-item>
 
     <ion-item>
       <ion-label floating>County of Residence</ion-label>
-      <ion-input type="text" [(ngModel)]="issuedPlace" name="place" ></ion-input>
+      <ion-input type="text" [(ngModel)]="county" name="county" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Issuing Physician's name</ion-label>
-      <ion-input type="text" [(ngModel)]="physicianName" name="place" ></ion-input>
+      <ion-input type="text" [(ngModel)]="physicianName" name="physicianName" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Issuing Physician's ID</ion-label>
-      <ion-input type="text" [(ngModel)]="physicianID" name="place" ></ion-input>
+      <ion-input type="text" [(ngModel)]="physicianID" name="physicianID" ></ion-input>
     </ion-item>
 
     <div padding>
-        <button ion-button color='primary' block >Upload Medical Id</button>
-      </div>
-
-      <div padding>
-          <button ion-button color='primary' block >Upload Physician's letter</button>
+        <button ion-button color='primary' (click)="getImage1()" block >Upload Medical Id</button>
+      <p style="text-align: center; color: #2a8d2a;" >OR</p>    
+          <button ion-button color='primary' (click)="getImage2()" block >Upload Physician's letter</button>
+          <p style="text-align: center; color: #2a8d2a;" >OR</p>    
+          <button ion-button color='primary' (click)="choose()" block >Upload Pdf</button>
         </div>
+        <p align="center"><img src="{{ myphoto1 }}"></p>
 
     <!-- ***** Medical ID /certificate Photo ***** -->
-
     <!-- ***** Physician's letter Photo ***** -->
-
   </ion-list>
 
 
   <div padding>
-    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,zip,email,customerType,idtypeName,medicalidtypeName,idnum,expiry,issuedPlace,physicianName,physicianID)>Sign In</button>
+    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,zip,email,customerType,idtypeName,issuedPlace,idnum,idexpiry,medidnum,medexpiry,county,physicianName,physicianID)>Sign Up</button>
   </div>
 
 </ion-content>

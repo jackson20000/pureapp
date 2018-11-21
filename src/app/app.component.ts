@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Icon } from 'ionic-angular';
+import { Nav, Platform, Icon, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -20,11 +20,11 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage, icon: 'home' },
-      { title: 'Signup', component: SignupPage,  icon: 'person'  }
+    // this.pages = [
+    //   { title: 'Home', component: HomePage, icon: 'home' },
+    //   { title: 'Signup', component: SignupPage,  icon: 'person'  }
 
-    ];
+    // ];
 
   }
 
@@ -37,9 +37,18 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  signupGo(){
+    this.nav.push(SignupPage)
   }
+
+  homeGo(){
+    this.nav.setRoot(HomePage)
+  }
+
+
+  // openPage(page) {
+  //   // Reset the content nav to have just this page
+  //   // we wouldn't want the back button to show in this scenario
+  //   this.nav.setRoot(page.component);
+  // }
 }
