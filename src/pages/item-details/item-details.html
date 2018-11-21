@@ -7,19 +7,19 @@
 </ion-header>
 
 
-<ion-content  style=" color: #0e830e;">
+<ion-content *ngIf="value"  style=" color: #0e830e;">
 
   <img class="product_details_image" src="/assets/imgs/m1.jpg">
 
-
-  <div padding style="font-size: 22px;">BLUE HAZE</div>
+  
+  <div padding style="font-size: 22px;">{{value.productName}}</div>
 
 
   <ion-grid>
     
     <ion-row>
 
-      <ion-col col-4 >
+      <ion-col  col-4 >
         <ion-item>
           <ion-label class="item_checkbox" style="color:#0e830e; font-size: 18px;">100mg</ion-label>
           <ion-checkbox color="navbarColor" checked="true"></ion-checkbox>
@@ -28,7 +28,7 @@
 
       <ion-col col-4>
         <ion-item>
-          <ion-label style="color:#0e830e; font-size: 18px;" >$250.00</ion-label>
+          <ion-label style="color:#0e830e; font-size: 18px;" >${{value.unitPrice}}</ion-label>
         </ion-item>
       </ion-col>
 
@@ -38,36 +38,12 @@
         <ion-icon name="add-circle" (click)="increment1()"  style="color:#0e830e;"></ion-icon>
       </ion-col>
 
-    </ion-row>
-
-   
-    <ion-row>
-
-      <ion-col col-4 >
-        <ion-item>
-          <ion-label class="item_checkbox" style="color:#0e830e; font-size: 18px;">100mg</ion-label>
-          <ion-checkbox color="navbarColor"></ion-checkbox>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-4>
-        <ion-item>
-          <ion-label style="color:#0e830e; font-size: 18px;">$250.00</ion-label>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-4 class="val_text">
-        <ion-icon name="remove-circle"  (click)="decrement2()" style="color:#0e830e;"></ion-icon>
-        <span class="quantity_val">{{newitemCount2}}</span>
-        <ion-icon name="add-circle" (click)="increment2()" style="color:#0e830e;"></ion-icon>
-      </ion-col>
-
-    </ion-row>
+    </ion-row>   
 
   </ion-grid>
 
     <div padding class="item_details_text">
-      <span style="display:block; font-size: 22px; margin-bottom: 5%;">BLUE HAZE</span>
+      <span style="display:block; font-size: 22px; margin-bottom: 5%;">{{value.productName}}</span>
       <p style="font-size: 16px; text-align: justify; margin-bottom: 5%;"> Blue Haze delivers a quick headrush, manifesting as some
         initial dizziness
         or disorientation. Smokers may
@@ -91,7 +67,7 @@
 <ion-footer>
   <ion-row>
       <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='home'></ion-icon>
+          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
            </button>
       </ion-col>
       <ion-col no-padding>

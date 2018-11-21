@@ -28,6 +28,12 @@
       <ion-input type="text" [(ngModel)]="lastname" name="last" ></ion-input>
     </ion-item>
 
+
+    <div padding>
+        <button ion-button (click)="takePhoto1()" full color="primary">Capture profile picture</button>  
+        <p align="center"><img style="border-radius: 50%; height: 12em; width: 12em;" src="{{myProfilephoto}}" alt=""></p>      
+      </div>
+
     <ion-item class="itemSelectBox">
       <ion-label>Sex</ion-label>
       <ion-select [(ngModel)]="sex">
@@ -121,7 +127,7 @@
       <p style="text-align: center; color: #2a8d2a;" >OR</p>
       <button ion-button (click)="getImage()" full color="primary">Get Photo From Library</button>
 
-      <p align="center"><img src="{{ myphoto }}"></p>
+      <p align="center"><img padding src="{{ myphoto }}" alt=""></p>
     
     </div>
 
@@ -174,10 +180,10 @@
         <button ion-button color='primary' (click)="getImage1()" block >Upload Medical Id</button>
       <p style="text-align: center; color: #2a8d2a;" >OR</p>    
           <button ion-button color='primary' (click)="getImage2()" block >Upload Physician's letter</button>
-          <p style="text-align: center; color: #2a8d2a;" >OR</p>    
-          <button ion-button color='primary' (click)="choose()" block >Upload Pdf</button>
+          <!-- <p style="text-align: center; color: #2a8d2a;" >OR</p>    
+          <button ion-button color='primary' (click)="choose()" block >Upload Pdf</button> -->
         </div>
-        <p align="center"><img src="{{ myphoto1 }}"></p>
+        <p align="center"><img padding src="{{ myphoto1 }}" alt=""></p>
 
     <!-- ***** Medical ID /certificate Photo ***** -->
     <!-- ***** Physician's letter Photo ***** -->

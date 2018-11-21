@@ -10,14 +10,14 @@
   <ion-grid>
     <ion-row >
 
-      <ion-col col-5 *ngFor="let i of dealproducts "  class="home_product_image_column">
+      <ion-col col-5  (click)="eachProduct($event, item)" *ngFor="let item of dealproducts "  class="home_product_image_column">
         <img class="home_product_image" src="./assets/imgs/p1.jpg">
-        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{i.productName}}</div>
+        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
         <ion-row>
           <ion-col style="text-align:left; color: #2a8d2a;">
             <del>$25</del>
           </ion-col>
-          <ion-col style="text-align:right; color: #2a8d2a;">{{i.unitPrice}}</ion-col>
+          <ion-col style="text-align:right; color: #2a8d2a;">${{item.unitPrice}}</ion-col>
         </ion-row>
         <div style="color:#2a8d2a; font-size:10px;"> <img style="width:14px" src="./assets/icon/tag.png">
           Lightning Deal</div>
@@ -31,7 +31,7 @@
 <ion-footer>
     <ion-row>
         <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor"><ion-icon name='home'></ion-icon>
+            <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
              </button>
         </ion-col>
         <ion-col no-padding>

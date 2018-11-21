@@ -19,7 +19,6 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { HTTP } from '@ionic-native/http';
 
 
 @NgModule({
@@ -54,7 +53,7 @@ import { HTTP } from '@ionic-native/http';
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,FileTransfer, File, FileChooser, HTTP,
+    Camera,FileTransfer, File, FileChooser, 
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

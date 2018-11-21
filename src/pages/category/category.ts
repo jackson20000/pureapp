@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
+import { HomePage } from '../home/home'
+ /**
  * Generated class for the CategoryPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
@@ -16,6 +16,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class CategoryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  homeGo(){
+    this.navCtrl.setRoot(HomePage)
   }
 
   ionViewDidLoad() {

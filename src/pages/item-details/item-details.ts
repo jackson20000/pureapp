@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home'
 
 
 @IonicPage()
@@ -12,10 +13,16 @@ export class ItemDetailsPage {
   newitemCount1: number = 0;
   itemCount2: number = 0;
   newitemCount2: number = 0;
+  value:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {      
-  
+    this.value = navParams.get('item');
   }
+
   
+  homeGo(){
+    this.navCtrl.setRoot(HomePage)
+  }
   
   increment1(){  
        
@@ -33,24 +40,7 @@ export class ItemDetailsPage {
  
 }
 
-increment2(){  
-       
-  if(this.itemCount2 < 6)
-  this.itemCount2 ++;
- this.newitemCount2 =  this.itemCount2; 
-
-}
-
-decrement2(){  
-   
-if(this.itemCount2 > 0)
-this.itemCount2 --;
-this.newitemCount2 =  this.itemCount2; 
-
-}
-
 goCart(){
-  
 }
 
 

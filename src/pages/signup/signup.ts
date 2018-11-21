@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
-// import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { HTTP } from '@ionic-native/http';
 
 import 'rxjs/add/operator/map';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-signup',
@@ -49,7 +49,9 @@ export class SignupPage {
   myphoto: any;
   myphoto1: any;
   myphoto2: any;
-  constructor(public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
+  myProfilephoto: any;
+  
+  constructor(public navCtrl: NavController, public http: HttpClient, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
 
   }
 
@@ -67,6 +69,23 @@ export class SignupPage {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+    });
+  }
+
+  takePhoto1() {
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.myProfilephoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       // Handle error
     });
@@ -128,28 +147,29 @@ export class SignupPage {
   }
 
 
-  choose() {
-    this.fileChooser.open().then((uri) => {
-      alert(uri);
+  // choose() {
+  //   this.fileChooser.open().then((uri) => {
+  //     alert(uri);
 
-      this.file.resolveLocalFilesystemUrl(uri).then((newUrl) => {
-        alert(JSON.stringify(newUrl));
+  //     this.file.resolveLocalFilesystemUrl(uri).then((newUrl) => {
+  //       alert(JSON.stringify(newUrl));
 
-        let dirPath = newUrl.nativeURL;
-        let dirPathSegments = dirPath.split('/')
-        dirPathSegments.pop()
-        dirPath = dirPathSegments.join('/')
-        alert(dirPath);
+  //       let dirPath = newUrl.nativeURL;
+  //       let dirPathSegments = dirPath.split('/')
+  //       dirPathSegments.pop()
+  //       dirPath = dirPathSegments.join('/')
+  //       alert(dirPath);
 
-      })
-    })
-  }
+  //     })
+  //   })
+  // }
 
 
   register() {
 
     console.log("firstname: " + this.firstname);
     console.log("lastname: " + this.lastname);
+    console.log("Profile photo: " + this.myProfilephoto);
     console.log("sex: " + this.sex);
     console.log("dob: " + this.dob);
     console.log("addr1: " + this.addr1);
@@ -225,74 +245,52 @@ export class SignupPage {
     // })
 
 
-    let data = {
-      'name': this.firstname,
-      'login': this.email,
-      'email': this.email,
-      'firstname': this.firstname,
-      'lastName': this.lastname,
-      'dob': this.dob,
-      'street': this.addr1,
-      'street2': this.addr2,
-      'city': this.city,
-      'zip': this.zip,
-      'gen': this.sex,
-      'country_id': this.countrySelect,
-      'customer_type': this.customerType,
-      'idType': this.idtypeName,
-      'idNumber': this.idnum,
-      'idExpDate': this.idexpiry,
-      'issuePlace': this.issuedPlace,
-      'image1': this.myphoto,
-      'medicalidNumber': this.medidnum,
-      'medicalFirstName': this.firstname,
-      'medicalLastName': this.lastname,
-      'medicalCounty': this.county,
-      'medicalDob': this.dob,
-      'medicalIdExpDate': this.medexpiry,
-      'medicalImage': this.myphoto1,
-      'medicalIssueName': this.physicianName,
-      'medicalIssueId': this.physicianID,
+  //   let data = {
+  //     'name': this.firstname,
+  //     'login': this.email,
+  //     'email': this.email,
+  //     'firstname': this.firstname,
+  //     'lastName': this.lastname,
+  //     'image' : this.myProfilephoto,
+  //     'dob': this.dob,
+  //     'street': this.addr1,
+  //     'street2': this.addr2,
+  //     'city': this.city,
+  //     'zip': this.zip,
+  //     'gen': this.sex,
+  //     'country_id': this.countrySelect,
+  //     'customer_type': this.customerType,
+  //     'idType': this.idtypeName,
+  //     'idNumber': this.idnum,
+  //     'idExpDate': this.idexpiry,
+  //     'issuePlace': this.issuedPlace,
+  //     'image1': this.myphoto,
+  //     'medicalidNumber': this.medidnum,
+  //     'medicalFirstName': this.firstname,
+  //     'medicalLastName': this.lastname,
+  //     'medicalCounty': this.county,
+  //     'medicalDob': this.dob,
+  //     'medicalIdExpDate': this.medexpiry,
+  //     'medicalImage': this.myphoto1,
+  //     'medicalIssueName': this.physicianName,
+  //     'medicalIssueId': this.physicianID
+  // };
 
+  // let headers = {
+  //     'Content-Type': 'application/json'
+  // };
 
-  };
-  let headers = {
-      'Content-Type': 'application/json'
-  };
+  // this.http.post('http://198.199.67.147:8075/newreach/customer/create', data, headers)
+  //             .then((data) => {
+  //                 console.log(data);
+  //                 alert('Succesfully Registered!');
+  //                 this.navCtrl.setRoot(HomePage);
+  //             })
+  //             .catch((error) => {
+  //                 console.log(error);
+  //             });
 
-  this.http.post('http://198.199.67.147:8075/newreach/customer/create', data, headers)
-              .then((data) => {
-                  console.log(data);
-                  alert('Succesfully Registered!')
-              })
-              .catch((error) => {
-                  console.log(error);
-              });
-
-
-
-
-    
-    // this.http.post("api/newreach/customer/create",
-    // {
-    //   "name": "jude",
-    //   "login": "may3@gmail.com",
-    //   "email": "may3@gmail.com",
-    //   "firstname": "jude",
-    //   "db" : "cannabis"
-    // })
-    // .subscribe(
-    //     (val) => {
-    //         console.log("POST call successful value returned in body", 
-    //                     val);
-    //     },
-    //     response => {
-    //         console.log("POST call in error", response);
-    //     },
-    //     () => {
-    //         console.log("The POST observable is now completed.");
-    //     });
-
+   
 
 
     // var url = 'api/newreach/customer/create';
@@ -350,18 +348,55 @@ export class SignupPage {
 
   ionViewDidLoad() {
 
-    // this.data = this.http.get('http://198.199.67.147:8075/newreach/country/details')
-    // this.data.subscribe(data => {
-    //   this.countryList = data.country;
-    //   console.log(this.countryList);
+// For getting the list of countries
 
-    // });
+//   this.http.get('http://198.199.67.147:8075/newreach/country/details', {}, {})
+//   .then(data => {
 
-    // this.data1 = this.http.get('http://198.199.67.147:8075/newreach/idtype')
-    // this.data1.subscribe(data1 => {
-    //   this.idtype = data1.val;
-    //   console.log(this.idtype)
-    // });
+//   var json= data.data; // data received by server
+//   let obj = JSON.parse(json);
+
+//   this.countryList = obj.country;
+//   })
+//   .catch(error => {
+
+//     // alert(error.status);
+//     // alert(error.error); // error message as string
+//     // alert(error.headers);
+
+//   });
+
+
+// // For getting the list of ID Types
+
+//   this.http.get('http://198.199.67.147:8075/newreach/idtype', {}, {})
+//   .then(data => {
+
+//   var json= data.data; // data received by server
+//   let obj = JSON.parse(json);
+
+//   this.idtype = obj.val;
+//   })
+//   .catch(error => {
+
+//     // alert(error.status);
+//     // alert(error.error); // error message as string
+//     // alert(error.headers);
+
+//   });
+
+    this.data = this.http.get('http://198.199.67.147:8075/newreach/country/details')
+    this.data.subscribe(data => {
+      this.countryList = data.country;
+      console.log(this.countryList);
+
+    });
+
+    this.data1 = this.http.get('http://198.199.67.147:8075/newreach/idtype')
+    this.data1.subscribe(data1 => {
+      this.idtype = data1.val;
+      console.log(this.idtype)
+    });
 
   }
 }
