@@ -1,18 +1,18 @@
 <ion-header>
 
   <ion-navbar color='navbarColor'>
-    <ion-title>{{selectProduct?.name}}</ion-title>
+    <ion-title>{{selectProduct?.productName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content style=" color: #0e830e;">
+<!--<ion-content style=" color: #0e830e;">
   <div >
     <img class="product_details_image" src="/assets/imgs/m1.jpg">
 
 
-    <div padding style="font-size: 22px;">{{selectProduct?.name}}</div>
+    <div padding style="font-size: 22px;">{{selectProduct?.productName}}</div>
 
 
     <ion-grid>
@@ -28,16 +28,15 @@
 
         <ion-col col-4>
           <ion-item>
-            <ion-label style="color:#0e830e; font-size: 18px;">{{ selectProduct?.price | currency:'USD':true
-            }}</ion-label>
+            <ion-label style="color:#0e830e; font-size: 18px;">{{ selectProduct?.unitPrice | currency}}</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col col-4 class="val_text">
-          <!-- <ion-icon name="remove-circle" (click)="decrement1()" style="color:#0e830e;"></ion-icon>
+        <ion-col col-4 class="val_text"> -->
+<!-- <ion-icon name="remove-circle" (click)="decrement1()" style="color:#0e830e;"></ion-icon>
           <span class="quantity_val">{{newitemCount1}}</span>
           <ion-icon name="add-circle" (click)="increment1()" style="color:#0e830e;"></ion-icon> -->
-          <button click="" color="light" decreaseproductcount="" ion-button="" small="">
+<!-- <button click="" color="light" decreaseproductcount="" ion-button="" small="">
             -
           </button>
           <button clear="" color="dark" ion-button="" small="">
@@ -59,14 +58,14 @@
         initial dizziness
         or disorientation. Smokers may
         detect a full relaxation of their facial muscles</p>
-    </div>
+    </div> -->
 
 
-    <!-- <div padding>
+<!-- <div padding>
       <button ion-button color='navbarColor' (click)="addtoCart(product)" block>Add to cart</button>
     </div> -->
 
-    <ion-grid>
+<!-- <ion-grid>
       <ion-row>
          <ion-col addtocart="" class="addCart" click="" selectproduct="">
            <button color="secondary" full="" ion-button="">
@@ -79,6 +78,60 @@
 
   </div>
 </ion-content>
+-->
+
+
+<ion-content style=" color: #0e830e;">
+
+  <img class="product_details_image" src="/assets/imgs/m1.jpg">
+
+  <div class="card product-detail">
+
+    <div text-center padding margin-top class="border-bottom">
+      <h2>{{selectProduct?.productName}}</h2>
+      <p>{{ selectProduct?.short_description }}</p>
+      <h3 class="price" color="danger" margin-top>{{ selectProduct?.unitPrice | currency:'USD':true
+        }}</h3>
+    </div>       
+
+    <ion-row padding>
+      <ion-col col-6>
+        <h4 style="color:#0e830e;">
+          Select Quantity: 
+        </h4>
+      </ion-col>
+      <ion-col col-6 text-right>
+        <button (click)="decreaseProductCount()" ion-button small>
+          -
+        </button>
+        <span class="quantity_val">{{productCount}}</span>
+
+        <button (click)="incrementProductCount()" ion-button small>
+          +
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+  <div >
+    <p style="font-size: 16px; text-align: justify; margin-bottom: 5%;"> Blue Haze delivers a quick headrush,
+      manifesting as some
+      initial dizziness
+      or disorientation. Smokers may
+      detect a full relaxation of their facial muscles</p>
+  </div>
+
+
+  <div padding>
+    <button ion-button block color='navbarColor' (click)="addToCart(selectProduct)">
+      ADD TO CART
+    </button>
+  </div>
+
+
+</ion-content>
+
 <ion-footer>
   <ion-row>
     <ion-col no-padding>

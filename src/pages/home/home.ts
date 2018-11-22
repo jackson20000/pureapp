@@ -7,6 +7,7 @@ import { ProfilePage } from '../profile/profile';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CartPage } from '../cart/cart';
 
 
 @Component({
@@ -28,6 +29,11 @@ export class HomePage {
 homeGo(){
     this.navCtrl.setRoot(HomePage)
   }
+
+  cartGo(){
+    this.navCtrl.setRoot(CartPage)
+  }
+
 
   categoryGo(){
     this.navCtrl.push(CategoryPage)

@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { CartPage } from '../pages/cart/cart';
 import { CategoryPage } from '../pages/category/category';
 import { DailyDealsPage } from '../pages/daily-deals/daily-deals';
 import { HomePage } from '../pages/home/home';
@@ -25,7 +25,6 @@ import { CartProvider } from '../providers/cart/cart';
 @NgModule({
   declarations: [
     MyApp,
-    CartPage,
     CategoryPage,
     DailyDealsPage,
     HomePage,
@@ -36,13 +35,12 @@ import { CartProvider } from '../providers/cart/cart';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule, IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    CartPage,
     CategoryPage,
     DailyDealsPage,
     HomePage,

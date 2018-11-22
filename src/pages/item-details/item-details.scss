@@ -47,7 +47,7 @@ page-item-details {
       .quantity_val {
         border: 1px solid #0e830e;
         border-radius: 0;
-        padding: 3px 7px 0 7px;
+        padding: 6px 11px 3px 12px;
         
       }
       
@@ -84,6 +84,17 @@ page-item-details {
         margin-bottom: 5%;     
       
       }
-      
+
+      .button-small-md {
+        height: 2.1em;
+        font-size: 1.3rem;
+        padding: 0 0.9em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        margin-top: -0.5em;
+        background-color: #0e830e;
+    }
+
+           
 
 }

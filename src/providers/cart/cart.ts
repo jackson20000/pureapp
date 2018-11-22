@@ -32,16 +32,22 @@ export class CartProvider {
       }
     })
   }
- 
+
+
   removeFromCart(product) {
     return this.getCartItems().then(result => {
-      if (result) {
-        var productIndex = result.indexOf(product);
-        result.splice(productIndex, 1);
-        return this.storage.set(CART_KEY, result);
-      }
+    if (result) {
+    result.forEach((item, index) => {
+    if (item.product_id === product.product_id) {
+    result.splice(index, 1)
+    return this.storage.set(CART_KEY, result);
+    }
     })
-  }
+    }
+    })
+    
+    }
+  
  
   removeAllCartItems() {
     return this.storage.remove(CART_KEY).then(res => {

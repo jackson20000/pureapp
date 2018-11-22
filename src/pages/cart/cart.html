@@ -1,13 +1,96 @@
-
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>cart</ion-title>
+  <ion-navbar color='navbarColor'>
+    <ion-title>Your Cart</ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content padding>
+  <div *ngIf="isEmptyCart" class="empty-cart">
+    <div class="empty-results">
+      <h3 text-center>
+          <ion-icon name="cart"></ion-icon>
+      </h3>
+      <p text-center>
+        Your cart is empty
+      </p>
+    </div>
+  </div>
+  <div *ngIf="!isEmptyCart" class="cart-itm-wrap">
+
+    <ion-card *ngFor="let itm of  cartItems">
+      <ion-card-content>
+        <ion-row>
+          <ion-col col-7>
+            <h3 style="margin: 7px" text-left>{{itm.name}}</h3>
+
+            <div class="itm-footer">
+              <span (click)="removeItem(itm)" class="remove">
+                Remove
+              </span>
+              <span class="price">
+                {{itm.totalPrice | currency:'USD':true}}
+              </span>
+            </div>
+
+
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-avatar>
+                <img style="float: right" src="./assets/imgs/p1.jpg">
+              </ion-avatar>
+            </ion-item>
+            <p style="color:#333" text-right>
+              Qty: {{itm.count}}
+            </p>
+          </ion-col>
+
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  
 
 </ion-content>
+
+<ion-footer>
+    <ion-grid *ngIf="!isEmptyCart">
+        <ion-row>
+          <ion-col style="text-align: center; color: #2a8d2a; font-size: 15px; font-weight: bold;">
+             Total Amount: &nbsp; &nbsp; {{totalAmount | currency:'USD':true}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="addCart" (click)="checkOut()">
+            <button round=true ion-button full color='navbarColor'>
+              Checkout
+            </button>
+    
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+  <ion-row>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor" >
+        <ion-icon name='home'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='person'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='cart'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='search'></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

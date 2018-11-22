@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { CartPage } from '../cart/cart';
 //import { Storage } from '@ionic/storage';
 import { CartProvider } from '../../providers/cart/cart';
 
@@ -64,11 +63,9 @@ export class ItemDetailsPage {
   }
  
   addToCart(product) {
-    var productPrice = this.productCount * parseInt(product.price);
+    var productPrice = this.productCount * parseInt(product.unitPrice);
     let cartProduct = {
-      product_id: product.id,
-      name: product.name,
-      thumb: product.thumb,
+      name: product.productName,
       count: this.productCount,
       totalPrice: productPrice
     };

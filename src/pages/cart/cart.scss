@@ -3,10 +3,10 @@ page-cart {
     .scroll-content {
          background: #EAEAEA;
 
-         .empty-cart{
+ .empty-cart{
               margin-top: 50%;
               height: 100%;
-              .empty-results{
+        .empty-results{
                    ion-icon{
                         font-size: 105px;
                         color: rgb(175, 175, 175);
@@ -17,7 +17,7 @@ page-cart {
                         color: rgb(175, 175, 175);
                    }
               }
-         }
+     }
 
 
          ion-card {
@@ -37,7 +37,7 @@ page-cart {
                              left: 0;
                              position: absolute;
                              bottom: 0;
-                             background: #ff0000;
+                             background: #cf1010;
                              padding: 3px 10px;
                              color: #fff;
                         }
