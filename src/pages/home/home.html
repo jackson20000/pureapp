@@ -42,7 +42,7 @@
         <ion-col style="text-align:left; color: #2a8d2a;">
           <del>$25</del>
         </ion-col>
-        <ion-col style="text-align:right; color: #2a8d2a;">${{item.unitPrice}}</ion-col>
+        <ion-col style="text-align:right; color: #2a8d2a;">{{item.unitPrice | currency:'USD':true:'1.2-2'}}</ion-col>
       </ion-row>
       
     </ion-col>
@@ -60,7 +60,7 @@
     <ion-col style="text-align:left; color: #2a8d2a;">
       <del>$25</del>
     </ion-col>
-    <ion-col style="text-align:right; color: #2a8d2a;">${{item.unitPrice}}</ion-col>
+    <ion-col style="text-align:right; color: #2a8d2a;">{{item.unitPrice | currency:'USD':true:'1.2-2'}}</ion-col>
   </ion-row>
   <div style="color:#2a8d2a; font-size:10px;"> <img style="width:14px" src="./assets/icon/tag.png">
     Lightning Deal</div>

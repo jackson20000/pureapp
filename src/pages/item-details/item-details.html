@@ -1,86 +1,105 @@
 <ion-header>
 
   <ion-navbar color='navbarColor'>
-    <ion-title>Product Details</ion-title>
+    <ion-title>{{selectProduct?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content *ngIf="value"  style=" color: #0e830e;">
-
-  <img class="product_details_image" src="/assets/imgs/m1.jpg">
-
-  
-  <div padding style="font-size: 22px;">{{value.productName}}</div>
+<ion-content style=" color: #0e830e;">
+  <div >
+    <img class="product_details_image" src="/assets/imgs/m1.jpg">
 
 
-  <ion-grid>
-    
-    <ion-row>
+    <div padding style="font-size: 22px;">{{selectProduct?.name}}</div>
 
-      <ion-col  col-4 >
-        <ion-item>
-          <ion-label class="item_checkbox" style="color:#0e830e; font-size: 18px;">100mg</ion-label>
-          <ion-checkbox color="navbarColor" checked="true"></ion-checkbox>
-        </ion-item>
-      </ion-col>
 
-      <ion-col col-4>
-        <ion-item>
-          <ion-label style="color:#0e830e; font-size: 18px;" >${{value.unitPrice}}</ion-label>
-        </ion-item>
-      </ion-col>
+    <ion-grid>
 
-      <ion-col col-4 class="val_text">
-        <ion-icon name="remove-circle" (click)="decrement1()" style="color:#0e830e;"></ion-icon>
-        <span class="quantity_val">{{newitemCount1}}</span>
-        <ion-icon name="add-circle" (click)="increment1()"  style="color:#0e830e;"></ion-icon>
-      </ion-col>
+      <ion-row>
 
-    </ion-row>   
+        <ion-col col-4>
+          <ion-item>
+            <ion-label class="item_checkbox" style="color:#0e830e; font-size: 18px;">100mg</ion-label>
+            <ion-checkbox color="navbarColor" checked="true"></ion-checkbox>
+          </ion-item>
+        </ion-col>
 
-  </ion-grid>
+        <ion-col col-4>
+          <ion-item>
+            <ion-label style="color:#0e830e; font-size: 18px;">{{ selectProduct?.price | currency:'USD':true
+            }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col col-4 class="val_text">
+          <!-- <ion-icon name="remove-circle" (click)="decrement1()" style="color:#0e830e;"></ion-icon>
+          <span class="quantity_val">{{newitemCount1}}</span>
+          <ion-icon name="add-circle" (click)="increment1()" style="color:#0e830e;"></ion-icon> -->
+          <button click="" color="light" decreaseproductcount="" ion-button="" small="">
+            -
+          </button>
+          <button clear="" color="dark" ion-button="" small="">
+            {{productCount}}
+          </button>
+          <button click="" color="light" incrementproductcount="" ion-button="" small="">
+            +
+          </button>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
 
     <div padding class="item_details_text">
-      <span style="display:block; font-size: 22px; margin-bottom: 5%;">{{value.productName}}</span>
-      <p style="font-size: 16px; text-align: justify; margin-bottom: 5%;"> Blue Haze delivers a quick headrush, manifesting as some
+      <span style="display:block; font-size: 22px; margin-bottom: 5%;">{{selectProduct?.name}}</span>
+      <p style="font-size: 16px; text-align: justify; margin-bottom: 5%;"> Blue Haze delivers a quick headrush,
+        manifesting as some
         initial dizziness
         or disorientation. Smokers may
         detect a full relaxation of their facial muscles</p>
     </div>
 
 
-    <ion-row class=" item_buttons">
+    <!-- <div padding>
+      <button ion-button color='navbarColor' (click)="addtoCart(product)" block>Add to cart</button>
+    </div> -->
 
-      <ion-col col-6>
-        <button  ion-button small class=" item_cart_button" (click)="goCart()">Add to Cart</button>
-      </ion-col>
+    <ion-grid>
+      <ion-row>
+         <ion-col addtocart="" class="addCart" click="" selectproduct="">
+           <button color="secondary" full="" ion-button="">
+             ADD TO CART
+           </button>          
+   
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-      <ion-col col-6>
-        <button  ion-button small class=" item_cart_button" (click)="goCart()">Buy Now</button>
-
-      </ion-col>
-    </ion-row>
-  
+  </div>
 </ion-content>
 <ion-footer>
   <ion-row>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='person'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='cart'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='search'></ion-icon>
-           </button>
-      </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor" (click)="homeGo()">
+        <ion-icon name='home'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='person'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='cart'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor">
+        <ion-icon name='search'></ion-icon>
+      </button>
+    </ion-col>
   </ion-row>
 </ion-footer>

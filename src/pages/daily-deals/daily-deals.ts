@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { ItemDetailsPage } from '../item-details/item-details'
-import { HomePage } from '../home/home'
+import { ItemDetailsPage } from '../item-details/item-details';
+import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -20,7 +20,7 @@ export class DailyDealsPage {
 
 
   public eachProduct(event ,item ){
-    this.navCtrl.push(ItemDetailsPage,{item:item});
+    this.navCtrl.push(ItemDetailsPage,{product:item});
     }
 
 

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home'
-
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { HomePage } from '../home/home';
+import { CartPage } from '../cart/cart';
+//import { Storage } from '@ionic/storage';
+import { CartProvider } from '../../providers/cart/cart';
 
 @IonicPage()
 @Component({
@@ -9,14 +11,20 @@ import { HomePage } from '../home/home'
   templateUrl: 'item-details.html',
 })
 export class ItemDetailsPage {
-  itemCount1: number = 0;
-  newitemCount1: number = 0;
-  itemCount2: number = 0;
-  newitemCount2: number = 0;
-  value:any;
+  // itemCount1: number = 0;
+  // newitemCount1: number = 0;
+  // itemCount2: number = 0;
+  // newitemCount2: number = 0;
+  selectProduct: any;
+  productCount: number = 1;
+  cartItems: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {      
-    this.value = navParams.get('item');
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private cartService: CartProvider, public toastCtrl: ToastController) {
+
+    if (this.navParams.get("product")) {
+      window.localStorage.setItem('selectedProduct', JSON.stringify(this.navParams.get("product")));
+    } 
   }
 
   
@@ -24,30 +32,76 @@ export class ItemDetailsPage {
     this.navCtrl.setRoot(HomePage)
   }
   
-  increment1(){  
-       
-      if(this.itemCount1 < 6)
-      this.itemCount1 ++;
-     this.newitemCount1 =  this.itemCount1; 
-   
+  ionViewDidEnter(){
+    this.getSingleProduct();
   }
-
-  decrement1(){  
-       
-    if(this.itemCount1 > 0)
-    this.itemCount1 --;
-   this.newitemCount1 =  this.itemCount1; 
  
-}
 
-goCart(){
-}
-
-
-    
+  getSingleProduct() {
+    if (window.localStorage.getItem('selectedProduct') != 'undefined') {
+      this.selectProduct = JSON.parse(window.localStorage.getItem('selectedProduct'))
+    }
+  }
+ 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ItemDetailsPage');
+    this.selectProduct = this.navParams.get("product");
+    this.cartService.getCartItems().then((val) => {
+      this.cartItems = val;
+    })
+ 
+  }
+ 
+  decreaseProductCount() {
+    if (this.productCount > 1) {
+      this.productCount--;
+    }
+ 
+  }
+ 
+  incrementProductCount() {
+    this.productCount++;
+ 
+  }
+ 
+  addToCart(product) {
+    var productPrice = this.productCount * parseInt(product.price);
+    let cartProduct = {
+      product_id: product.id,
+      name: product.name,
+      thumb: product.thumb,
+      count: this.productCount,
+      totalPrice: productPrice
+    };
+    this.cartService.addToCart(cartProduct).then((val) => {
+      this.presentToast(cartProduct.name);
+    });
+  }
+ 
+ 
+  presentToast(name) {
+    let toast = this.toastCtrl.create({
+      message: `${name} has been added to cart`,
+      showCloseButton: true,
+      closeButtonText: 'View Cart'
+    });
+ 
+    toast.onDidDismiss(() => {
+      this.navCtrl.push('CartPage');
+    });
+    toast.present();
   }
 
+//   increment1(){         
+//       if(this.itemCount1 < 6)
+//       this.itemCount1 ++;
+//      this.newitemCount1 =  this.itemCount1;    
+//   }
+
+//   decrement1(){         
+//     if(this.itemCount1 > 0)
+//     this.itemCount1 --;
+//    this.newitemCount1 =  this.itemCount1;  
+// }
+  
 
 }

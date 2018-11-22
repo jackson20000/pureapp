@@ -50,7 +50,10 @@ export class SignupPage {
   myphoto1: any;
   myphoto2: any;
   myProfilephoto: any;
-  
+  postPhoto1: any;
+  postPhoto2: any;
+  postPhoto3: any;
+
   constructor(public navCtrl: NavController, public http: HttpClient, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
 
   }
@@ -68,6 +71,7 @@ export class SignupPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
+      this.postPhoto1= imageData;
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       // Handle error
@@ -85,6 +89,7 @@ export class SignupPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
+      this.postPhoto3= imageData;
       this.myProfilephoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       // Handle error
@@ -102,6 +107,7 @@ export class SignupPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
+      this.postPhoto1= imageData;
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto);
     }, (err) => {
@@ -121,6 +127,7 @@ export class SignupPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
+      this.postPhoto2= imageData;
       this.myphoto1 = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto1);
     }, (err) => {
@@ -139,6 +146,7 @@ export class SignupPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
+      this.postPhoto2= imageData;
       this.myphoto1 = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto1);
     }, (err) => {
@@ -251,7 +259,7 @@ export class SignupPage {
   //     'email': this.email,
   //     'firstname': this.firstname,
   //     'lastName': this.lastname,
-  //     'image' : this.myProfilephoto,
+  //     'image' : this.postPhoto3,
   //     'dob': this.dob,
   //     'street': this.addr1,
   //     'street2': this.addr2,
@@ -264,14 +272,14 @@ export class SignupPage {
   //     'idNumber': this.idnum,
   //     'idExpDate': this.idexpiry,
   //     'issuePlace': this.issuedPlace,
-  //     'image1': this.myphoto,
+  //     'image1': this.postPhoto1,
   //     'medicalidNumber': this.medidnum,
   //     'medicalFirstName': this.firstname,
   //     'medicalLastName': this.lastname,
   //     'medicalCounty': this.county,
   //     'medicalDob': this.dob,
   //     'medicalIdExpDate': this.medexpiry,
-  //     'medicalImage': this.myphoto1,
+  //     'medicalImage': this.postPhoto2,
   //     'medicalIssueName': this.physicianName,
   //     'medicalIssueId': this.physicianID
   // };

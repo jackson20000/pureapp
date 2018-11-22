@@ -19,6 +19,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { CartProvider } from '../providers/cart/cart';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     StatusBar,
     SplashScreen,
     Camera,FileTransfer, File, FileChooser, 
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CartProvider
   ]
 })
 export class AppModule {}

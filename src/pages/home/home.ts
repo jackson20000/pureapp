@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { DailyDealsPage } from '../daily-deals/daily-deals'
-import { CategoryPage } from '../category/category'
-import { ProfilePage } from '../profile/profile'
-import { ItemDetailsPage } from '../item-details/item-details'
+import { DailyDealsPage } from '../daily-deals/daily-deals';
+import { CategoryPage } from '../category/category';
+import { ProfilePage } from '../profile/profile';
+import { ItemDetailsPage } from '../item-details/item-details';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -39,7 +39,7 @@ homeGo(){
 
   
   public eachProduct(event ,item ){
-    this.navCtrl.push(ItemDetailsPage,{item:item});
+    this.navCtrl.push(ItemDetailsPage,{product:item});
     }
 
   ionViewDidLoad() {
