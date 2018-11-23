@@ -16,7 +16,7 @@ export class CartProvider {
         if (!this.containsObject(product, result)) {
           result.push(product);
           return this.storage.set(CART_KEY, result);
-        } else {
+        } else {         
           let index = result.findIndex(x => x.product_id == product.product_id);
           let prevQuantity = parseInt(result[index].count);
           product.count = (prevQuantity + product.count);

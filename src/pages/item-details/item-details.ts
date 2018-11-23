@@ -65,6 +65,7 @@ export class ItemDetailsPage {
   addToCart(product) {
     var productPrice = this.productCount * parseInt(product.unitPrice);
     let cartProduct = {
+      product_id: product.productId,
       name: product.productName,
       count: this.productCount,
       totalPrice: productPrice

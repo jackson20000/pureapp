@@ -1,9 +1,14 @@
 <ion-header>
+
   <ion-navbar color='navbarColor'>
-    <ion-title>Your Cart</ion-title>
+      <button ion-button menuToggle side="right"> 
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>My Cart</ion-title>
   </ion-navbar>
 
 </ion-header>
+
 <ion-content padding>
   <div *ngIf="isEmptyCart" class="empty-cart">
     <div class="empty-results">
@@ -50,26 +55,25 @@
     </ion-card>
   </div>
 
-  
+  <ion-grid *ngIf="!isEmptyCart">
+    <ion-row>
+      <ion-col style="text-align: center; color: #2a8d2a; font-size: 15px; font-weight: bold;">
+         Total Amount: &nbsp; &nbsp; {{totalAmount | currency:'USD':true}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="addCart" (click)="checkOut()">
+        <button round=true ion-button full color='navbarColor'>
+          Checkout
+        </button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
 
-<ion-footer>
-    <ion-grid *ngIf="!isEmptyCart">
-        <ion-row>
-          <ion-col style="text-align: center; color: #2a8d2a; font-size: 15px; font-weight: bold;">
-             Total Amount: &nbsp; &nbsp; {{totalAmount | currency:'USD':true}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="addCart" (click)="checkOut()">
-            <button round=true ion-button full color='navbarColor'>
-              Checkout
-            </button>
-    
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+<ion-footer>   
       
   <ion-row>
     <ion-col no-padding>

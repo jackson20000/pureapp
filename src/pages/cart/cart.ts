@@ -47,7 +47,7 @@ export class CartPage {
 
         else{
           this.totalAmount = 0;
-          
+          this.isEmptyCart = true;
         }
 
         this.isCartItemLoaded = true;

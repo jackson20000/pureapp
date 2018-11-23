@@ -31,7 +31,7 @@ homeGo(){
   }
 
   cartGo(){
-    this.navCtrl.setRoot(CartPage)
+    this.navCtrl.setRoot("CartPage")
   }
 
 

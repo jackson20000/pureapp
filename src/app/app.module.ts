@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { CartProvider } from '../providers/cart/cart';
 
 import { MyApp } from './app.component';
 import { CategoryPage } from '../pages/category/category';
@@ -19,7 +20,6 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { CartProvider } from '../providers/cart/cart';
 
 
 @NgModule({
