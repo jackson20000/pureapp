@@ -19,9 +19,9 @@ export class CartProvider {
         } else {         
           let index = result.findIndex(x => x.product_id == product.product_id);
           let prevQuantity = parseInt(result[index].count);
-          product.count = (prevQuantity + product.count);
-          let currentPrice = (parseInt(product.totalPrice) * product.count);
-          product.totalPrice =currentPrice;
+          // product.count = (prevQuantity + product.count);
+          // let currentPrice = (parseInt(product.totalPrice) * product.count);
+          // product.totalPrice =currentPrice;
            result.splice(index, 1);
           result.push(product);
           return this.storage.set(CART_KEY, result);
@@ -47,6 +47,7 @@ export class CartProvider {
     })
     
     }
+    
   
  
   removeAllCartItems() {

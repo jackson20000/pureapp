@@ -1,19 +1,32 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-navbar color='navbarColor'>
-      <ion-title>
-        Menu
+      <img class="proPic" src="./assets/imgs/profile.jpg">
+      <ion-title style="text-align:center; padding-bottom: 2%;">
+        Jennifer Doe
       </ion-title>
     </ion-navbar>
   </ion-header>
 
   <ion-content>
-    <ion-list>  
+    <ion-list>       
         <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="homeGo()">
             <ion-icon name='home'></ion-icon> &nbsp; Home
           </button>    
       <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
           <ion-icon name="person-add"></ion-icon> &nbsp; Signup
+      </button>
+      <ion-list-header>
+          Shopping
+        </ion-list-header>
+        <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="homeGo()">
+            <ion-icon name='leaf'></ion-icon> &nbsp; Daily Deals
+          </button>    
+      <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+          <ion-icon name="nutrition"></ion-icon> &nbsp; Discount Deals
+      </button>
+      <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+          <ion-icon name="beer"></ion-icon> &nbsp; Category
       </button>
     </ion-list>
   </ion-content>

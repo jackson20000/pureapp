@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { CartProvider } from '../providers/cart/cart';
+import { HTTP } from '@ionic-native/http';
 
 import { MyApp } from './app.component';
 import { CategoryPage } from '../pages/category/category';
@@ -52,7 +53,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,FileTransfer, File, FileChooser, 
+    Camera,FileTransfer, File, FileChooser, HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CartProvider
   ]

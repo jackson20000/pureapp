@@ -42,7 +42,7 @@
           <ion-col>
             <ion-item>
               <ion-avatar>
-                <img style="float: right" src="./assets/imgs/p1.jpg">
+                <img style="float: right"  src="data:image/png;base64,{{itm.thumb}}">
               </ion-avatar>
             </ion-item>
             <p style="color:#333" text-right>
@@ -77,7 +77,7 @@
       
   <ion-row>
     <ion-col no-padding>
-      <button no-margin ion-button full large color="navbarColor" >
+      <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" >
         <ion-icon name='home'></ion-icon>
       </button>
     </ion-col>

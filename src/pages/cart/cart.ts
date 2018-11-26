@@ -6,6 +6,7 @@ import {
   LoadingController
 } from "ionic-angular";
 import { CartProvider } from "../../providers/cart/cart";
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -28,46 +29,63 @@ export class CartPage {
     this.loadCartItems();
   }
 
+  homeGo(){
+    this.navCtrl.setRoot(HomePage)
+  }
+
+
   loadCartItems() {
     let loader = this.loadingCtrl.create({
-      content: "Wait.."
+      spinner: 'crescent',
+      content: "Loading..",
+      // duration: 5000
     });
     loader.present();
     this.cartService
       .getCartItems()
       .then(val => {
         this.cartItems = val;
-
         if (this.cartItems.length > 0) {
           this.cartItems.forEach((v, indx) => {
             this.totalAmount += parseInt(v.totalPrice);
           });
           this.isEmptyCart = false;
         }
-
         else{
           this.totalAmount = 0;
           this.isEmptyCart = true;
         }
-
         this.isCartItemLoaded = true;
         loader.dismiss();
       })
       .catch(err => {});
   }
 
-  checkOut() {
-    // var user = firebase.auth().currentUser;
-    // if (user) {
-    //   this.navCtrl.push("CheckoutPage");
-    // } else {
-    //   this.navCtrl.setRoot("LoginPage");
-    // }
+  checkOut() {    
   }
 
   removeItem(itm) {
-    this.cartService.removeFromCart(itm).then(() => {
-      this.loadCartItems();
+ 
+    this.cartService.removeFromCart(itm).then(() => {      
+      this.cartService
+        .getCartItems()
+        .then(val => {
+          this.cartItems = val;
+          if (this.cartItems.length > 0) {
+            this.cartItems.forEach((v, indx) => {
+              this.totalAmount += parseInt(v.totalPrice);
+              this.navCtrl.setRoot('CartPage');
+
+            });
+            this.isEmptyCart = false;
+          }
+          else{
+            this.totalAmount = 0;
+            this.isEmptyCart = true;
+          }
+          this.isCartItemLoaded = true;
+        })
+        .catch(err => {});
     });
   }
 }

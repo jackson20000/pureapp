@@ -67,6 +67,7 @@ export class ItemDetailsPage {
     let cartProduct = {
       product_id: product.productId,
       name: product.productName,
+      thumb: product.image,
       count: this.productCount,
       totalPrice: productPrice
     };
@@ -84,7 +85,7 @@ export class ItemDetailsPage {
     });
  
     toast.onDidDismiss(() => {
-      this.navCtrl.push('CartPage');
+      this.navCtrl.setRoot('CartPage');
     });
     toast.present();
   }

@@ -2,4 +2,24 @@ ion-menu{
     ion-content{
      background-color:#2a8d2a !important;
     }
+
+    .proPic{
+        position: relative;
+        width: 35%;
+        border-radius: 50%;
+        margin-left: 32%;
+        margin-top: 5%;
+        margin-bottom: 5%;   
+     }
+
+     .list-header-md {
+        padding-left: 0px; 
+        margin-bottom: -13px;
+        min-height: 4.5rem;
+        border-top: 1px solid #2a8d2a;
+        font-size: 2.4rem;
+        color: #ffffff;
+        background-color: #2a8d2a;
+        text-align: center;
+    }
    }
