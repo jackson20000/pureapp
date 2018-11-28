@@ -13,7 +13,9 @@ import { HomePage } from '../pages/home/home';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
+import { SearchPage } from '../pages/search/search';
 import { SignupPage } from '../pages/signup/signup';
+import { DiscountDealsPage } from '../pages/discount-deals/discount-deals';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,10 +30,12 @@ import { FileChooser } from '@ionic-native/file-chooser';
     MyApp,
     CategoryPage,
     DailyDealsPage,
+    DiscountDealsPage,
     HomePage,
     ItemDetailsPage,
     LoginPage,
     ProfilePage,
+    SearchPage,
     SignupPage
   ],
   imports: [
@@ -44,10 +48,12 @@ import { FileChooser } from '@ionic-native/file-chooser';
     MyApp,
     CategoryPage,
     DailyDealsPage,
+    DiscountDealsPage,
     HomePage,
     ItemDetailsPage,
     LoginPage,
     ProfilePage,
+    SearchPage,
     SignupPage
   ],
   providers: [

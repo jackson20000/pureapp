@@ -39,13 +39,14 @@
       <ion-select [(ngModel)]="sex">
         <ion-option value="male">Male</ion-option>
         <ion-option value="female">Female</ion-option>
+        <ion-option value="others">Others</ion-option>
 
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Date of Birth</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="dob" name="dob" ></ion-datetime>
+      <ion-datetime displayFormat="DD MMM, YYYY" min="1918" [(ngModel)]="dob" name="dob" ></ion-datetime>
     </ion-item>
    
 
@@ -116,7 +117,7 @@
 
   <ion-item>
     <ion-label floating>ID Expiry Date</ion-label>
-    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="idexpiry" name="idexpiry" ></ion-datetime>
+    <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="idexpiry" name="idexpiry" ></ion-datetime>
 
   </ion-item>
 
@@ -157,7 +158,7 @@
 
     <ion-item>
       <ion-label floating>Medical ID Expiry Date</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="medexpiry" name="medexpiry" ></ion-datetime>
+      <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="medexpiry" name="medexpiry" ></ion-datetime>
 
     </ion-item>
 
@@ -178,15 +179,13 @@
 
     <div padding>
         <button ion-button color='primary' (click)="getImage1()" block >Upload Medical Id</button>
-      <p style="text-align: center; color: #2a8d2a;" >OR</p>    
+        <p align="center"><img padding src="{{ myphoto1 }}" alt=""></p>
           <button ion-button color='primary' (click)="getImage2()" block >Upload Physician's letter</button>
+          <p align="center"><img padding src="{{ myphoto3 }}" alt=""></p>
+
           <!-- <p style="text-align: center; color: #2a8d2a;" >OR</p>    
           <button ion-button color='primary' (click)="choose()" block >Upload Pdf</button> -->
         </div>
-        <p align="center"><img padding src="{{ myphoto1 }}" alt=""></p>
-
-    <!-- ***** Medical ID /certificate Photo ***** -->
-    <!-- ***** Physician's letter Photo ***** -->
   </ion-list>
 
 

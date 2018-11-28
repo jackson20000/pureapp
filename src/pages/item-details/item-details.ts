@@ -85,7 +85,7 @@ export class ItemDetailsPage {
     });
  
     toast.onDidDismiss(() => {
-      this.navCtrl.setRoot('CartPage');
+      this.navCtrl.setRoot('CartPage');         
     });
     toast.present();
   }

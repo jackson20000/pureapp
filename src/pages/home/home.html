@@ -26,12 +26,9 @@
 </ion-slides>
 
 
-<ion-searchbar></ion-searchbar>
-
-
 <ion-grid>
 
-    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
+    <h4 (click)="discountdealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
 
     <ion-row>
     
@@ -107,7 +104,7 @@
              </button>
         </ion-col>
         <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor"><ion-icon name='search'></ion-icon>
+            <button no-margin ion-button full large color="navbarColor" (click)="searchGo()"><ion-icon name='search'></ion-icon>
              </button>
         </ion-col>
     </ion-row>

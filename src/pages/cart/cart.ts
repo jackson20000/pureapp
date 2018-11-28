@@ -18,6 +18,7 @@ export class CartPage {
   totalAmount: number = 0;
   isCartItemLoaded: boolean = false;
   isEmptyCart: boolean = true;
+  temp: number = 0;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -61,7 +62,7 @@ export class CartPage {
       .catch(err => {});
   }
 
-  checkOut() {    
+  cartitemChange() {    
   }
 
   removeItem(itm) {
@@ -72,11 +73,10 @@ export class CartPage {
         .then(val => {
           this.cartItems = val;
           if (this.cartItems.length > 0) {
-            this.cartItems.forEach((v, indx) => {
-              this.totalAmount += parseInt(v.totalPrice);
-              this.navCtrl.setRoot('CartPage');
-
-            });
+            this.cartItems.forEach((i) => {
+              this.totalAmount += parseInt(i.totalPrice); 
+              this.navCtrl.setRoot('CartPage');         
+            });            
             this.isEmptyCart = false;
           }
           else{

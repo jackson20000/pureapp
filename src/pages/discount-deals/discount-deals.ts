@@ -9,16 +9,14 @@ import { HTTP } from '@ionic-native/http';
 
 @IonicPage()
 @Component({
-  selector: 'page-daily-deals',
-  templateUrl: 'daily-deals.html',
+  selector: 'page-discount-deals',
+  templateUrl: 'discount-deals.html',
 })
-export class DailyDealsPage {
+export class DiscountDealsPage {
   data: Observable<any>;
   dealproducts: any = [];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
   }
-
 
   public eachProduct(event ,item ){
     this.navCtrl.push(ItemDetailsPage,{product:item});
@@ -59,4 +57,6 @@ export class DailyDealsPage {
     // });
   
   }
+
+
 }

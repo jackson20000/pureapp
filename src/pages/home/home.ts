@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartPage } from '../cart/cart';
 import { HTTP } from '@ionic-native/http';
+import { SearchPage } from '../search/search';
+import { DiscountDealsPage } from '../discount-deals/discount-deals';
 
 
 @Component({
@@ -18,10 +20,10 @@ import { HTTP } from '@ionic-native/http';
 export class HomePage {
   data: Observable<any>;
   dealproducts: any = [];
+  items: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private loadingCtrl: LoadingController
-  ) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public http: HttpClient, private loadingCtrl: LoadingController) {
   }
 
   profileGo() {
@@ -40,6 +42,10 @@ export class HomePage {
     this.navCtrl.push(CategoryPage)
   }
 
+  public searchGo() {
+    this.navCtrl.push(SearchPage,{items: this.items});  
+  }
+
   dailydealsGo() {
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -50,10 +56,24 @@ export class HomePage {
     this.navCtrl.push(DailyDealsPage)
   }
 
+  discountdealsGo() {
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+      duration: 2000
+    });
+    loader.present();
+    this.navCtrl.push(DiscountDealsPage)
+  }
+
+
 
   public eachProduct(event, item) {
     this.navCtrl.push(ItemDetailsPage, { product: item });
   }
+
+  //Search functionality
+
 
   ionViewDidLoad() {
 
@@ -65,15 +85,23 @@ export class HomePage {
       duration: 2000
     });
     loader.present();
+
+
     this.data = this.http.get('http://198.199.67.147:8075/newreach/product')
     this.data.subscribe(data => {
       this.dealproducts = data.products;
       console.log(this.dealproducts)
+
+      var productNames = []
+      for (var i of this.dealproducts) {
+        productNames.push(i.productName);
+      }
+      this.items = productNames;
     });
-    // loader.dismiss();
+    loader.dismiss();
 
 
-    // }  
+    
 
 
     //Dummy JSON data
@@ -96,10 +124,6 @@ export class HomePage {
     // this.dealproducts = obj.products;
     // })
     // .catch(error => {
-
-    //   alert(error.status);
-    //   alert(error.error); // error message as string
-    //   alert(error.headers);
 
     // });
 
