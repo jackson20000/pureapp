@@ -21,7 +21,12 @@ export class SearchPage {
 
   }
   initializeItems() {
-    this.items = this.navParams.get("items");    
+    this.allproductsList = this.navParams.get("items");  
+    var productNames = []
+    for (var i of this.allproductsList) {
+      productNames.push(i.productName);
+    }
+    this.items = productNames;
   }  
  
   getItems(ev) {

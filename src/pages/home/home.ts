@@ -42,7 +42,7 @@ export class HomePage {
   }
 
   public searchGo() {
-    this.navCtrl.push(SearchPage,{items: this.items});  
+    this.navCtrl.push(SearchPage,{items:  this.dealproducts});  
   }
 
   dailydealsGo() {
