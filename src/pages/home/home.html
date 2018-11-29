@@ -13,7 +13,7 @@
 
 <ion-content>
 
-<ion-slides pager="true">
+<ion-slides autoplay="3500" loop="true" speed="500" class="slides" pager="true">
 <ion-slide>
 <img class="home_sliderbox" src="./assets/imgs/s1.jpg">
 </ion-slide>
@@ -27,11 +27,9 @@
 
 
 <ion-grid>
-
     <h4 (click)="discountdealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
 
-    <ion-row>
-    
+    <ion-row>    
     <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:3"  class="home_product_image_column">
       <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
       <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
@@ -85,7 +83,7 @@
 </ion-col>
 
 </ion-row>
-</ion-grid>  
+</ion-grid> 
 
 </ion-content>
 

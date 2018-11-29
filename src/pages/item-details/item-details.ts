@@ -50,19 +50,20 @@ export class ItemDetailsPage {
  
   }
  
-  decreaseProductCount() {
-    if (this.productCount > 1) {
-      this.productCount--;
-    }
+  // decreaseProductCount() {
+  //   if (this.productCount > 1) {
+  //     this.productCount--;
+  //   }
  
-  }
+  // }
  
-  incrementProductCount() {
-    this.productCount++;
+  // incrementProductCount() {
+  //   this.productCount++;
  
-  }
+  // }
  
   addToCart(product) {
+    console.log(this.productCount)
     var productPrice = this.productCount * parseInt(product.unitPrice);
     let cartProduct = {
       product_id: product.productId,

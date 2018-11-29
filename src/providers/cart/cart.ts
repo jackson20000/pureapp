@@ -25,8 +25,7 @@ export class CartProvider {
            result.splice(index, 1);
           result.push(product);
           return this.storage.set(CART_KEY, result);
-        }
- 
+        } 
       } else {
         return this.storage.set(CART_KEY, [product]);
       }
@@ -44,10 +43,8 @@ export class CartProvider {
     }
     })
     }
-    })
-    
-    }
-    
+    })    
+    }   
   
  
   removeAllCartItems() {

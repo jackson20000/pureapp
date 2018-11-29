@@ -7,7 +7,6 @@ import { ProfilePage } from '../profile/profile';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CartPage } from '../cart/cart';
 import { HTTP } from '@ionic-native/http';
 import { SearchPage } from '../search/search';
 import { DiscountDealsPage } from '../discount-deals/discount-deals';

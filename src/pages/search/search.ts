@@ -22,8 +22,7 @@ export class SearchPage {
   }
   initializeItems() {
     this.items = this.navParams.get("items");    
-  }
-  
+  }  
  
   getItems(ev) {
 
