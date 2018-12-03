@@ -6,18 +6,19 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar placeholder="Search for products" (ionInput)="getItems($event)"></ion-searchbar>
- 
+  <ion-searchbar placeholder="Search for products" [(ngModel)]="terms"></ion-searchbar>
   <ion-grid>
     <ion-row >
-      <ion-col col-5 *ngFor="let item of items"  class="home_product_image_column">
-        <img class="home_product_image" src="/assets/imgs/m1.jpg">
-        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item}}</div>
+      <ion-col col-5 (click)="productShow($event, item)" *ngFor="let item of allproductsList | search : terms"  class="home_product_image_column">
+        <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
         <ion-row>
-          <ion-col style="text-align:left; color: #2a8d2a;">
-            <del>$25</del>
+            <ion-col style=" text-align: center; color: #2a8d2a;">
+                Price :
+               </ion-col>
+          <ion-col style=" text-align: center; color: #2a8d2a;">
+           ${{item.unitPrice}}
           </ion-col>
-          <ion-col style="text-align:right; color: #2a8d2a;"></ion-col>
         </ion-row>       
       </ion-col>
     </ion-row>    

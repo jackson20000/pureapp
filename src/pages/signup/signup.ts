@@ -18,7 +18,7 @@ import { HomePage } from '../home/home';
 export class SignupPage {
 
   countryList: any = [];
-  states: any = [];
+  stateList: any = [];
   idtype: any = [];
   data: Observable<any>;
   data1: Observable<any>;
@@ -33,6 +33,7 @@ export class SignupPage {
   addr2: string;
   city: string;
   countrySelect: string;
+  stateSelection: string;
   zip: any;
   email: string;
   customerType: string;
@@ -59,6 +60,11 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController, public http: HttpClient, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
 
+  }
+
+
+  stateSelect(i){
+    this.stateList = i.states;
   }
 
 
@@ -195,6 +201,7 @@ export class SignupPage {
     // console.log("addr2: " + this.addr2);
     // console.log("city: " + this.city);
     // console.log("countrySelect: " + this.countrySelect);
+        // console.log("stateSelection: " + this.stateSelection);
     // console.log("zip: " + this.zip);
     // console.log("email: " + this.email);
     // console.log("Customertype: " + this.customerType);
@@ -223,6 +230,7 @@ export class SignupPage {
     //   'zip': this.zip,
     //   'gen': this.sex,
     //   'country_id': this.countrySelect,
+    //    'state_id' : this.stateSelection,
     //   'customer_type': this.customerType,
     //   'idType': this.idtypeName,
     //   'idNumber': this.idnum,

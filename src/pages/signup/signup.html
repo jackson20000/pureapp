@@ -68,9 +68,16 @@
     <ion-item  class="itemSelectBox">
       <ion-label>Country</ion-label>
       <ion-select [(ngModel)]="countrySelect">
-        <ion-option *ngFor="let i of countryList" [value]="i.id">{{i.name}}</ion-option>
+        <ion-option (ionSelect)="stateSelect(i)" *ngFor="let i of countryList" [value]="i.id">{{i.name}}</ion-option>
       </ion-select>
     </ion-item>
+
+    <ion-item  class="itemSelectBox">
+        <ion-label>State</ion-label>
+        <ion-select [(ngModel)]="stateSelection">
+          <ion-option *ngFor="let j of stateList"  [value]="j.id">{{j.name}}</ion-option>
+        </ion-select>
+      </ion-item>
 
     <ion-item>
       <ion-label floating>ZIP Code</ion-label>
@@ -190,7 +197,7 @@
 
 
   <div padding>
-    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,zip,email,customerType,idtypeName,issuedPlace,idnum,idexpiry,medidnum,medexpiry,county,physicianName,physicianID)>Sign Up</button>
+    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,stateSelection,zip,email,customerType,idtypeName,issuedPlace,idnum,idexpiry,medidnum,medexpiry,county,physicianName,physicianID)>Sign Up</button>
   </div>
 
 </ion-content>
