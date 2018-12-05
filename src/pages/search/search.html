@@ -11,13 +11,13 @@
     <ion-row >
       <ion-col col-5 (click)="productShow($event, item)" *ngFor="let item of allproductsList | search : terms"  class="home_product_image_column">
         <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
-        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
+        <div  style="color:#2a8d2a; text-align: center; font-size: 16px; color: #2a8d2a;">{{item.productName}}</div>
         <ion-row>
             <ion-col style=" text-align: center; color: #2a8d2a;">
                 Price :
                </ion-col>
           <ion-col style=" text-align: center; color: #2a8d2a;">
-           ${{item.unitPrice}}
+           {{item.unitPrice | currency }}
           </ion-col>
         </ion-row>       
       </ion-col>
@@ -25,24 +25,3 @@
   </ion-grid>
 
 </ion-content>
-
-<ion-footer>
-  <ion-row>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" ><ion-icon name='home'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='person'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='cart'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor"><ion-icon name='search'></ion-icon>
-           </button>
-      </ion-col>
-  </ion-row>
-</ion-footer>

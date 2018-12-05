@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home'
- /**
- * Generated class for the CategoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -15,7 +11,10 @@ import { HomePage } from '../home/home'
 })
 export class CategoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  data: Observable<any>;
+  dealproducts: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
   }
 
   homeGo(){
@@ -23,7 +22,12 @@ export class CategoryPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoryPage');
-  }
+    this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
+    this.data.subscribe(data => {
+      this.dealproducts = data.products;
+      console.log(this.dealproducts)   
+    
+    });
+}
 
 }

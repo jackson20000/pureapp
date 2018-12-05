@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ItemDetailsPage } from '../item-details/item-details';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-search',
@@ -23,6 +21,7 @@ export class SearchPage {
     this.initializeItems();
 
   }
+  
   initializeItems() {
     this.allproductsList = this.navParams.get("items");  
   }  

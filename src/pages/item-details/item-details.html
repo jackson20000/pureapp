@@ -6,99 +6,25 @@
 
 </ion-header>
 
-
-<!--<ion-content style=" color: #0e830e;">
-  <div >
-    <img class="product_details_image" src="/assets/imgs/m1.jpg">
-
-
-    <div padding style="font-size: 22px;">{{selectProduct?.productName}}</div>
-
-
-    <ion-grid>
-
-      <ion-row>
-
-        <ion-col col-4>
-          <ion-item>
-            <ion-label class="item_checkbox" style="color:#0e830e; font-size: 18px;">100mg</ion-label>
-            <ion-checkbox color="navbarColor" checked="true"></ion-checkbox>
-          </ion-item>
-        </ion-col>
-
-        <ion-col col-4>
-          <ion-item>
-            <ion-label style="color:#0e830e; font-size: 18px;">{{ selectProduct?.unitPrice | currency}}</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col col-4 class="val_text"> -->
-<!-- <ion-icon name="remove-circle" (click)="decrement1()" style="color:#0e830e;"></ion-icon>
-          <span class="quantity_val">{{newitemCount1}}</span>
-          <ion-icon name="add-circle" (click)="increment1()" style="color:#0e830e;"></ion-icon> -->
-<!-- <button click="" color="light" decreaseproductcount="" ion-button="" small="">
-            -
-          </button>
-          <button clear="" color="dark" ion-button="" small="">
-            {{productCount}}
-          </button>
-          <button click="" color="light" incrementproductcount="" ion-button="" small="">
-            +
-          </button>
-        </ion-col>
-
-      </ion-row>
-
-    </ion-grid>
-
-    <div padding class="item_details_text">
-      <span style="display:block; font-size: 22px; margin-bottom: 5%;">{{selectProduct?.name}}</span>
-      <p style="font-size: 16px; text-align: justify; margin-bottom: 5%;"> Blue Haze delivers a quick headrush,
-        manifesting as some
-        initial dizziness
-        or disorientation. Smokers may
-        detect a full relaxation of their facial muscles</p>
-    </div> -->
-
-
-<!-- <div padding>
-      <button ion-button color='navbarColor' (click)="addtoCart(product)" block>Add to cart</button>
-    </div> -->
-
-<!-- <ion-grid>
-      <ion-row>
-         <ion-col addtocart="" class="addCart" click="" selectproduct="">
-           <button color="secondary" full="" ion-button="">
-             ADD TO CART
-           </button>          
-   
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-  </div>
-</ion-content>
--->
-
-
 <ion-content style=" color: #0e830e;">
 
-  <img class="product_details_image" src="data:image/png;base64,{{selectProduct?.image}}">
+  <img class="product_details_image" src="data:image/png;base64,{{selectProduct?.image}}"  alt="Image not available">
 
   <div class="card product-detail">
 
     <div text-center padding margin-top class="border-bottom">
       <h2>{{selectProduct?.productName}}</h2>
-      <p>{{ selectProduct?.short_description }}</p>
-      <h3 class="price" color="danger" margin-top>{{ selectProduct?.unitPrice | currency:'USD':true
-        }}/gm</h3>
+      <h3 class="price" color="danger" margin-top>{{ selectProduct?.unitPrice | currency}}/gm</h3>
     </div>       
 
     <ion-row padding>
-      <ion-col col-8>
+      <ion-col col-6>
         <h6 style="color:#0e830e;">
          Enter quantity to be purchased in grams: 
         </h6>
+      </ion-col>
+      <ion-col col-2>
+       
       </ion-col>
       <ion-col col-4 >
         <!-- <button (click)="decreaseProductCount()" ion-button small>
@@ -118,11 +44,7 @@
   </div>
 
   <div >
-    <p style="font-size: 16px; text-align: justify; margin-bottom: 5%; padding-left: 10px; padding-right: 10px;"> Blue Haze delivers a quick headrush,
-      manifesting as some
-      initial dizziness
-      or disorientation. Smokers may
-      detect a full relaxation of their facial muscles</p>
+    <p style="font-size: 16px; text-align: justify; margin-bottom: 5%; padding-left: 10px; padding-right: 10px;">{{ selectProduct?.description }}</p>
   </div>
 
 
@@ -135,7 +57,7 @@
 
 </ion-content>
 
-<ion-footer>
+<!-- <ion-footer>
   <ion-row>
     <ion-col no-padding>
       <button no-margin ion-button full large color="navbarColor" (click)="homeGo()">
@@ -158,4 +80,4 @@
       </button>
     </ion-col>
   </ion-row>
-</ion-footer>
+</ion-footer> -->

@@ -26,14 +26,14 @@
       <ion-card-content>
         <ion-row>
           <ion-col col-7>
-            <h3 style="margin: 7px" text-left>{{itm.name}}</h3>
+            <h3 style="margin: 7px; font-size: 16px; color: #2a8d2a" text-left>{{itm.name}}</h3>
 
             <div class="itm-footer">
               <span (click)="removeItem(itm)" class="remove">
                 Remove
               </span>
               <span class="price">
-                {{itm.totalPrice | currency:'USD':true}}
+                {{itm.totalPrice | currency}}
               </span>
             </div>
 
@@ -46,7 +46,7 @@
               </ion-avatar>
             </ion-item>
             <p style="color:#333" text-right>
-              Qty: {{itm.count}}
+              Qty: {{itm.count}}gm
             </p>
           </ion-col>
 
@@ -58,7 +58,7 @@
   <ion-grid *ngIf="!isEmptyCart">
     <ion-row>
       <ion-col style="text-align: center; color: #2a8d2a; font-size: 15px; font-weight: bold;">
-         Total Amount: &nbsp; &nbsp; {{totalAmount | currency:'USD':true}}
+         Total Amount: &nbsp; &nbsp; {{totalAmount | currency}}
       </ion-col>
     </ion-row>
     <ion-row>

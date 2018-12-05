@@ -1,9 +1,9 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-navbar color='navbarColor'>
-      <img class="proPic" src="./assets/imgs/profile.jpg">
+      <img class="proPic" src="data:image/png;base64,{{profileInfo.image}}" alt="">
       <ion-title style="text-align:center; padding-bottom: 2%;">
-        Jennifer Doe
+        {{profileInfo.profile_name}}
       </ion-title>
     </ion-navbar>
   </ion-header>
@@ -15,6 +15,9 @@
           </button>    
       <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
           <ion-icon name="person-add"></ion-icon> &nbsp; Signup
+      </button>
+      <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="loginGo()">
+          <ion-icon name="log-in"></ion-icon> &nbsp; Login
       </button>
       <ion-list-header>
           Shopping
@@ -31,6 +34,9 @@
       <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="cartGo()">
         <ion-icon name="cart"></ion-icon> &nbsp; Cart
     </button>
+    <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="logout()">
+            <ion-icon name="cart"></ion-icon> &nbsp; Logout
+        </button>
     </ion-list>
   </ion-content>
 

@@ -10,10 +10,7 @@ import { CartProvider } from '../../providers/cart/cart';
   templateUrl: 'item-details.html',
 })
 export class ItemDetailsPage {
-  // itemCount1: number = 0;
-  // newitemCount1: number = 0;
-  // itemCount2: number = 0;
-  // newitemCount2: number = 0;
+ 
   selectProduct: any;
   productCount: number = 1;
   cartItems: any[];
@@ -49,27 +46,16 @@ export class ItemDetailsPage {
     })
  
   }
- 
-  // decreaseProductCount() {
-  //   if (this.productCount > 1) {
-  //     this.productCount--;
-  //   }
- 
-  // }
- 
-  // incrementProductCount() {
-  //   this.productCount++;
- 
-  // }
+  
  
   addToCart(product) {
-    console.log(this.productCount)
     var productPrice = this.productCount * parseInt(product.unitPrice);
     let cartProduct = {
       product_id: product.productId,
       name: product.productName,
       thumb: product.image,
       count: this.productCount,
+      unitprice: product.unitPrice,
       totalPrice: productPrice
     };
     this.cartService.addToCart(cartProduct).then((val) => {

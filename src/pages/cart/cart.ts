@@ -7,12 +7,15 @@ import {
 } from "ionic-angular";
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-
+import { HTTP } from '@ionic-native/http';
 import { CartProvider } from "../../providers/cart/cart";
 import { HomePage } from '../home/home';
 import { SearchPage } from '../search/search';
 import { ProfilePage } from '../profile/profile';
-
+import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/map';
 @IonicPage()
 @Component({
   selector: "page-cart",
@@ -25,6 +28,7 @@ export class CartPage {
   isCartItemLoaded: boolean = false;
   isEmptyCart: boolean = true;
   temp: number = 0;
+  rootPage: any;
 
   dealproducts: any = [];
   data: Observable<any>;
@@ -34,17 +38,18 @@ export class CartPage {
     public navParams: NavParams,
     private cartService: CartProvider,
     private loadingCtrl: LoadingController,
-    public http: HttpClient
-  ) {}
+    private http: HTTP,
+    public storage: Storage
+  ) { }
 
- 
-  homeGo(){
+
+  homeGo() {
     this.navCtrl.setRoot(HomePage)
   }
 
-  
+
   public searchGo() {
-    this.navCtrl.push(SearchPage,{items: this.items});  
+    this.navCtrl.push(SearchPage, { items: this.items });
   }
 
 
@@ -68,54 +73,69 @@ export class CartPage {
           });
           this.isEmptyCart = false;
         }
-        else{
+        else {
           this.totalAmount = 0;
           this.isEmptyCart = true;
         }
         this.isCartItemLoaded = true;
         loader.dismiss();
       })
-      .catch(err => {});
+      .catch(err => { });
   }
 
-  
+
   removeItem(itm) {
- 
-    this.cartService.removeFromCart(itm).then(() => {      
+
+    this.cartService.removeFromCart(itm).then(() => {
       this.cartService
         .getCartItems()
         .then(val => {
           this.cartItems = val;
           if (this.cartItems.length > 0) {
             this.cartItems.forEach((i) => {
-              this.totalAmount += parseInt(i.totalPrice); 
+              this.totalAmount += parseInt(i.totalPrice);
               this.totalCount += parseFloat(i.count);
-            console.log(this.totalCount);
-              this.navCtrl.setRoot('CartPage');         
-            });            
+              console.log(this.totalCount);
+              this.navCtrl.setRoot('CartPage');
+            });
             this.isEmptyCart = false;
           }
-          else{
+          else {
             this.totalAmount = 0;
             this.isEmptyCart = true;
           }
           this.isCartItemLoaded = true;
         })
-        .catch(err => {});
+        .catch(err => { });
     });
   }
 
 
-  checkOut(){
-   if(this.totalCount > 28.5){
-     alert("You've exceeded the daily limit");
-   }
-   else
-   {
-    alert("Successfully placed the order");
-   }
-  }
+  checkOut() {
 
+    let cartData = [];
+    for (var i of this.cartItems) {
+
+      cartData.push({ "product_id": i.product_id, "qty": i.count, "priceUnit": (i.totalPrice) / (i.count) });
+    }
+
+    let data = {
+      'db': 'newreach',
+      'username': 'newreach',
+      'password': 'newreach',
+      'line': cartData
+    };
+    let headers = {
+      'Content-Type': 'application/json'
+    };
+    this.http.post('http://192.168.2.21:8069/newreach/order/create', data, headers)
+      .then((data) => {
+        alert((data.data));
+      })
+      .catch((error) => {       
+      });
+
+  }
 
   ionViewDidLoad() {
 
@@ -131,17 +151,35 @@ export class CartPage {
     loader.present();
 
 
-    this.data = this.http.get('http://198.199.67.147:8075/newreach/product')
-    this.data.subscribe(data => {
-      this.dealproducts = data.products;
-      console.log(this.dealproducts)
+    // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
+    // this.data.subscribe(data => {
+    //   this.dealproducts = data.products;
+    //   console.log(this.dealproducts)
 
-      var productNames = []
-      for (var i of this.dealproducts) {
-        productNames.push(i.productName);
-      }
-      this.items = productNames;
-    });
+    //   var productNames = []
+    //   for (var i of this.dealproducts) {
+    //     productNames.push(i.productName);
+    //   }
+    //   this.items = productNames;
+    // });
+    // loader.dismiss();
+
+    this.http.get('http://192.168.2.21:8069/newreach/product', {}, {})
+      .then(data => {
+
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
+
+        this.dealproducts = obj.products;
+        var productNames = [];
+        for (var i of this.dealproducts) {
+          productNames.push(i.productName);
+        }
+        this.items = productNames;
+      })
+      .catch(error => {
+
+      });
     loader.dismiss();
 
 

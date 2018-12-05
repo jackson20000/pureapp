@@ -2,12 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Observable } from 'rxjs/Observable';
+import { HTTP } from '@ionic-native/http';
 
 import { HomePage } from '../pages/home/home';
 import { SignupPage } from '../pages/signup/signup';
 import { DailyDealsPage } from '../pages/daily-deals/daily-deals';
 import { CategoryPage } from '../pages/category/category';
 import { DiscountDealsPage } from '../pages/discount-deals/discount-deals';
+import { LoginPage } from '../pages/login/login';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +23,9 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: any}>;
 
-  constructor(public platform: Platform, private loadingCtrl: LoadingController, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  data: Observable<any>;
+  profileInfo: any = [];
+  constructor(public platform: Platform, private loadingCtrl: LoadingController, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public http: HTTP) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -32,12 +38,48 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+    this.platform.ready().then(() => {      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+      // For testing in mobile use Ionic native HTTP
+  
+      // List user info
+      let data = {
+        'db': "newreach",
+        'username': "newreach",
+        'password': "newreach"
+      };
+  
+      let headers = {
+        'Content-Type': 'application/json'
+      };
+  
+      this.http.post('http://192.168.2.21:8069/newreach/customer', data, headers)
+        .then((data) => {
+         this.profileInfo = JSON.parse(data.data); 
+    
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      
+  
+  }
+
+  logout(){
+    if(this.storage.remove(name)){
+      alert("you're logged out");
+    }
+    else{
+      alert("error");
+    }
+  }
+
+
+  loginGo(){
+    this.nav.push(LoginPage)
   }
 
   signupGo(){
@@ -83,4 +125,6 @@ export class MyApp {
   //   // we wouldn't want the back button to show in this scenario
   //   this.nav.setRoot(page.component);
   // }
+
+ 
 }

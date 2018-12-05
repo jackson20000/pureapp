@@ -31,7 +31,7 @@
 
     <ion-row>    
     <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:3"  class="home_product_image_column">
-      <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+      <img class="home_product_image" src="data:image/png;base64,{{item.image}}"  alt="Image not available">
       <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
       <ion-row>
         <ion-col style="text-align:left; color: #2a8d2a;">
@@ -49,7 +49,7 @@
 <ion-row>
 
 <ion-col  (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:3"  class="home_product_image_column">
-  <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+  <img class="home_product_image" src="data:image/png;base64,{{item.image}}" alt="Image not available">
   <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
   <ion-row>
     <ion-col style="text-align:left; color: #2a8d2a;">
@@ -67,19 +67,9 @@
 
 <ion-row>
 
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/m1.jpg">
-  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">HYBRID</div>
-</ion-col>
-
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/m2.jpeg">
-  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">INDIANA</div>
-</ion-col>
-
-<ion-col class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/m3.jpg">
-  <div style="color:#2a8d2a; text-align: center; font-size: 13px;">SATIVA</div>
+<ion-col *ngFor="let item of dealproducts | slice:0:3" class="home_product_image_column">
+  <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">{{item.categ_name}}</div>
 </ion-col>
 
 </ion-row>

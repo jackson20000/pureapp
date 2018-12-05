@@ -63,7 +63,7 @@ export class SignupPage {
   }
 
 
-  stateSelect(i){
+  stateSelect(i) {
     this.stateList = i.states;
   }
 
@@ -201,7 +201,7 @@ export class SignupPage {
     // console.log("addr2: " + this.addr2);
     // console.log("city: " + this.city);
     // console.log("countrySelect: " + this.countrySelect);
-        // console.log("stateSelection: " + this.stateSelection);
+    // console.log("stateSelection: " + this.stateSelection);
     // console.log("zip: " + this.zip);
     // console.log("email: " + this.email);
     // console.log("Customertype: " + this.customerType);
@@ -246,14 +246,16 @@ export class SignupPage {
     //   'medicalImage': this.postPhoto2,    
     //   'medicalCertificateImage': this.postPhoto3,
     //   'medicalIssueName': this.physicianName,
-    //   'medicalIssueId': this.physicianID
+    //   'medicalIssueId': this.physicianID,
+    //   'db': 'newreach',
+
     // };
 
     // let headers = {
     //   'Content-Type': 'application/json'
     // };
 
-    // this.http.post('http://198.199.67.147:8075/newreach/customer/create', data, headers)
+    // this.http.post('http://192.168.2.21:8069/newreach/customer/create', data, headers)
     //   .then((data) => {
     //     console.log(data);
     //     loader.dismiss();
@@ -267,7 +269,7 @@ export class SignupPage {
 
     // Other Method
 
-    // var url2 = 'http://192.168.0.23:8066/newreach/customer/medicalid';
+    // var url2 = 'http://192.168.2.21:8069/newreach/customer/medicalid';
     // let postData2 =new FormData();    
     // postData2.append('username', "admin");
     // postData2.append('password', "admin"); 
@@ -296,7 +298,7 @@ export class SignupPage {
 
     // For getting the list of countries
 
-    // this.http.get('http://198.199.67.147:8075/newreach/country/details', {}, {})
+    // this.http.get('http://192.168.2.21:8069/newreach/country/details', {}, {})
     //   .then(data => {
 
     //     var json = data.data; // data received by server
@@ -311,7 +313,7 @@ export class SignupPage {
 
     // // For getting the list of ID Types
 
-    // this.http.get('http://198.199.67.147:8075/newreach/idtype', {}, {})
+    // this.http.get('http://192.168.2.21:8069/newreach/idtype', {}, {})
     //   .then(data => {
 
     //     var json = data.data; // data received by server
@@ -328,14 +330,14 @@ export class SignupPage {
     // For testing in chrome use HTTPClient
 
 
-    this.data = this.http.get('http://198.199.67.147:8075/newreach/country/details')
+    this.data = this.http.get('http://192.168.2.21:8069/newreach/country/details')
     this.data.subscribe(data => {
       this.countryList = data.country;
       console.log(this.countryList);
 
     });
 
-    this.data1 = this.http.get('http://198.199.67.147:8075/newreach/idtype')
+    this.data1 = this.http.get('http://192.168.2.21:8069/newreach/idtype')
     this.data1.subscribe(data1 => {
       this.idtype = data1.val;
       console.log(this.idtype)
