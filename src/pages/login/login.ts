@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  username: any;
+  username: string;
   password: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController, public storage: Storage) {
   }
@@ -31,16 +31,15 @@ export class LoginPage {
     let data = {
       'username': this.username,
       'password': this.password,
-      'db': "newreach"
+      'db': "cannabis_db"
     };
     let headers = {
       'Content-Type': 'application/json'
     };
 
-    this.http.post('http://192.168.2.21:8069/api/login', data, headers)
+    this.http.post('http://198.199.67.147:8075/api/login', data, headers)
       .then((data) => {
         console.log(data);
-        loader.dismiss();
 
         alert('Logged in successfully!');
 
@@ -50,6 +49,7 @@ export class LoginPage {
       .catch((error) => {
         console.log(error);
       });
+      loader.dismiss();
 
   }
 

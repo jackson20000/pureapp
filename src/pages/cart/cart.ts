@@ -120,17 +120,19 @@ export class CartPage {
     }
 
     let data = {
-      'db': 'newreach',
-      'username': 'newreach',
-      'password': 'newreach',
+      'db': 'cannabis_db',
+      'username': 'admin',
+      'password': 'admin',
       'line': cartData
     };
     let headers = {
       'Content-Type': 'application/json'
     };
-    this.http.post('http://192.168.2.21:8069/newreach/order/create', data, headers)
+    this.http.post('http://198.199.67.147:8075/newreach/order/create', data, headers)
       .then((data) => {
         alert((data.data));
+        this.cartService.removeAllCartItems();
+        this.navCtrl.setRoot(HomePage);
       })
       .catch((error) => {       
       });
@@ -164,7 +166,7 @@ export class CartPage {
     // });
     // loader.dismiss();
 
-    this.http.get('http://192.168.2.21:8069/newreach/product', {}, {})
+    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server

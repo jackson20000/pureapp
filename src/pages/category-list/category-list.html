@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar  color='navbarColor'>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="category_content">    
+
+
+  <ion-grid>
+    <ion-row >
+
+      <ion-col col-5  (click)="eachProduct($event, i)" *ngFor="let i of allItems "  class="home_product_image_column">
+        <img class="home_product_image" src="data:image/png;base64,{{i.image}}"   alt="Image not available">
+        <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{i.productName}}</div>
+        <ion-row>
+          <ion-col style="text-align:left; color: #2a8d2a;">
+            <del>$25</del>
+          </ion-col>
+          <ion-col style="text-align:right; color: #2a8d2a;">{{i.unitPrice | currency}}</ion-col>
+        </ion-row>        
+      </ion-col>
+
+    </ion-row>
+    
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+    <ion-row>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='home'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='person'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='cart'></ion-icon>
+             </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor"><ion-icon name='search'></ion-icon>
+             </button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

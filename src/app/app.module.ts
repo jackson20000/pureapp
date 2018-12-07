@@ -16,6 +16,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { SearchPage } from '../pages/search/search';
 import { SignupPage } from '../pages/signup/signup';
 import { DiscountDealsPage } from '../pages/discount-deals/discount-deals';
+import { CategoryListPage } from '../pages/category-list/category-list';
 import { SearchPipe } from '../pipes/search/search';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,6 +31,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
   declarations: [
     MyApp,
     CategoryPage,
+    CategoryListPage,
     DailyDealsPage,
     DiscountDealsPage,
     HomePage,
@@ -49,6 +51,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
   entryComponents: [
     MyApp,
     CategoryPage,
+    CategoryListPage,
     DailyDealsPage,
     DiscountDealsPage,
     HomePage,

@@ -58,7 +58,7 @@ export class SignupPage {
   postPhoto3: any;
   postPhoto4: any;
 
-  constructor(public navCtrl: NavController, public http: HttpClient, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
 
   }
 
@@ -184,12 +184,12 @@ export class SignupPage {
 
   register() {
 
-    // let loader = this.loadingCtrl.create({
-    //   spinner: 'crescent',
-    //   content: "Loading..",
-    //   // duration: 2000
-    // });
-    // loader.present();
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+      // duration: 2000
+    });
+    loader.present();
 
 
     // console.log("firstname: " + this.firstname);
@@ -216,55 +216,55 @@ export class SignupPage {
     // console.log("physicianID: " + this.physicianID);
 
 
-    // let data = {
-    //   'name': this.firstname,
-    //   'login': this.email,
-    //   'email': this.email,
-    //   'firstname': this.firstname,
-    //   'lastName': this.lastname,
-    //   'image': this.postPhoto3,
-    //   'dob': this.dob,
-    //   'street': this.addr1,
-    //   'street2': this.addr2,
-    //   'city': this.city,
-    //   'zip': this.zip,
-    //   'gen': this.sex,
-    //   'country_id': this.countrySelect,
-    //    'state_id' : this.stateSelection,
-    //   'customer_type': this.customerType,
-    //   'idType': this.idtypeName,
-    //   'idNumber': this.idnum,
-    //   'idExpDate': this.idexpiry,
-    //   'issuePlace': this.issuedPlace,
-    //   'image1': this.postPhoto1,
-    //   'medicalidNumber': this.medidnum,
-    //   'medicalFirstName': this.firstname,
-    //   'medicalLastName': this.lastname,
-    //   'medicalCounty': this.county,
-    //   'medicalDob': this.dob,
-    //   'medicalIdExpDate': this.medexpiry,
-    //   'medicalImage': this.postPhoto2,    
-    //   'medicalCertificateImage': this.postPhoto3,
-    //   'medicalIssueName': this.physicianName,
-    //   'medicalIssueId': this.physicianID,
-    //   'db': 'newreach',
+    let data = {
+      'name': this.firstname,
+      'login': this.email,
+      'email': this.email,
+      'firstname': this.firstname,
+      'lastName': this.lastname,
+      'image': this.postPhoto3,
+      'dob': this.dob,
+      'street': this.addr1,
+      'street2': this.addr2,
+      'city': this.city,
+      'zip': this.zip,
+      'gen': this.sex,
+      'country_id': this.countrySelect,
+       'state_id' : this.stateSelection,
+      'customer_type': this.customerType,
+      'idType': this.idtypeName,
+      'idNumber': this.idnum,
+      'idExpDate': this.idexpiry,
+      'issuePlace': this.issuedPlace,
+      'image1': this.postPhoto1,
+      'medicalidNumber': this.medidnum,
+      'medicalFirstName': this.firstname,
+      'medicalLastName': this.lastname,
+      'medicalCounty': this.county,
+      'medicalDob': this.dob,
+      'medicalIdExpDate': this.medexpiry,
+      'medicalImage': this.postPhoto2,    
+      'medicalCertificateImage': this.postPhoto3,
+      'medicalIssueName': this.physicianName,
+      'medicalIssueId': this.physicianID,
+      'db': 'newreach',
 
-    // };
+    };
 
-    // let headers = {
-    //   'Content-Type': 'application/json'
-    // };
+    let headers = {
+      'Content-Type': 'application/json'
+    };
 
-    // this.http.post('http://192.168.2.21:8069/newreach/customer/create', data, headers)
-    //   .then((data) => {
-    //     console.log(data);
-    //     loader.dismiss();
-    //     alert('Succesfully Registered!');
-    //     this.navCtrl.setRoot(HomePage);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    this.http.post('http://198.199.67.147:8075/newreach/customer/create', data, headers)
+      .then((data) => {
+        console.log(data);
+        loader.dismiss();
+        alert('Succesfully Registered!');
+        this.navCtrl.setRoot(HomePage);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
 
     // Other Method
@@ -298,50 +298,50 @@ export class SignupPage {
 
     // For getting the list of countries
 
-    // this.http.get('http://192.168.2.21:8069/newreach/country/details', {}, {})
-    //   .then(data => {
+    this.http.get('http://198.199.67.147:8075/newreach/country/details', {}, {})
+      .then(data => {
 
-    //     var json = data.data; // data received by server
-    //     let obj = JSON.parse(json);
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
 
-    //     this.countryList = obj.country;
-    //   })
-    //   .catch(error => {
+        this.countryList = obj.country;
+      })
+      .catch(error => {
 
-    //   });
+      });
 
 
     // // For getting the list of ID Types
 
-    // this.http.get('http://192.168.2.21:8069/newreach/idtype', {}, {})
-    //   .then(data => {
+    this.http.get('http://198.199.67.147:8075/newreach/idtype', {}, {})
+      .then(data => {
 
-    //     var json = data.data; // data received by server
-    //     let obj = JSON.parse(json);
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
 
-    //     this.idtype = obj.val;
-    //   })
-    //   .catch(error => {
+        this.idtype = obj.val;
+      })
+      .catch(error => {
 
-    //   });
+      });
 
 
 
     // For testing in chrome use HTTPClient
 
 
-    this.data = this.http.get('http://192.168.2.21:8069/newreach/country/details')
-    this.data.subscribe(data => {
-      this.countryList = data.country;
-      console.log(this.countryList);
+    // this.data = this.http.get('http://192.168.2.21:8069/newreach/country/details')
+    // this.data.subscribe(data => {
+    //   this.countryList = data.country;
+    //   console.log(this.countryList);
 
-    });
+    // });
 
-    this.data1 = this.http.get('http://192.168.2.21:8069/newreach/idtype')
-    this.data1.subscribe(data1 => {
-      this.idtype = data1.val;
-      console.log(this.idtype)
-    });
+    // this.data1 = this.http.get('http://192.168.2.21:8069/newreach/idtype')
+    // this.data1.subscribe(data1 => {
+    //   this.idtype = data1.val;
+    //   console.log(this.idtype)
+    // });
 
   }
 }

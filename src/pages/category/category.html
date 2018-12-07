@@ -10,7 +10,7 @@
 
 <ion-content padding class="category_content">
 
-  <ion-slides pager="true">
+  <ion-slides autoplay="3500" loop="true" speed="500" class="slides" pager="true">
     <ion-slide>
     <img class="category_sliderbox" src="/assets/imgs/s1.jpg">
     </ion-slide>
@@ -27,9 +27,9 @@
   <ion-grid>
     <ion-row class="category_row">
 
-      <ion-col  col-5  *ngFor="let item of dealproducts " class="category_product_image_column">
-        <img class="category_product_image" src="data:image/png;base64,{{item.image}}">
-        <span style="display:block; color:#2a8d2a; text-align: center; font-size: 13px;">{{item.categ_name}}</span>
+      <ion-col  col-5 (click)="categoryProducts(item)"  *ngFor="let item of category" class="category_product_image_column">
+        <img class="category_product_image"  src="./assets/imgs/p1.jpg">
+        <span style="display:block; color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</span>
       </ion-col>     
 
     </ion-row>   

@@ -29,16 +29,16 @@ export class ProfilePage {
     loader.present();
 
     let data = {
-      'db': "newreach",
-      'username': "newreach",
-      'password': "newreach"
+      'db': "cannabis_db",
+      'username': "admin",
+      'password': "admin"
     };
 
     let headers = {
       'Content-Type': 'application/json'
     };
 
-    this.http.post('http://192.168.2.21:8069/newreach/customer', data, headers)
+    this.http.post('http://198.199.67.147:8075/newreach/customer', data, headers)
       .then((data) => {
        this.profileInfo = JSON.parse(data.data); 
            loader.dismiss();

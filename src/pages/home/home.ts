@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { SearchPage } from '../search/search';
 import { DiscountDealsPage } from '../discount-deals/discount-deals';
+import { CategoryListPage } from '../category-list/category-list';
 
 
 @Component({
@@ -21,9 +22,10 @@ export class HomePage {
   dealproducts: any = [];
   category: any = [];
   items: any = [];
+  categoryProductList: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public http: HttpClient, private loadingCtrl: LoadingController) {
+    public http: HTTP, private loadingCtrl: LoadingController) {
   }
 
   public profileGo() {
@@ -61,6 +63,12 @@ export class HomePage {
     this.navCtrl.push(ItemDetailsPage, { product: item });
   }
 
+
+  public eachCategory($event, item){
+    this.categoryProductList = item.products;
+    this.navCtrl.push(CategoryListPage, { items: this.categoryProductList });
+  }
+
   //Search functionality
 
 
@@ -79,56 +87,69 @@ export class HomePage {
     // loader.present();
 
 
-    this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
-    this.data.subscribe(data => {
-      this.dealproducts = data.products;
-      console.log(this.dealproducts)
+    // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
+    // this.data.subscribe(data => {
+    //   this.dealproducts = data.products;
+    //   console.log(this.dealproducts)
 
-      var productNames = []
-      for (var i of this.dealproducts) {
-        productNames.push(i.productName);
-      }
-      this.items = productNames;
-    });
-    // loader.dismiss();
-
-
-
-    //List all products
-
-    // this.http.get('http://192.168.2.21:8069/newreach/product', {}, {})
-    // .then(data => {
-
-    // var json= data.data; // data received by server
-    // let obj = JSON.parse(json);
-
-    // this.dealproducts = obj.products;
-
-    // var productNames = []
+    //   var productNames = []
     //   for (var i of this.dealproducts) {
     //     productNames.push(i.productName);
     //   }
     //   this.items = productNames;
-
-    // })
-    // .catch(error => {
-
     // });
+    // loader.dismiss();
+
+
+    // For testing in mobile use Ionic native HTTP
+
+    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    .then(data => {
+
+    var json= data.data; // data received by server
+    let obj = JSON.parse(json);
+
+    this.dealproducts = obj.products;
+
+    var productNames = []
+      for (var i of this.dealproducts) {
+        productNames.push(i.productName);
+      }
+      this.items = productNames;
+
+    })
+    .catch(error => {
+
+    });
 
 
 
     //*********** For listing items category id wise *********
 
-    this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
-    this.data.subscribe(data => {
-      this.dealproducts = data.products;
-      console.log(this.dealproducts)
+    // For testing in chrome use HTTPClient
 
-      var productNames = []
-      for (var i of this.dealproducts) {
-        productNames.push(i.productName);
-      }
-      this.items = productNames;
+
+    // this.data = this.http.get('http://192.168.2.21:8069/newreach/product/category')
+    // this.data.subscribe(data => {
+    //   this.category = data.category;
+    //   console.log(this.category)
+   
+    // });
+
+
+        // For testing in mobile use Ionic native HTTP
+
+    this.http.get('http://198.199.67.147:8075/newreach/product/category', {}, {})
+    .then(data => {
+  
+    var json= data.data; // data received by server
+    let obj = JSON.parse(json);
+  
+    this.category = obj.category;
+    })
+    .catch(error => {
+  
+  
     });
 
   }
