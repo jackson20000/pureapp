@@ -68,7 +68,7 @@
 <ion-row>
 
 <ion-col  (click)="eachCategory($event, item)" *ngFor="let item of category | slice:0:3" class="home_product_image_column">
-  <img class="home_product_image" src="./assets/imgs/p1.jpg">
+  <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
   <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</div>
 </ion-col>
 

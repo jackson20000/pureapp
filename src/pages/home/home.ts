@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { DailyDealsPage } from '../daily-deals/daily-deals';
 import { CategoryPage } from '../category/category';
@@ -11,6 +11,8 @@ import { HTTP } from '@ionic-native/http';
 import { SearchPage } from '../search/search';
 import { DiscountDealsPage } from '../discount-deals/discount-deals';
 import { CategoryListPage } from '../category-list/category-list';
+import { AuthProvider } from '../../providers/auth/auth';
+import { LoginPage } from '../login/login';
 
 
 @Component({
@@ -23,14 +25,20 @@ export class HomePage {
   category: any = [];
   items: any = [];
   categoryProductList: any = [];
+  categoryProductname: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthProvider,
     public http: HTTP, private loadingCtrl: LoadingController) {
   }
 
   public profileGo() {
-    this.navCtrl.setRoot(ProfilePage)
-
+    this.authService.isLoggedIn().then(val => {
+      if(val== null){
+        this.navCtrl.push(LoginPage)
+      }else{
+        this.navCtrl.push(ProfilePage)
+      }
+    });
   }
 
   homeGo() {
@@ -66,7 +74,8 @@ export class HomePage {
 
   public eachCategory($event, item){
     this.categoryProductList = item.products;
-    this.navCtrl.push(CategoryListPage, { items: this.categoryProductList });
+    this.categoryProductname = item.name;
+    this.navCtrl.push(CategoryListPage, { items: this.categoryProductList, name: this.categoryProductname });
   }
 
   //Search functionality
@@ -78,13 +87,6 @@ export class HomePage {
     //*********** For listing items product id wise *********
 
     // For testing in chrome use HTTPClient
-
-    // let loader = this.loadingCtrl.create({
-    //   spinner: 'crescent',
-    //   content: "Loading..",
-    //   duration: 2000
-    // });
-    // loader.present();
 
 
     // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
@@ -103,6 +105,15 @@ export class HomePage {
 
     // For testing in mobile use Ionic native HTTP
 
+
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+     
+    });
+    loader.present();
+
+
     this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
     .then(data => {
 
@@ -116,10 +127,10 @@ export class HomePage {
         productNames.push(i.productName);
       }
       this.items = productNames;
-
+      
     })
     .catch(error => {
-
+      loader.dismiss();
     });
 
 
@@ -146,10 +157,10 @@ export class HomePage {
     let obj = JSON.parse(json);
   
     this.category = obj.category;
+    loader.dismiss();
     })
     .catch(error => {
-  
-  
+      loader.dismiss();
     });
 
   }

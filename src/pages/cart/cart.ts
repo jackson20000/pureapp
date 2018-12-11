@@ -15,6 +15,8 @@ import { ProfilePage } from '../profile/profile';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
+import { AlertController } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
 import 'rxjs/add/operator/map';
 @IonicPage()
 @Component({
@@ -34,12 +36,14 @@ export class CartPage {
   data: Observable<any>;
   items: any = [];
   constructor(
+    private authService: AuthProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
     private cartService: CartProvider,
     private loadingCtrl: LoadingController,
     private http: HTTP,
-    public storage: Storage
+    public storage: Storage,
+    public alertCtrl: AlertController
   ) { }
 
 
@@ -55,12 +59,7 @@ export class CartPage {
 
 
   loadCartItems() {
-    let loader = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: "Loading..",
-      // duration: 5000
-    });
-    loader.present();
+   
     this.cartService
       .getCartItems()
       .then(val => {
@@ -78,7 +77,6 @@ export class CartPage {
           this.isEmptyCart = true;
         }
         this.isCartItemLoaded = true;
-        loader.dismiss();
       })
       .catch(err => { });
   }
@@ -130,11 +128,46 @@ export class CartPage {
     };
     this.http.post('http://198.199.67.147:8075/newreach/order/create', data, headers)
       .then((data) => {
-        alert((data.data));
+        let value = JSON.parse(data.data);
+        this.authService.isLoggedIn().then(val => {
+          if(val== null){
+            const alerts = this.alertCtrl.create({
+              title: 'Alert',
+              subTitle: "Please Login",
+              buttons: ['OK']
+            });
+            alerts.present();
+            this.navCtrl.push(LoginPage)
+      }
+      else{
+        if(value.val[0].code==1){
+          const alerts = this.alertCtrl.create({
+            title: 'Alert',
+            subTitle: value.val[0].status,
+            buttons: ['OK']
+          });
+          alerts.present();
         this.cartService.removeAllCartItems();
         this.navCtrl.setRoot(HomePage);
+        }
+        else{
+          const alerts = this.alertCtrl.create({
+            title: 'Alert',
+            subTitle: value.val[0].status,
+            buttons: ['OK']
+          });
+          alerts.present();
+        }
+      }
+      });
       })
       .catch((error) => {       
+        const alerts = this.alertCtrl.create({
+          title: 'Alert',
+          subTitle: "Please try Again",
+          buttons: ['OK']
+        });
+        alerts.present();
       });
 
   }
@@ -145,13 +178,7 @@ export class CartPage {
 
     // For testing in chrome use HTTPClient
 
-    let loader = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: "Loading..",
-      duration: 2000
-    });
-    loader.present();
-
+   
 
     // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
     // this.data.subscribe(data => {
@@ -182,7 +209,6 @@ export class CartPage {
       .catch(error => {
 
       });
-    loader.dismiss();
 
 
   }

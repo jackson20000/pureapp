@@ -7,6 +7,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { HTTP } from '@ionic-native/http';
+import { AlertController } from 'ionic-angular';
 
 import 'rxjs/add/operator/map';
 import { HomePage } from '../home/home';
@@ -58,7 +59,7 @@ export class SignupPage {
   postPhoto3: any;
   postPhoto4: any;
 
-  constructor(public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
+  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
 
   }
 
@@ -259,7 +260,13 @@ export class SignupPage {
       .then((data) => {
         console.log(data);
         loader.dismiss();
-        alert('Succesfully Registered!');
+        //alert('Succesfully Registered!');
+        const alert = this.alertCtrl.create({
+          title: 'Success',
+          subTitle: 'Succesfully Registered!',
+          buttons: ['OK']
+        });
+        alert.present();
         this.navCtrl.setRoot(HomePage);
       })
       .catch((error) => {

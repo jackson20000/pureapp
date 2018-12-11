@@ -68,7 +68,8 @@ export class ItemDetailsPage {
     let toast = this.toastCtrl.create({
       message: `${name} has been added to cart`,
       showCloseButton: true,
-      closeButtonText: 'View Cart'
+      closeButtonText: 'View Cart',
+      //duration: 2000
     });
  
     toast.onDidDismiss(() => {

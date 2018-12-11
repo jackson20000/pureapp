@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, LoadingController } from 'ionic-angular';
+import { Nav, Platform, LoadingController ,App,AlertController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +25,7 @@ export class MyApp {
 
   data: Observable<any>;
   profileInfo: any = [];
-  constructor(public platform: Platform, private loadingCtrl: LoadingController, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public http: HTTP) {
+  constructor(public alertCtrl: AlertController, public platform: Platform,public app: App, private loadingCtrl: LoadingController, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public http: HTTP) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -34,6 +34,33 @@ export class MyApp {
     //   { title: 'Signup', component: SignupPage,  icon: 'person'  }
 
     // ];
+    platform.registerBackButtonAction(()=>{
+      let nav = app.getActiveNavs()[0];
+      let active = nav.getActive();
+
+      if(active.instance instanceof HomePage){
+        const confirm = this.alertCtrl.create({
+          title: 'Alert',
+          message: 'Do you want to exit ?',
+          buttons: [
+            {
+              text: 'Yes',
+              handler: () => {
+                platform.exitApp();
+              }
+            },
+            {
+              text: 'Cancel',
+              handler: () => {
+
+              }
+            }
+          ]
+        });
+        confirm.present();
+      }
+      nav.pop(); // this will work for other pages then the page name
+    },2);
 
   }
 
@@ -69,8 +96,13 @@ export class MyApp {
   }
 
   logout(){
-    if(this.storage.remove(name)){
-      alert("you're logged out");
+    if(this.storage.remove('userData')){
+      const alerts = this.alertCtrl.create({
+        title: 'Alert',
+        subTitle: "you're logged out",
+        buttons: ['OK']
+      });
+      alerts.present();
     }
     else{
       alert("error");
