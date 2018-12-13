@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { HTTP } from '@ionic-native/http';
 import { AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import 'rxjs/add/operator/map';
 import { HomePage } from '../home/home';
@@ -25,6 +26,7 @@ export class SignupPage {
   data1: Observable<any>;
   data3: Observable<any>;
   idtypedata: Observable<any>;
+  authForm : FormGroup;
 
   firstname: string;
   lastname: string;
@@ -59,8 +61,27 @@ export class SignupPage {
   postPhoto3: any;
   postPhoto4: any;
 
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
-
+  constructor(private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
+    this.authForm = fb.group({
+      'firstname' : [null, Validators.compose([Validators.required])],
+      'lastname' : [null, Validators.compose([Validators.required])],
+      'sex' : [null, Validators.compose([Validators.required])],
+      'dob' : [null, Validators.compose([Validators.required])],
+      'addr1' : [null, Validators.compose([Validators.required])],
+      'city' : [null, Validators.compose([Validators.required])],
+      'countrySelect' : [null, Validators.compose([Validators.required])],
+      'zip' : [null, Validators.compose([Validators.required])],
+      'email' : [null, Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      'idtypeName' : [null, Validators.compose([Validators.required])],
+      'idnum' : [null, Validators.compose([Validators.required])],
+      'issuedPlace' : [null, Validators.compose([Validators.required])],
+      'idexpiry' : [null, Validators.compose([Validators.required])],
+      'medidnum' : [null, Validators.compose([Validators.required])],
+      'medexpiry' : [null, Validators.compose([Validators.required])],
+      'county' : [null, Validators.compose([Validators.required])],
+      'physicianName' : [null, Validators.compose([Validators.required])],
+      'physicianID' : [null, Validators.compose([Validators.required])]
+		});
   }
 
 

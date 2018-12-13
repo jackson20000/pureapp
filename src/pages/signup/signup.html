@@ -20,40 +20,43 @@
 
     <ion-item>
       <ion-label floating>First Name</ion-label>
-      <ion-input type="text" [(ngModel)]="firstname" name="first" ></ion-input>
+      <ion-input type="text" [(ngModel)]="firstname" name="first" [formControl]="authForm.controls['firstname']" [ngClass]="{'error-border':!authForm.controls['firstname'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['firstname'].hasError('required') && authForm.controls['firstname'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>Last Name</ion-label>
-      <ion-input type="text" [(ngModel)]="lastname" name="last" ></ion-input>
+      <ion-input type="text" [(ngModel)]="lastname" name="last" [formControl]="authForm.controls['lastname']" [ngClass]="{'error-border':!authForm.controls['lastname'].valid}"></ion-input>
     </ion-item>
-
+    <div class="error-box" *ngIf="authForm.controls['lastname'].hasError('required') && authForm.controls['lastname'].touched">* This field is required!</div>
 
     <div padding>
         <button ion-button (click)="takePhoto1()" full color="primary">Capture profile picture</button>  
         <p align="center"><img style="border-radius: 50%; height: 12em; width: 12em;" src="{{myProfilephoto}}" alt=""></p>      
-      </div>
+    </div>
 
     <ion-item class="itemSelectBox">
       <ion-label>Sex</ion-label>
-      <ion-select [(ngModel)]="sex">
+      <ion-select [(ngModel)]="sex" [formControl]="authForm.controls['sex']" [ngClass]="{'error-border':!authForm.controls['sex'].valid}">
         <ion-option value="male">Male</ion-option>
         <ion-option value="female">Female</ion-option>
         <ion-option value="others">Others</ion-option>
-
       </ion-select>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['sex'].hasError('required') && authForm.controls['sex'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>Date of Birth</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" min="1918" [(ngModel)]="dob" name="dob" ></ion-datetime>
+      <ion-datetime displayFormat="DD MMM, YYYY" min="1918" [(ngModel)]="dob" name="dob" [formControl]="authForm.controls['dob']" [ngClass]="{'error-border':!authForm.controls['dob'].valid}"></ion-datetime>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['dob'].hasError('required') && authForm.controls['dob'].touched">* This field is required!</div>
    
 
     <ion-item>
       <ion-label floating>Street Name 1</ion-label>
-      <ion-input type="text" [(ngModel)]="addr1" name="street1" ></ion-input>
+      <ion-input type="text" [(ngModel)]="addr1" name="street1" [formControl]="authForm.controls['addr1']" [ngClass]="{'error-border':!authForm.controls['addr1'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['addr1'].hasError('required') && authForm.controls['addr1'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>Street Name 2</ion-label>
@@ -62,71 +65,76 @@
 
     <ion-item>
       <ion-label floating>City</ion-label>
-      <ion-input type="text" [(ngModel)]="city" name="city" ></ion-input>
+      <ion-input type="text" [(ngModel)]="city" name="city" [formControl]="authForm.controls['city']" [ngClass]="{'error-border':!authForm.controls['city'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['city'].hasError('required') && authForm.controls['city'].touched">* This field is required!</div>
 
     <ion-item  class="itemSelectBox">
       <ion-label>Country</ion-label>
-      <ion-select [(ngModel)]="countrySelect">
+      <ion-select [(ngModel)]="countrySelect" [formControl]="authForm.controls['countrySelect']" [ngClass]="{'error-border':!authForm.controls['countrySelect'].valid}">
         <ion-option (ionSelect)="stateSelect(i)" *ngFor="let i of countryList" [value]="i.id">{{i.name}}</ion-option>
       </ion-select>
     </ion-item>
-
+    <div class="error-box" *ngIf="authForm.controls['countrySelect'].hasError('required') && authForm.controls['countrySelect'].touched">* This field is required!</div>
+    
     <ion-item  class="itemSelectBox">
         <ion-label>State</ion-label>
-        <ion-select [(ngModel)]="stateSelection">
+        <ion-select [(ngModel)]="stateSelection" >
           <ion-option *ngFor="let j of stateList"  [value]="j.id">{{j.name}}</ion-option>
         </ion-select>
       </ion-item>
-
     <ion-item>
       <ion-label floating>ZIP Code</ion-label>
-      <ion-input type="number" [(ngModel)]="zip" name="zip" ></ion-input>
+      <ion-input type="number" [(ngModel)]="zip" name="zip" [formControl]="authForm.controls['zip']" [ngClass]="{'error-border':!authForm.controls['zip'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['zip'].hasError('required') && authForm.controls['zip'].touched">* This field is required!</div> 
 
     <ion-item>
       <ion-label floating>E-mail</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" ></ion-input>
+      <ion-input type="email" [(ngModel)]="email" name="email" [formControl]="authForm.controls['email']" [ngClass]="{'error-border':!authForm.controls['email'].valid}"></ion-input>
     </ion-item>
-
-
-    <ion-list class="radioButton" [(ngModel)]="customerType" radio-group>
+    <div class="error-box" *ngIf="authForm.controls['email'].hasError('required') && authForm.controls['email'].touched">* This field is required!</div>
+    <div class="error-box" *ngIf="authForm.controls['email'].hasError('pattern') && authForm.controls['email'].touched">* Format is incorrect</div>
+    
+    <ion-list class="radioButton" [(ngModel)]="customerType" radio-group >
       <ion-item>
         <ion-label>Recreational
           Type</ion-label>
         <ion-radio checked="true" value="adult_customer"></ion-radio>
       </ion-item>
-
       <ion-item>
         <ion-label> Medical
           Type</ion-label>
         <ion-radio value="medical_customer"></ion-radio>
       </ion-item>
     </ion-list>
-
     <ion-item class="itemSelectBox">
       <ion-label>Type of ID to be uploaded</ion-label>
-      <ion-select  cancelText="Cancel" okText="Ok" [(ngModel)]="idtypeName">
+      <ion-select  cancelText="Cancel" okText="Ok" [(ngModel)]="idtypeName" [formControl]="authForm.controls['idtypeName']" [ngClass]="{'error-border':!authForm.controls['lastname'].valid}">
         <ion-option *ngFor="let j of idtype" [value]="j.id">{{j.name}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
+  <div class="error-box" *ngIf="authForm.controls['idtypeName'].hasError('required') && authForm.controls['idtypeName'].touched">* This field is required!</div>
 
   <ion-item>
     <ion-label floating>ID Card Number</ion-label>
-    <ion-input type="number" [(ngModel)]="idnum" name="id" ></ion-input>
+    <ion-input type="number" [(ngModel)]="idnum" name="id" [formControl]="authForm.controls['idnum']" [ngClass]="{'error-border':!authForm.controls['idnum'].valid}"></ion-input>
   </ion-item>
-
+  <div class="error-box" *ngIf="authForm.controls['idnum'].hasError('required') && authForm.controls['idnum'].touched">* This field is required!</div>
+  
   <ion-item>
     <ion-label floating>ID Issued Place</ion-label>
-    <ion-input type="text" [(ngModel)]="issuedPlace" name="place" ></ion-input>
+    <ion-input type="text" [(ngModel)]="issuedPlace" name="place" [formControl]="authForm.controls['issuedPlace']" [ngClass]="{'error-border':!authForm.controls['lastname'].valid}"></ion-input>
   </ion-item>
-
+  <div class="error-box" *ngIf="authForm.controls['issuedPlace'].hasError('required') && authForm.controls['issuedPlace'].touched">* This field is required!</div>
+  
   <ion-item>
     <ion-label floating>ID Expiry Date</ion-label>
-    <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="idexpiry" name="idexpiry" ></ion-datetime>
+    <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="idexpiry" name="idexpiry" [formControl]="authForm.controls['idexpiry']" [ngClass]="{'error-border':!authForm.controls['idexpiry'].valid}"></ion-datetime>
 
   </ion-item>
+  <div class="error-box" *ngIf="authForm.controls['idexpiry'].hasError('required') && authForm.controls['idexpiry'].touched">* This field is required!</div>
 
   <!-- <img [src]="idCapture" alt=""/> -->
 
@@ -159,30 +167,36 @@
 
     <ion-item>
       <ion-label floating>Medical ID Card Number</ion-label>
-      <ion-input type="number" [(ngModel)]="medidnum" name="medidnum" ></ion-input>
+      <ion-input type="number" [(ngModel)]="medidnum" name="medidnum" [formControl]="authForm.controls['medidnum']" [ngClass]="{'error-border':!authForm.controls['medidnum'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['medidnum'].hasError('required') && authForm.controls['medidnum'].touched">* This field is required!</div>
 
 
     <ion-item>
       <ion-label floating>Medical ID Expiry Date</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="medexpiry" name="medexpiry" ></ion-datetime>
+      <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="medexpiry" name="medexpiry" [formControl]="authForm.controls['medexpiry']" [ngClass]="{'error-border':!authForm.controls['medexpiry'].valid}"></ion-datetime>
 
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['medexpiry'].hasError('required') && authForm.controls['medexpiry'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>County of Residence</ion-label>
-      <ion-input type="text" [(ngModel)]="county" name="county" ></ion-input>
+      <ion-input type="text" [(ngModel)]="county" name="county" [formControl]="authForm.controls['county']" [ngClass]="{'error-border':!authForm.controls['county'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['county'].hasError('required') && authForm.controls['county'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>Issuing Physician's name</ion-label>
-      <ion-input type="text" [(ngModel)]="physicianName" name="physicianName" ></ion-input>
+      <ion-input type="text" [(ngModel)]="physicianName" name="physicianName" [formControl]="authForm.controls['physicianName']" [ngClass]="{'error-border':!authForm.controls['physicianName'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['physicianName'].hasError('required') && authForm.controls['physicianName'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>Issuing Physician's ID</ion-label>
-      <ion-input type="text" [(ngModel)]="physicianID" name="physicianID" ></ion-input>
+      <ion-input type="text" [(ngModel)]="physicianID" name="physicianID" [formControl]="authForm.controls['physicianID']" [ngClass]="{'error-border':!authForm.controls['physicianID'].valid}"></ion-input>
     </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['physicianID'].hasError('required') && authForm.controls['physicianID'].touched">* This field is required!</div>
+
 
     <div padding>
         <button ion-button color='primary' (click)="getImage1()" block >Upload Medical Id</button>
@@ -197,7 +211,7 @@
 
 
   <div padding>
-    <button ion-button color='navbarColor' block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,stateSelection,zip,email,customerType,idtypeName,issuedPlace,idnum,idexpiry,medidnum,medexpiry,county,physicianName,physicianID)>Sign Up</button>
+    <button ion-button color='navbarColor' [disabled]="!authForm.valid" block (click)=register(firstname,lastname,sex,dob,addr1,addr2,city,countrySelect,stateSelection,zip,email,customerType,idtypeName,issuedPlace,idnum,idexpiry,medidnum,medexpiry,county,physicianName,physicianID)>Sign Up</button>
   </div>
 
 </ion-content>

@@ -5,6 +5,9 @@ import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import { SignupPage } from '../signup/signup';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Events } from 'ionic-angular';
 
 
 @IonicPage()
@@ -15,15 +18,23 @@ import { AlertController } from 'ionic-angular';
 export class LoginPage {
   username: string;
   password: any;
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController, private storage: Storage) {
+  authForm : FormGroup;
+  constructor(public events: Events,private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController, private storage: Storage) {
+    this.authForm = fb.group({
+		  'username' : [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+		  'password': [null, Validators.compose([Validators.required])]
+		});
   }
 
-  
+  goLogin(){
+    this.navCtrl.push(SignupPage)
+  }
+
   login() {
 
     //this.storage.set('name', this.username);
 
-
+    this.events.publish('loginSideBar');
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
       content: "Loading..",
@@ -93,5 +104,6 @@ export class LoginPage {
   ionViewDidLoad() {
 
   }
+
 
 }

@@ -28,7 +28,7 @@
     <ion-row class="category_row">
 
       <ion-col  col-5 (click)="categoryProducts(item)"  *ngFor="let item of category" class="category_product_image_column">
-        <img class="category_product_image"  src="./assets/imgs/p1.jpg">
+        <img class="category_product_image"  src="data:image/png;base64,{{item.image}}">
         <span style="display:block; color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</span>
       </ion-col>     
 
