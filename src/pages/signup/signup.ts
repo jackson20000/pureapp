@@ -239,6 +239,9 @@ export class SignupPage {
 
 
     let data = {
+      'db': 'cannabis_db',
+      'username': 'admin',
+      'password': 'admin',
       'name': this.firstname,
       'login': this.email,
       'email': this.email,
@@ -269,7 +272,7 @@ export class SignupPage {
       'medicalCertificateImage': this.postPhoto3,
       'medicalIssueName': this.physicianName,
       'medicalIssueId': this.physicianID,
-      'db': 'newreach',
+      
 
     };
 
@@ -282,12 +285,13 @@ export class SignupPage {
         console.log(data);
         loader.dismiss();
         //alert('Succesfully Registered!');
-        const alert = this.alertCtrl.create({
+        const alerts = this.alertCtrl.create({
           title: 'Success',
           subTitle: 'Succesfully Registered!',
           buttons: ['OK']
         });
-        alert.present();
+        alert(JSON.stringify(data));
+        alerts.present();
         this.navCtrl.setRoot(HomePage);
       })
       .catch((error) => {

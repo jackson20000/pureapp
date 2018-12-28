@@ -69,11 +69,13 @@ export class ItemDetailsPage {
       message: `${name} has been added to cart`,
       showCloseButton: true,
       closeButtonText: 'View Cart',
-      //duration: 2000
+      duration: 2000
     });
  
-    toast.onDidDismiss(() => {
-      this.navCtrl.setRoot('CartPage');         
+    toast.onDidDismiss((data, role) => {
+      if (role== "close") {
+      this.navCtrl.setRoot('CartPage');  
+      }       
     });
     toast.present();
   }
