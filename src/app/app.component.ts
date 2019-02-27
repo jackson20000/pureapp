@@ -15,7 +15,7 @@ import { Storage } from '@ionic/storage';
 import { AuthProvider } from '../providers/auth/auth';
 import { CartPage } from '../pages/cart/cart';
 import { Events } from 'ionic-angular';
-
+import { HistoryPage } from '../pages/history/history';
 @Component({
   templateUrl: 'app.html'
 })

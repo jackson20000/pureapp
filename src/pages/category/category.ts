@@ -9,6 +9,7 @@ import { SearchPage } from '../search/search';
 import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HTTP } from '@ionic-native/http';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class CategoryPage {
   category: any[];
   categoryProductList: any = [];
 categoryName: string;
-  constructor(private authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public http: HTTP,private loadingCtrl: LoadingController) {
+  constructor(private authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public http: HTTP,private loadingCtrl: LoadingController, private apiData:ApiDetailsProvider) {
 
 
     // For testing in chrome use HTTPClient
@@ -42,7 +43,7 @@ categoryName: string;
     });
     loader.present();
 
-    this.http.get('http://198.199.67.147:8075/newreach/product/category', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product/category', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server
@@ -87,7 +88,7 @@ categoryName: string;
   }
 
   ionViewDidLoad() {  
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
 
     var json= data.data; // data received by server

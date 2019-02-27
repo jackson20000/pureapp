@@ -8,6 +8,7 @@ import { AlertController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Events } from 'ionic-angular';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 
 @IonicPage()
@@ -19,7 +20,11 @@ export class LoginPage {
   username: string;
   password: any;
   authForm : FormGroup;
-  constructor(public events: Events,private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController, private storage: Storage) {
+  constructor(public events: Events,private fb: FormBuilder,public alertCtrl: AlertController,
+    public navCtrl: NavController, public navParams: NavParams, public http: HTTP, 
+    private loadingCtrl: LoadingController, private storage: Storage,
+    private apiData: ApiDetailsProvider) {
+
     this.authForm = fb.group({
 		  'username' : [null, Validators.compose([Validators.required, Validators.minLength(5)])],
 		  'password': [null, Validators.compose([Validators.required])]
@@ -54,7 +59,7 @@ export class LoginPage {
       'Content-Type': 'application/json'
     };
 
-    this.http.post('http://198.199.67.147:8075/api/login', data, headers)
+    this.http.post(this.apiData.api+'/api/login', data, headers)
       .then((data) => {
      
        let val = JSON.parse(data.data);

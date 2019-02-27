@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
 import { SearchPage } from '../search/search';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,9 @@ export class ProfilePage {
   profileInfo: any = [];
   dealproducts: any = [];
 
-  constructor(private authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController) {
+  constructor(private authService: AuthProvider, public navCtrl: NavController,
+     public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController,
+     private apiData:ApiDetailsProvider) {
   }
 
   
@@ -65,7 +68,7 @@ export class ProfilePage {
       'Content-Type': 'application/json'
     };
 
-    this.http.post('http://198.199.67.147:8075/newreach/customer', data, headers)
+    this.http.post(this.apiData.api+'/newreach/customer', data, headers)
       .then((data) => {
        this.profileInfo = JSON.parse(data.data); 
            loader.dismiss();
@@ -76,7 +79,7 @@ export class ProfilePage {
       });
 
       //for search data
-      this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+      this.http.get(this.apiData.api+'/newreach/product', {}, {})
       .then(data => {
   
       var json= data.data; // data received by server

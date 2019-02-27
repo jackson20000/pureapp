@@ -17,12 +17,15 @@ import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
+
 import 'rxjs/add/operator/map';
 @IonicPage()
 @Component({
   selector: "page-cart",
   templateUrl: "cart.html"
 })
+
 export class CartPage {
   cartItems: any[] = [];
   totalAmount: number = 0;
@@ -43,7 +46,8 @@ export class CartPage {
     private loadingCtrl: LoadingController,
     private http: HTTP,
     public storage: Storage,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private apiData:ApiDetailsProvider
   ) { }
 
 
@@ -126,7 +130,7 @@ export class CartPage {
     let headers = {
       'Content-Type': 'application/json'
     };
-    this.http.post('http://198.199.67.147:8075/newreach/order/create', data, headers)
+    this.http.post(this.apiData.api+'/newreach/order/create', data, headers)
       .then((data) => {
         let value = JSON.parse(data.data);
         this.authService.isLoggedIn().then(val => {
@@ -193,7 +197,7 @@ export class CartPage {
     // });
     // loader.dismiss();
 
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color='navbarColor'>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Order History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="border">
+            <ion-col col-8 auto>
+              <p>Order Id : #24515201254</p>
+              <p>Product name</p>
+              <p>Quantity: 88gms</p>
+              <p>Delivery Status : Undelivered</p>
+            </ion-col>
+            <ion-col col-4 auto>
+                <img src="assets/imgs/b2.jpg" height="120px">
+            </ion-col>
+        </ion-row>
+        <!-- <p *ngIf="isEmptyCart" style="text-align:center">No New Orders</p> -->
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-row>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="profileGo()"><ion-icon name='person'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="searchGo()"><ion-icon name='search'></ion-icon>
+           </button>
+      </ion-col>
+  </ion-row>
+</ion-footer>

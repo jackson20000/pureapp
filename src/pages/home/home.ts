@@ -13,7 +13,7 @@ import { DiscountDealsPage } from '../discount-deals/discount-deals';
 import { CategoryListPage } from '../category-list/category-list';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
-
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 @Component({
   selector: 'page-home',
@@ -28,7 +28,7 @@ export class HomePage {
   categoryProductname: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthProvider,
-    public http: HTTP, private loadingCtrl: LoadingController) {
+    public http: HTTP, private loadingCtrl: LoadingController, private apiData: ApiDetailsProvider) {
   }
 
   public profileGo() {
@@ -114,12 +114,14 @@ export class HomePage {
     loader.present();
 
 
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
 
+     
+alert("gdgdfgd")
     var json= data.data; // data received by server
     let obj = JSON.parse(json);
-
+    alert(json);
     this.dealproducts = obj.products;
 
     var productNames = []
@@ -150,7 +152,7 @@ export class HomePage {
 
         // For testing in mobile use Ionic native HTTP
 
-    this.http.get('http://198.199.67.147:8075/newreach/product/category', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product/category', {}, {})
     .then(data => {
   
     var json= data.data; // data received by server

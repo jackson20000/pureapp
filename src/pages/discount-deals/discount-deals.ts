@@ -10,6 +10,7 @@ import { HTTP } from '@ionic-native/http';
 import { CategoryPage } from '../category/category';
 import { SearchPage } from '../search/search';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 @IonicPage()
 @Component({
@@ -19,7 +20,9 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class DiscountDealsPage {
   data: Observable<any>;
   dealproducts: any = [];
-  constructor(private authService: AuthProvider,public navCtrl: NavController, public navParams: NavParams, public http: HTTP,private loadingCtrl: LoadingController) {
+  constructor(private authService: AuthProvider,public navCtrl: NavController, 
+    public navParams: NavParams, public http: HTTP,private loadingCtrl: LoadingController,
+     private apiData:ApiDetailsProvider) {
   }
 
   public eachProduct(event ,item ){
@@ -71,7 +74,7 @@ export class DiscountDealsPage {
      
     });
     loader.present();
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
   
     var json= data.data; // data received by server

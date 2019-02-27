@@ -9,6 +9,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { HTTP } from '@ionic-native/http';
 import { AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 import 'rxjs/add/operator/map';
 import { HomePage } from '../home/home';
@@ -61,7 +62,11 @@ export class SignupPage {
   postPhoto3: any;
   postPhoto4: any;
 
-  constructor(private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController, public http: HTTP, public navParams: NavParams, private camera: Camera, private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, private loadingCtrl: LoadingController) {
+  constructor(private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController,
+    public http: HTTP, public navParams: NavParams, private camera: Camera, 
+    private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, 
+    private loadingCtrl: LoadingController, private apiData:ApiDetailsProvider) {
+
     this.authForm = fb.group({
       'firstname' : [null, Validators.compose([Validators.required])],
       'lastname' : [null, Validators.compose([Validators.required])],
@@ -280,7 +285,7 @@ export class SignupPage {
       'Content-Type': 'application/json'
     };
 
-    this.http.post('http://198.199.67.147:8075/newreach/customer/create', data, headers)
+    this.http.post(this.apiData.api+'/newreach/customer/create', data, headers)
       .then((data) => {
         console.log(data);
         loader.dismiss();
@@ -330,7 +335,7 @@ export class SignupPage {
 
     // For getting the list of countries
 
-    this.http.get('http://198.199.67.147:8075/newreach/country/details', {}, {})
+    this.http.get(this.apiData.api+'/newreach/country/details', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server
@@ -345,7 +350,7 @@ export class SignupPage {
 
     // // For getting the list of ID Types
 
-    this.http.get('http://198.199.67.147:8075/newreach/idtype', {}, {})
+    this.http.get(this.apiData.api+'/newreach/idtype', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar color='navbarColor'>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Order Details</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-grid>
+  <ion-row class="border">
+      <ion-col col-8>
+        <p>Order Id : #24515201254</p>
+        <p>Product name</p>
+        <p>Price : $48/gms</p>
+        <p>Total Cost : $457</p>
+        <p>Delivery Status : Undelivered</p>
+      </ion-col>
+      <ion-col col-4>
+        <img src="assets/imgs/b2.jpg" height="120px">
+        <p>Quantity: 88gms</p>
+      </ion-col>
+      <ion-col col-3></ion-col>
+    <ion-col col-6 class="qrcodeborder">
+      <img src="assets/imgs/b2.jpg" width="100%">
+    </ion-col>
+    <ion-col col-3></ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-row>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="profileGo()"><ion-icon name='person'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
+           </button>
+      </ion-col>
+      <ion-col no-padding>
+          <button no-margin ion-button full large color="navbarColor" (click)="searchGo()"><ion-icon name='search'></ion-icon>
+           </button>
+      </ion-col>
+  </ion-row>
+</ion-footer>

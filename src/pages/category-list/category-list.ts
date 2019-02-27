@@ -7,6 +7,7 @@ import { LoginPage } from '../login/login';
 import { SearchPage } from '../search/search';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HTTP } from '@ionic-native/http';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,8 @@ export class CategoryListPage {
 allItems: any = [];
 name: string;
 dealproducts: any = [];
-  constructor(public http: HTTP,private authService: AuthProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public http: HTTP,private authService: AuthProvider,public navCtrl: NavController,
+     public navParams: NavParams, private apiData:ApiDetailsProvider) {
   }
 
   public eachProduct(event ,i ){
@@ -49,7 +51,7 @@ dealproducts: any = [];
     this.allItems = this.navParams.get("items");  
     this.name = this.navParams.get("name");  
 
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
 
     var json= data.data; // data received by server

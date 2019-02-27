@@ -6,7 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { CartProvider } from '../providers/cart/cart';
 import { AuthProvider } from '../providers/auth/auth';
 import { HTTP } from '@ionic-native/http';
-
+import { ApiDetailsProvider } from '../providers/api-details/api-details';
 
 import { MyApp } from './app.component';
 import { CategoryPage } from '../pages/category/category';
@@ -20,6 +20,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { DiscountDealsPage } from '../pages/discount-deals/discount-deals';
 import { CategoryListPage } from '../pages/category-list/category-list';
 import { SearchPipe } from '../pipes/search/search';
+import { HistoryPage } from '../pages/history/history';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +28,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     ProfilePage,
     SearchPage,
     SignupPage,
+    HistoryPage,
+    OrderdetailPage,    
     SearchPipe
   ],
   imports: [
@@ -61,6 +65,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     LoginPage,
     ProfilePage,
     SearchPage,
+    HistoryPage,
+    OrderdetailPage,
     SignupPage
   ],
   providers: [
@@ -69,7 +75,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     Camera,FileTransfer, File, FileChooser, HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CartProvider,
-    AuthProvider
+    AuthProvider,
+    ApiDetailsProvider
   ]
 })
 export class AppModule {}
