@@ -6,6 +6,8 @@ import { SearchPage } from '../search/search';
 import { LoginPage } from '../login/login';
 import { ProfilePage } from '../profile/profile';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ApiDetailsProvider } from '../../providers/api-details/api-details';
+import { OrderdetailPage } from '../orderdetail/orderdetail';
 
 
 @IonicPage()
@@ -15,7 +17,9 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class HistoryPage {
   dealproducts: any = [];
-  constructor(private authService: AuthProvider,public http: HTTP,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private authService: AuthProvider,public http: HTTP,
+    public navCtrl: NavController, public navParams: NavParams,
+    private apiData:ApiDetailsProvider) {
   }
 
   cartGo() {
@@ -30,6 +34,9 @@ export class HistoryPage {
     this.navCtrl.push(SearchPage, { items: this.dealproducts });
   }
 
+  detailGo(){
+    this.navCtrl.push(OrderdetailPage)
+  }
   public profileGo() {
     this.authService.isLoggedIn().then(val => {
       if(val== null){
@@ -41,7 +48,7 @@ export class HistoryPage {
   }
 
   ionViewDidLoad() {
-    this.http.get('http://198.199.67.147:8075/newreach/product', {}, {})
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
 
     var json= data.data; // data received by server

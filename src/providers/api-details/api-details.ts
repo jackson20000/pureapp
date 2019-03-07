@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiDetailsProvider {
 
-  public api: string = "http://192.168.1.222:8091";
+  public api: string ="http://192.168.1.207:8091";
   public db: string ="new_reach_dev";
 
   constructor(public http: HttpClient) {

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { HTTP } from '@ionic-native/http';
 
 import { HomePage } from '../pages/home/home';
+import { ReceiptPage } from '../pages/receipt/receipt';
 import { SignupPage } from '../pages/signup/signup';
 import { DailyDealsPage } from '../pages/daily-deals/daily-deals';
 import { CategoryPage } from '../pages/category/category';
@@ -16,6 +17,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { CartPage } from '../pages/cart/cart';
 import { Events } from 'ionic-angular';
 import { HistoryPage } from '../pages/history/history';
+import { ApiDetailsProvider } from '../providers/api-details/api-details';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -29,18 +32,24 @@ export class MyApp {
   data: Observable<any>;
   profileInfo: any = [];
   datas: any = [];
-  constructor(public events: Events, private authService: AuthProvider, public alertCtrl: AlertController, public platform: Platform, public app: App, private loadingCtrl: LoadingController, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public http: HTTP) {
+  count: number = 0;
+  constructor(public events: Events, private authService: AuthProvider,
+     public alertCtrl: AlertController, public platform: Platform, 
+     public app: App, private loadingCtrl: LoadingController, 
+     public statusBar: StatusBar, public splashScreen: SplashScreen, 
+     public storage: Storage, public http: HTTP, private apiData:ApiDetailsProvider) {
+
     this.initializeApp();
     let data = {
-      'db': "cannabis_db",
+      'db': this.apiData.db,
       'username': "admin",
-      'password': "admin"
+      'password': "*LeoMax418777"
     };
 
     let headers = {
       'Content-Type': 'application/json'
     };
-    this.http.post('http://198.199.67.147:8075/newreach/customer', data, headers)
+    this.http.post(this.apiData.api+'/newreach/customer', data, headers)
       .then((data) => {
         this.datas = JSON.parse(data.data);
       })
@@ -48,12 +57,7 @@ export class MyApp {
         console.log(error);
       });
 
-    // used for an example of ngFor and navigation
-    // this.pages = [
-    //   { title: 'Home', component: HomePage, icon: 'home' },
-    //   { title: 'Signup', component: SignupPage,  icon: 'person'  }
-    // ];
-    this.events.subscribe('loginSideBar', () => {
+       this.events.subscribe('loginSideBar', () => {
       this.profileInfo = this.datas;
     });
     this.events.subscribe('logoutSideBar', () => {
@@ -61,73 +65,43 @@ export class MyApp {
       this.profileInfo.image = null;
     });
 
-
-
-
     platform.registerBackButtonAction(() => {
-      // let nav = app.getActiveNavs()[0];
-      // let active = nav.getActive();
 
-      // if (active.instance instanceof HomePage) {
-      //   const confirm = this.alertCtrl.create({
-      //     title: 'Confirmation',
-      //     message: 'Do you want to exit ?',
-      //     buttons: [
-      //       {
-      //         text: 'Yes',
-      //         handler: () => {
-      //           platform.exitApp();
-      //         }
-      //       },
-      //       {
-      //         text: 'Cancel',
-      //         handler: () => {
-
-      //         }
-      //       }
-      //     ]
-      //   });
-      //   confirm.present();
-      // }
-      // if (active.instance instanceof CartPage) {
-      //   this.nav.setRoot(HomePage)
-      // }
-      // nav.pop(); // this will work for other pages then the page name
       let nav = app.getActiveNavs()[0];
       let activeView = nav.getActive();
-
       if (activeView.name === "HomePage") {
 
-        if (nav.canGoBack()) { //Can we go back?
+        if (nav.canGoBack()) {
           nav.pop();
         } else {
-          const alert = this.alertCtrl.create({
-            title: 'Confirmation',
-            message: 'Do you want to close the app?',
-            buttons: [{
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                console.log('Application exit prevented!');
-              }
-            }, {
-              text: 'Close App',
-              handler: () => {
-                this.platform.exitApp(); // Close this application
-              }
-            }]
-          });
-          alert.present();
+          if (this.count == 0) {
+            const alert = this.alertCtrl.create({
+              title: 'Confirmation',
+              message: 'Do you want to close the app?',
+              buttons: [{
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                  this.count = 0;
+                }
+              }, {
+                text: 'Close App',
+                handler: () => {
+                  this.platform.exitApp(); // Close this application
+                }
+              }]
+            });
+            alert.present();
+          }
+          this.count++;
         }
-      }
-      else if (activeView.instance instanceof CartPage) {
-        this.nav.setRoot(HomePage)
       }
       else {
         nav.pop();
       }
 
     }, 5);
+
 
   }
 
@@ -169,7 +143,9 @@ export class MyApp {
   homeGo() {
     this.nav.setRoot(HomePage)
   }
-
+  orderGo(){
+    this.nav.push(HistoryPage)
+  }
 
   categoryGo() {
     this.nav.push(CategoryPage)

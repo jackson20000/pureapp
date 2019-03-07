@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams,LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CategoryListPage } from '../category-list/category-list';
 import { HttpClient } from '@angular/common/http';
@@ -23,7 +23,10 @@ export class CategoryPage {
   category: any[];
   categoryProductList: any = [];
 categoryName: string;
-  constructor(private authService: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public http: HTTP,private loadingCtrl: LoadingController, private apiData:ApiDetailsProvider) {
+  constructor(private authService: AuthProvider,
+     public navCtrl: NavController, public navParams: NavParams, 
+     public http: HTTP,private loadingCtrl: LoadingController, 
+     private apiData:ApiDetailsProvider, private alertCtrl: AlertController) {
 
 
     // For testing in chrome use HTTPClient
@@ -50,10 +53,23 @@ categoryName: string;
         let obj = JSON.parse(json);
 
         this.category = obj.category;
-        loader.dismiss();
       })
       .catch(error => {
-        loader.dismiss();
+        
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+     
+    });
+    loader.present();
+
+      const alert = this.alertCtrl.create({
+        title: 'Error!',
+        subTitle: 'Please check your internet connection!',
+        buttons: ['OK']
+      });
+      alert.present();
+      loader.dismiss();
 
       });
   }

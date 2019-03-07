@@ -20,6 +20,7 @@ export class LoginPage {
   username: string;
   password: any;
   authForm : FormGroup;
+  usrData: any;
   constructor(public events: Events,private fb: FormBuilder,public alertCtrl: AlertController,
     public navCtrl: NavController, public navParams: NavParams, public http: HTTP, 
     private loadingCtrl: LoadingController, private storage: Storage,
@@ -39,7 +40,6 @@ export class LoginPage {
 
     //this.storage.set('name', this.username);
 
-    this.events.publish('loginSideBar');
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
       content: "Loading..",
@@ -53,41 +53,31 @@ export class LoginPage {
     let data = {
       'username': this.username,
       'password': this.password,
-      'db': "cannabis_db"
+      'db': this.apiData.db
     };
     let headers = {
       'Content-Type': 'application/json'
     };
 
     this.http.post(this.apiData.api+'/api/login', data, headers)
-      .then((data) => {
-     
-       let val = JSON.parse(data.data);
-        if(val.status == 500){
+      .then((data) => {     
+       let val = JSON.parse(data.data);       
+        if(val.resp == "0"){
           const alert = this.alertCtrl.create({
             title: 'Error!',
             subTitle: 'Invalid Login Credential',
             buttons: ['OK']
           });
-          alert.present();
-        
+          alert.present();        
         }
-        else if(val.status == 1){
-          //alert("Invalid login");
-          let loginData  =[];
-          loginData=[{email:val.login, uid:val.uid}];
-          // alert(JSON.stringify(loginData));
+        else if(val.resp == "1"){
+          let loginData  ={username:val.username, password:val.password, uid:val.uid};
+          this.events.publish('loginSideBar');
           this.storage.set('userData', loginData);
+         
+        
           this.navCtrl.setRoot(HomePage);
-        }
-        else{
-          const alert = this.alertCtrl.create({
-            title: 'Error!',
-            subTitle: 'Please Try Again',
-            buttons: ['OK']
-          });
-          alert.present();
-        }
+        }       
       })
       .catch((error) => {
         const alert = this.alertCtrl.create({
@@ -105,10 +95,5 @@ export class LoginPage {
       alert('Your name is' + val);
     });
   }
-
-  ionViewDidLoad() {
-
-  }
-
 
 }

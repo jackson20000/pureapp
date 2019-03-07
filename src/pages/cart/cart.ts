@@ -11,6 +11,8 @@ import { HTTP } from '@ionic-native/http';
 import { CartProvider } from "../../providers/cart/cart";
 import { HomePage } from '../home/home';
 import { SearchPage } from '../search/search';
+import { ReceiptPage } from '../receipt/receipt';
+
 import { ProfilePage } from '../profile/profile';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
@@ -18,8 +20,9 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
-
+import { ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+
 @IonicPage()
 @Component({
   selector: "page-cart",
@@ -38,6 +41,8 @@ export class CartPage {
   dealproducts: any = [];
   data: Observable<any>;
   items: any = [];
+  usrDetails: any;
+
   constructor(
     private authService: AuthProvider,
     public navCtrl: NavController,
@@ -47,8 +52,13 @@ export class CartPage {
     private http: HTTP,
     public storage: Storage,
     public alertCtrl: AlertController,
-    private apiData:ApiDetailsProvider
-  ) { }
+    private apiData: ApiDetailsProvider,
+    public modalCtrl: ModalController
+  ) {
+    storage.get('userData').then((val) => {
+      this.usrDetails = val;
+    });
+  }
 
 
   homeGo() {
@@ -63,7 +73,7 @@ export class CartPage {
 
 
   loadCartItems() {
-   
+
     this.cartService
       .getCartItems()
       .then(val => {
@@ -121,20 +131,31 @@ export class CartPage {
       cartData.push({ "product_id": i.product_id, "qty": i.count, "priceUnit": (i.totalPrice) / (i.count) });
     }
 
+   
     let data = {
-      'db': 'cannabis_db',
-      'username': 'admin',
-      'password': 'admin',
+      'db': this.apiData.db,
+      'username': this.usrDetails.username,
+      'password': this.usrDetails.password,
       'line': cartData
     };
+
+
     let headers = {
       'Content-Type': 'application/json'
     };
-    this.http.post(this.apiData.api+'/newreach/order/create', data, headers)
+    this.http.post(this.apiData.api + '/newreach/order/create', data, headers)
       .then((data) => {
+        var urData = data.data;
+        alert(urData)
+
+
         let value = JSON.parse(data.data);
+alert(value.val[0]);
+alert(value.val[0].status);
+
         this.authService.isLoggedIn().then(val => {
-          if(val== null){
+          alert(val.resp)
+          if (val.resp == "") {
             const alerts = this.alertCtrl.create({
               title: 'Alert',
               subTitle: "Please Login",
@@ -142,37 +163,32 @@ export class CartPage {
             });
             alerts.present();
             this.navCtrl.push(LoginPage)
-      }
-      else{
-        if(value.val[0].code==1){
-          const alerts = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: value.val[0].status,
-            buttons: ['OK']
-          });
-          alerts.present();
-        this.cartService.removeAllCartItems();
-        this.navCtrl.setRoot(HomePage);
-        }
-        else{
-          const alerts = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: value.val[0].status,
-            buttons: ['OK']
-          });
-          alerts.present();
-        }
-      }
-      });
-      })
-      .catch((error) => {       
-        const alerts = this.alertCtrl.create({
-          title: 'Alert',
-          subTitle: "Please try Again",
-          buttons: ['OK']
+          }
+          else {
+            if (val.resp== 1) {
+              const alerts = this.alertCtrl.create({
+                title: 'Alert',
+                subTitle: value.val[0].status,
+                buttons: ['OK']
+              });
+              alerts.present();
+              this.cartService.removeAllCartItems();
+              var modalPage = this.modalCtrl.create(ReceiptPage);
+              modalPage.present();
+            }
+            else {
+              const alerts = this.alertCtrl.create({
+                title: 'Alert',
+                subTitle: value.val[0].status,
+                buttons: ['OK']
+              });
+              alerts.present();
+            }
+          }
         });
-        alerts.present();
-      });
+      })
+
+
 
   }
 
@@ -182,7 +198,7 @@ export class CartPage {
 
     // For testing in chrome use HTTPClient
 
-   
+
 
     // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
     // this.data.subscribe(data => {
@@ -197,7 +213,7 @@ export class CartPage {
     // });
     // loader.dismiss();
 
-    this.http.get(this.apiData.api+'/newreach/product', {}, {})
+    this.http.get(this.apiData.api + '/newreach/product', {}, {})
       .then(data => {
 
         var json = data.data; // data received by server

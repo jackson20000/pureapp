@@ -5,6 +5,8 @@ const CART_KEY = 'cartItems';
  
 @Injectable()
 export class CartProvider {
+
+  public purchaseDetails: any;
  
   constructor(public storage: Storage) {
  

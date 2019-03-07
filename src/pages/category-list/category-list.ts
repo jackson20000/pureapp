@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams,LoadingController } from 'ionic-angular';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
@@ -19,7 +19,8 @@ allItems: any = [];
 name: string;
 dealproducts: any = [];
   constructor(public http: HTTP,private authService: AuthProvider,public navCtrl: NavController,
-     public navParams: NavParams, private apiData:ApiDetailsProvider) {
+     public navParams: NavParams, private apiData:ApiDetailsProvider, 
+     private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
   }
 
   public eachProduct(event ,i ){
@@ -49,7 +50,14 @@ dealproducts: any = [];
 
   ionViewDidLoad() {
     this.allItems = this.navParams.get("items");  
-    this.name = this.navParams.get("name");  
+    this.name = this.navParams.get("name");
+    
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+     
+    });
+    loader.present();
 
     this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
@@ -61,7 +69,23 @@ dealproducts: any = [];
       
     })
     .catch(error => {
+            
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+     
     });
+    loader.present();
+
+      const alert = this.alertCtrl.create({
+        title: 'Error!',
+        subTitle: 'Please check your internet connection!',
+        buttons: ['OK']
+      });
+      alert.present();
+      loader.dismiss();
+
+      });   
   }
 
 }

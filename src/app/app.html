@@ -13,12 +13,16 @@
             <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="homeGo()">
                 <ion-icon name='home'></ion-icon> &nbsp; Home
             </button>
-            <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+            <button *ngIf="!profileInfo.profile_name" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
                 <ion-icon name="person-add"></ion-icon> &nbsp; Signup
             </button>
             <button *ngIf="!profileInfo.profile_name" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
                 (click)="loginGo()">
                 <ion-icon name="log-in"></ion-icon> &nbsp; Login
+            </button>
+            <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
+                (click)="orderGo()">
+                <ion-icon name="filing"></ion-icon> &nbsp; Order History
             </button>
             <ion-list-header>
                 Shopping

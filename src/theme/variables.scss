@@ -43,7 +43,19 @@ $colors: (
   navbarColor: #2a8d2a
 );
 
+// Refresher Styling
+$refresher-icon-color	: #2a8d2a;
+$refresher-height	: 70px;
+$refresher-text-color: #2a8d2a;
 
+//Alert Styling
+$alert-md-background-color	:#fff;
+$alert-md-input-title-color	: #2a8d2a;
+$alert-md-button-background-color	: #2a8d2a;
+$alert-md-button-text-color	: #fff;
+$alert-md-title-font-size	:22px;
+$alert-md-button-background-color-activated	:#77b177;
+$alert-md-button-border-radius	: 7px;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

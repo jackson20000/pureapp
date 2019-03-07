@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Platform } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { DailyDealsPage } from '../daily-deals/daily-deals';
 import { CategoryPage } from '../category/category';
@@ -14,6 +14,7 @@ import { CategoryListPage } from '../category-list/category-list';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -26,14 +27,22 @@ export class HomePage {
   items: any = [];
   categoryProductList: any = [];
   categoryProductname: string;
+  noNetwork: boolean = true;
+
+   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthProvider,
-    public http: HTTP, private loadingCtrl: LoadingController, private apiData: ApiDetailsProvider) {
+    public http: HTTP, private loadingCtrl: LoadingController,
+     private apiData: ApiDetailsProvider, private storage: Storage, 
+     public alertCtrl: AlertController) {
+     
+
   }
 
   public profileGo() {
     this.authService.isLoggedIn().then(val => {
-      if(val== null){
+      alert(val.uid)
+      if(val.uid == null){
         this.navCtrl.push(LoginPage)
       }else{
         this.navCtrl.push(ProfilePage)
@@ -81,6 +90,43 @@ export class HomePage {
   //Search functionality
 
 
+  doRefresh(refresher) {
+    this.http.get(this.apiData.api+'/newreach/product', {}, {})
+    .then(data => {
+    
+    var json= data.data; // data received by server
+    let obj = JSON.parse(json);
+    this.dealproducts = obj.products;
+
+    var productNames = []
+      for (var i of this.dealproducts) {
+        productNames.push(i.productName);
+      }
+      this.items = productNames;
+      this.noNetwork = false;
+
+    })
+    .catch(error => {
+      this.noNetwork = true;
+    });
+   
+    this.http.get(this.apiData.api+'/newreach/product/category', {}, {})
+    .then(data => {
+  
+    var json= data.data; // data received by server
+    let obj = JSON.parse(json);
+  
+    this.category = obj.category;
+    refresher.complete();
+
+    })
+    .catch(error => {
+      refresher.complete();
+    });
+  
+  }
+
+
   ionViewDidLoad() {
 
 
@@ -116,12 +162,9 @@ export class HomePage {
 
     this.http.get(this.apiData.api+'/newreach/product', {}, {})
     .then(data => {
-
-     
-alert("gdgdfgd")
+    
     var json= data.data; // data received by server
     let obj = JSON.parse(json);
-    alert(json);
     this.dealproducts = obj.products;
 
     var productNames = []
@@ -129,12 +172,15 @@ alert("gdgdfgd")
         productNames.push(i.productName);
       }
       this.items = productNames;
-      
+      this.noNetwork = false;
+
     })
     .catch(error => {
-      loader.dismiss();
-    });
+    
+      this.noNetwork = true;
 
+    });
+   
 
 
     //*********** For listing items category id wise *********

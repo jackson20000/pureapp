@@ -29,6 +29,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
+import { ReceiptPage } from '../pages/receipt/receipt';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
     SearchPage,
     SignupPage,
     HistoryPage,
-    OrderdetailPage,    
+    OrderdetailPage, 
+    ReceiptPage,   
     SearchPipe
   ],
   imports: [
@@ -67,6 +69,7 @@ import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
     SearchPage,
     HistoryPage,
     OrderdetailPage,
+    ReceiptPage,  
     SignupPage
   ],
   providers: [

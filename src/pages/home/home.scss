@@ -1,3 +1,4 @@
+
 page-home {
         
     ion-slides{
@@ -32,5 +33,23 @@ page-home {
         padding: 10px;
     }
 
+    .netError{
+      padding-top: 40%;
+      height: 100%;
+        .network-error{
+           ion-icon{
+                font-size: 105px;
+                color: rgb(175, 175, 175);
+           }
+
+           p{
+                font-size: 30px;
+                color: rgb(175, 175, 175);
+           }
+      }
+}
+
+
 
 }
+
