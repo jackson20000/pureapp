@@ -7,6 +7,7 @@ import { CartProvider } from '../providers/cart/cart';
 import { AuthProvider } from '../providers/auth/auth';
 import { HTTP } from '@ionic-native/http';
 import { ApiDetailsProvider } from '../providers/api-details/api-details';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { MyApp } from './app.component';
 import { CategoryPage } from '../pages/category/category';
@@ -17,7 +18,6 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchPage } from '../pages/search/search';
 import { SignupPage } from '../pages/signup/signup';
-import { DiscountDealsPage } from '../pages/discount-deals/discount-deals';
 import { CategoryListPage } from '../pages/category-list/category-list';
 import { SearchPipe } from '../pipes/search/search';
 import { HistoryPage } from '../pages/history/history';
@@ -29,7 +29,6 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
-import { ReceiptPage } from '../pages/receipt/receipt';
 
 
 @NgModule({
@@ -38,7 +37,6 @@ import { ReceiptPage } from '../pages/receipt/receipt';
     CategoryPage,
     CategoryListPage,
     DailyDealsPage,
-    DiscountDealsPage,
     HomePage,
     ItemDetailsPage,
     LoginPage,
@@ -47,11 +45,10 @@ import { ReceiptPage } from '../pages/receipt/receipt';
     SignupPage,
     HistoryPage,
     OrderdetailPage, 
-    ReceiptPage,   
     SearchPipe
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, NgxQRCodeModule,
     HttpClientModule, IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
@@ -61,15 +58,13 @@ import { ReceiptPage } from '../pages/receipt/receipt';
     CategoryPage,
     CategoryListPage,
     DailyDealsPage,
-    DiscountDealsPage,
     HomePage,
     ItemDetailsPage,
     LoginPage,
     ProfilePage,
     SearchPage,
     HistoryPage,
-    OrderdetailPage,
-    ReceiptPage,  
+    OrderdetailPage,       
     SignupPage
   ],
   providers: [

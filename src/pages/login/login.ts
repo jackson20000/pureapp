@@ -9,6 +9,7 @@ import { SignupPage } from '../signup/signup';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Events } from 'ionic-angular';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
+import { AuthProvider } from '../../providers/auth/auth';
 
 
 @IonicPage()
@@ -19,26 +20,25 @@ import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 export class LoginPage {
   username: string;
   password: any;
-  authForm : FormGroup;
+  authForm: FormGroup;
   usrData: any;
-  constructor(public events: Events,private fb: FormBuilder,public alertCtrl: AlertController,
-    public navCtrl: NavController, public navParams: NavParams, public http: HTTP, 
+
+  constructor(public events: Events, private fb: FormBuilder, public alertCtrl: AlertController,
+    public navCtrl: NavController, public navParams: NavParams, public http: HTTP,
     private loadingCtrl: LoadingController, private storage: Storage,
-    private apiData: ApiDetailsProvider) {
+    private apiData: ApiDetailsProvider, private auth: AuthProvider) {
 
     this.authForm = fb.group({
-		  'username' : [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-		  'password': [null, Validators.compose([Validators.required])]
-		});
+      'username': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      'password': [null, Validators.compose([Validators.required])]
+    });
   }
 
-  goLogin(){
+  goLogin() {
     this.navCtrl.push(SignupPage)
   }
 
   login() {
-
-    //this.storage.set('name', this.username);
 
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -59,25 +59,24 @@ export class LoginPage {
       'Content-Type': 'application/json'
     };
 
-    this.http.post(this.apiData.api+'/api/login', data, headers)
-      .then((data) => {     
-       let val = JSON.parse(data.data);       
-        if(val.resp == "0"){
+    this.http.post(this.apiData.api + '/api/login', data, headers)
+      .then((data) => {
+        let val = JSON.parse(data.data);
+        if (val.resp == "0") {
           const alert = this.alertCtrl.create({
             title: 'Error!',
             subTitle: 'Invalid Login Credential',
             buttons: ['OK']
           });
-          alert.present();        
+          alert.present();
         }
-        else if(val.resp == "1"){
-          let loginData  ={username:val.username, password:val.password, uid:val.uid};
+        else if (val.resp == "1") {
+          this.usrData = { username: val.username, password: val.password, uid: val.uid };
+          this.storage.set('userData', this.usrData);
+          this.storage.set('userData', this.usrData);
           this.events.publish('loginSideBar');
-          this.storage.set('userData', loginData);
-         
-        
           this.navCtrl.setRoot(HomePage);
-        }       
+        }
       })
       .catch((error) => {
         const alert = this.alertCtrl.create({
@@ -90,10 +89,5 @@ export class LoginPage {
     loader.dismiss();
   }
 
-  show(){
-    this.storage.get('name').then((val) => {
-      alert('Your name is' + val);
-    });
-  }
-
+ 
 }

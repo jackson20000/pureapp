@@ -1,46 +1,69 @@
 <ion-header>
-  <ion-navbar color='navbarColor'>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Order History</ion-title>
-  </ion-navbar>
+    <ion-navbar color='navbarColor'>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>My Orders</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content>
+
+<ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+           pullMax="100" closeDuration="400" snapbackDuration="400">
+        </ion-refresher-content>
+      </ion-refresher>
+      
     <ion-grid>
-        <ion-row class="border" (click)="detailGo()">
-            <ion-col col-8 auto>
-              <p>Order Id : #24515201254</p>
-              <p>Product name: Blue Haze</p>
-              <p>Quantity: 5gms</p>
-              <p>Delivery Status : Undelivered</p>
+        <ion-row class="headerDo" *ngFor="let item of orderhistory">
+            <ion-col class="textStyle" col-8 auto>
+                <p>Order Id : {{item.order_id}}</p>
+                <p>Date : {{item.date}}</p>
+                <p>Total Price : ${{item.total}}</p>               
             </ion-col>
+            <!-- <ion-col col-2 auto>
+                    <ion-icon  name="checkmark-circle"></ion-icon>
+                    <ion-icon name="close-circle"></ion-icon>
+                    <ion-icon name="alarm"></ion-icon>              
+                </ion-col> -->
             <ion-col col-4 auto>
-                <img src="assets/imgs/b2.jpg" height="120px">
+                <ngx-qrcode [qrc-value]="item.order_id">
+                </ngx-qrcode>
             </ion-col>
+
+            <ion-row class="contentDo" *ngFor="let i of item.lines">
+                    <ion-col col-12 auto>
+                        <p>Product name : {{i.product}}</p>
+                        <p>Quantity : {{i.qty}}</p>
+                        <p>Sub Total Price : ${{i.sub_total}}</p>                  
+                    </ion-col>               
+            </ion-row> 
         </ion-row>
-        <!-- <p *ngIf="isEmptyCart" style="text-align:center">No New Orders</p> -->
-  </ion-grid>
+             
+    </ion-grid>
 </ion-content>
+
 <ion-footer>
-  <ion-row>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="profileGo()"><ion-icon name='person'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
-           </button>
-      </ion-col>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="searchGo()"><ion-icon name='search'></ion-icon>
-           </button>
-      </ion-col>
-  </ion-row>
+    <ion-row>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor" (click)="homeGo()">
+                <ion-icon name='home'></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor" (click)="cartGo()">
+                <ion-icon name='cart'></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col no-padding>
+            <button no-margin ion-button full large color="navbarColor" (click)="searchGo()">
+                <ion-icon name='search'></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
 </ion-footer>

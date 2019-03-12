@@ -21,7 +21,8 @@ export class CartProvider {
         } else {         
           let index = result.findIndex(x => x.product_id == product.product_id);
           let prevQuantity = parseInt(result[index].count);
-          product.count = (prevQuantity + product.count);
+          let count = parseInt(product.count)
+          product.count = prevQuantity + count;
           let currentPrice = (parseInt(product.totalPrice) * product.count);
           product.totalPrice =currentPrice;
            result.splice(index, 1);

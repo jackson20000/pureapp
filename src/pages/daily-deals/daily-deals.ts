@@ -40,15 +40,6 @@ export class DailyDealsPage {
       this.navCtrl.setRoot("CartPage")
     }
   
-    public profileGo() {
-      this.authService.isLoggedIn().then(val => {
-        if(val== null){
-          this.navCtrl.push(LoginPage)
-        }else{
-          this.navCtrl.push(ProfilePage)
-        }
-      });
-    }
   
     public searchGo() {
       this.navCtrl.push(SearchPage, { items: this.dealproducts });

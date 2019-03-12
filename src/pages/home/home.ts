@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { SearchPage } from '../search/search';
-import { DiscountDealsPage } from '../discount-deals/discount-deals';
 import { CategoryListPage } from '../category-list/category-list';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
@@ -28,28 +27,36 @@ export class HomePage {
   categoryProductList: any = [];
   categoryProductname: string;
   noNetwork: boolean = true;
+  userDat: any;
+  uid: number;
+  usrname:string;
+  pwd:string;
 
-   
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthProvider,
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private auth: AuthProvider,
     public http: HTTP, private loadingCtrl: LoadingController,
-     private apiData: ApiDetailsProvider, private storage: Storage, 
-     public alertCtrl: AlertController) {
-     
+    private apiData: ApiDetailsProvider, private storage: Storage,
+    public alertCtrl: AlertController) {
 
-  }
 
-  public profileGo() {
-    this.authService.isLoggedIn().then(val => {
-      alert(val.uid)
-      if(val.uid == null){
-        this.navCtrl.push(LoginPage)
-      }else{
-        this.navCtrl.push(ProfilePage)
-      }
+    let usrDetails = {
+      username: null, password: null, uid: null
+    }
+      this.storage.get('userData').then((val) => {
+      usrDetails.uid = val.uid;
+     this.auth.uid = usrDetails.uid;
+
+      usrDetails.username = val.username;
+      this.auth.usrname = usrDetails.username;
+
+      usrDetails.password = val.password;
+      this.auth.pwd = usrDetails.password;
     });
+
   }
 
+ 
+ 
   homeGo() {
     this.navCtrl.setRoot(HomePage)
   }
@@ -70,18 +77,13 @@ export class HomePage {
     this.navCtrl.push(DailyDealsPage)
   }
 
-  discountdealsGo() {
-    this.navCtrl.push(DiscountDealsPage)
-  }
-
-
 
   public eachProduct(event, item) {
     this.navCtrl.push(ItemDetailsPage, { product: item });
   }
 
 
-  public eachCategory($event, item){
+  public eachCategory($event, item) {
     this.categoryProductList = item.products;
     this.categoryProductname = item.name;
     this.navCtrl.push(CategoryListPage, { items: this.categoryProductList, name: this.categoryProductname });
@@ -91,39 +93,39 @@ export class HomePage {
 
 
   doRefresh(refresher) {
-    this.http.get(this.apiData.api+'/newreach/product', {}, {})
-    .then(data => {
-    
-    var json= data.data; // data received by server
-    let obj = JSON.parse(json);
-    this.dealproducts = obj.products;
+    this.http.get(this.apiData.api + '/newreach/product', {}, {})
+      .then(data => {
 
-    var productNames = []
-      for (var i of this.dealproducts) {
-        productNames.push(i.productName);
-      }
-      this.items = productNames;
-      this.noNetwork = false;
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
+        this.dealproducts = obj.products;
 
-    })
-    .catch(error => {
-      this.noNetwork = true;
-    });
-   
-    this.http.get(this.apiData.api+'/newreach/product/category', {}, {})
-    .then(data => {
-  
-    var json= data.data; // data received by server
-    let obj = JSON.parse(json);
-  
-    this.category = obj.category;
-    refresher.complete();
+        var productNames = []
+        for (var i of this.dealproducts) {
+          productNames.push(i.productName);
+        }
+        this.items = productNames;
+        this.noNetwork = false;
 
-    })
-    .catch(error => {
-      refresher.complete();
-    });
-  
+      })
+      .catch(error => {
+        this.noNetwork = true;
+      });
+
+    this.http.get(this.apiData.api + '/newreach/product/category', {}, {})
+      .then(data => {
+
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
+
+        this.category = obj.category;
+        refresher.complete();
+
+      })
+      .catch(error => {
+        refresher.complete();
+      });
+
   }
 
 
@@ -135,7 +137,7 @@ export class HomePage {
     // For testing in chrome use HTTPClient
 
 
-    // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
+    // this.data = this.http.get(this.apiData.api+'/newreach/product')
     // this.data.subscribe(data => {
     //   this.dealproducts = data.products;
     //   console.log(this.dealproducts)
@@ -145,8 +147,10 @@ export class HomePage {
     //     productNames.push(i.productName);
     //   }
     //   this.items = productNames;
-    // });
-    // loader.dismiss();
+    //     this.noNetwork = false;
+    // }); 
+
+
 
 
     // For testing in mobile use Ionic native HTTP
@@ -155,35 +159,35 @@ export class HomePage {
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
       content: "Loading..",
-     
+
     });
     loader.present();
 
 
-    this.http.get(this.apiData.api+'/newreach/product', {}, {})
-    .then(data => {
-    
-    var json= data.data; // data received by server
-    let obj = JSON.parse(json);
-    this.dealproducts = obj.products;
+    this.http.get(this.apiData.api + '/newreach/product', {}, {})
+      .then(data => {
 
-    var productNames = []
-      for (var i of this.dealproducts) {
-        productNames.push(i.productName);
-      }
-      this.items = productNames;
-      this.noNetwork = false;
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
+        this.dealproducts = obj.products;
 
-    })
-    .catch(error => {
-    
-      this.noNetwork = true;
+        var productNames = []
+        for (var i of this.dealproducts) {
+          productNames.push(i.productName);
+        }
+        this.items = productNames;
+        this.noNetwork = false;
 
-    });
-   
+      })
+      .catch(error => {
+
+        this.noNetwork = true;
+
+      });
 
 
-    //*********** For listing items category id wise *********
+
+    // *********** For listing items category id wise *********
 
     // For testing in chrome use HTTPClient
 
@@ -192,24 +196,24 @@ export class HomePage {
     // this.data.subscribe(data => {
     //   this.category = data.category;
     //   console.log(this.category)
-   
+
     // });
 
 
-        // For testing in mobile use Ionic native HTTP
+    // For testing in mobile use Ionic native HTTP
 
-    this.http.get(this.apiData.api+'/newreach/product/category', {}, {})
-    .then(data => {
-  
-    var json= data.data; // data received by server
-    let obj = JSON.parse(json);
-  
-    this.category = obj.category;
-    loader.dismiss();
-    })
-    .catch(error => {
-      loader.dismiss();
-    });
+    this.http.get(this.apiData.api + '/newreach/product/category', {}, {})
+      .then(data => {
+
+        var json = data.data; // data received by server
+        let obj = JSON.parse(json);
+
+        this.category = obj.category;
+        loader.dismiss();
+      })
+      .catch(error => {
+        loader.dismiss();
+      });
 
   }
 }

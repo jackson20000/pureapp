@@ -11,8 +11,6 @@ import { HTTP } from '@ionic-native/http';
 import { CartProvider } from "../../providers/cart/cart";
 import { HomePage } from '../home/home';
 import { SearchPage } from '../search/search';
-import { ReceiptPage } from '../receipt/receipt';
-
 import { ProfilePage } from '../profile/profile';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
@@ -20,7 +18,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
-import { ModalController } from 'ionic-angular';
+
 import 'rxjs/add/operator/map';
 
 @IonicPage()
@@ -35,16 +33,15 @@ export class CartPage {
   totalCount: number = 0;
   isCartItemLoaded: boolean = false;
   isEmptyCart: boolean = true;
-  temp: number = 0;
+  temp: number = 0; 
   rootPage: any;
 
   dealproducts: any = [];
   data: Observable<any>;
   items: any = [];
-  usrDetails: any;
-
+ 
   constructor(
-    private authService: AuthProvider,
+    private auth: AuthProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
     private cartService: CartProvider,
@@ -52,12 +49,9 @@ export class CartPage {
     private http: HTTP,
     public storage: Storage,
     public alertCtrl: AlertController,
-    private apiData: ApiDetailsProvider,
-    public modalCtrl: ModalController
+    private apiData: ApiDetailsProvider
   ) {
-    storage.get('userData').then((val) => {
-      this.usrDetails = val;
-    });
+   
   }
 
 
@@ -125,111 +119,98 @@ export class CartPage {
 
   checkOut() {
 
-    let cartData = [];
-    for (var i of this.cartItems) {
-
-      cartData.push({ "product_id": i.product_id, "qty": i.count, "priceUnit": (i.totalPrice) / (i.count) });
+    if (this.auth.uid == undefined || null || "") {
+      const alerts = this.alertCtrl.create({
+        title: 'Alert',
+        subTitle: "Please Login",
+        buttons: ['OK']
+      });
+      alerts.present();
+      this.navCtrl.push(LoginPage)
     }
+    else {
 
-   
-    let data = {
-      'db': this.apiData.db,
-      'username': this.usrDetails.username,
-      'password': this.usrDetails.password,
-      'line': cartData
-    };
+      let cartData = [];
+      for (var i of this.cartItems) {
+        cartData.push({ "product_id": i.product_id, "qty": i.count, "priceUnit": (i.totalPrice) / (i.count) });
+      }      
 
+      let data = {
+        'db': this.apiData.db,
+        'username': this.auth.usrname,
+        'password': this.auth.pwd,
+        'line': cartData
+      };
 
-    let headers = {
-      'Content-Type': 'application/json'
-    };
-    this.http.post(this.apiData.api + '/newreach/order/create', data, headers)
-      .then((data) => {
-        var urData = data.data;
-        alert(urData)
-
-
-        let value = JSON.parse(data.data);
-alert(value.val[0]);
-alert(value.val[0].status);
-
-        this.authService.isLoggedIn().then(val => {
-          alert(val.resp)
-          if (val.resp == "") {
+     
+      let headers = {
+        'Content-Type': 'application/json'
+      };
+      this.http.post(this.apiData.api + '/newreach/order/create', data, headers)
+        .then((data) => {
+          var resp = data.data;
+          alert(resp)         
             const alerts = this.alertCtrl.create({
               title: 'Alert',
-              subTitle: "Please Login",
+              subTitle: resp,
+              buttons: ['OK']
+            }); 
+            this.isEmptyCart = true;  
+            this.navCtrl.setRoot(HomePage);
+          })
+          .catch(error =>{
+            var resp = error;
+            const alerts = this.alertCtrl.create({
+              title: 'Alert',
+              subTitle: resp,
               buttons: ['OK']
             });
             alerts.present();
-            this.navCtrl.push(LoginPage)
-          }
-          else {
-            if (val.resp== 1) {
-              const alerts = this.alertCtrl.create({
-                title: 'Alert',
-                subTitle: value.val[0].status,
-                buttons: ['OK']
-              });
-              alerts.present();
-              this.cartService.removeAllCartItems();
-              var modalPage = this.modalCtrl.create(ReceiptPage);
-              modalPage.present();
-            }
-            else {
-              const alerts = this.alertCtrl.create({
-                title: 'Alert',
-                subTitle: value.val[0].status,
-                buttons: ['OK']
-              });
-              alerts.present();
-            }
-          }
-        });
-      })
-
-
-
+          })
+      
+      
+      
+      }
   }
 
-  ionViewDidLoad() {
+ionViewDidLoad() {
 
-    this.loadCartItems();
+  this.loadCartItems();
 
-    // For testing in chrome use HTTPClient
-
-
-
-    // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
-    // this.data.subscribe(data => {
-    //   this.dealproducts = data.products;
-    //   console.log(this.dealproducts)
-
-    //   var productNames = []
-    //   for (var i of this.dealproducts) {
-    //     productNames.push(i.productName);
-    //   }
-    //   this.items = productNames;
-    // });
-    // loader.dismiss();
-
-    this.http.get(this.apiData.api + '/newreach/product', {}, {})
-      .then(data => {
-
-        var json = data.data; // data received by server
-        let obj = JSON.parse(json);
-
-        this.dealproducts = obj.products;
-        var productNames = [];
-        for (var i of this.dealproducts) {
-          productNames.push(i.productName);
-        }
-        this.items = productNames;
-      })
-      .catch(error => {
-
-      });
+  // For testing in chrome use HTTPClient
 
 
-  }
+
+  // this.data = this.http.get('http://192.168.2.21:8069/newreach/product')
+  // this.data.subscribe(data => {
+  //   this.dealproducts = data.products;
+  //   console.log(this.dealproducts)
+
+  //   var productNames = []
+  //   for (var i of this.dealproducts) {
+  //     productNames.push(i.productName);
+  //   }
+  //   this.items = productNames;
+  // });
+  // loader.dismiss();
+
+  this.http.get(this.apiData.api + '/newreach/product', {}, {})
+    .then(data => {
+
+      var json = data.data; // data received by server
+      let obj = JSON.parse(json);
+
+      this.dealproducts = obj.products;
+      var productNames = [];
+      for (var i of this.dealproducts) {
+        productNames.push(i.productName);
+      }
+      this.items = productNames;
+    })
+    .catch(error => {
+
+    });
+
+
+}
 }

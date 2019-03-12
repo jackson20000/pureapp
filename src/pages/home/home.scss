@@ -1,5 +1,9 @@
 
 page-home {
+
+  .homeRow > .col{
+    min-width: 25%;
+  }
         
     ion-slides{
         height: unset !important;
@@ -17,7 +21,7 @@ page-home {
         height: 100px;
       }
       
-      .home_product_image_column {
+      .home_product_image_column {      
         font-size: 13px;
         border: 1px solid #2a8d2a;
         margin: 1%;
@@ -43,9 +47,13 @@ page-home {
            }
 
            p{
-                font-size: 30px;
-                color: rgb(175, 175, 175);
+                font-size: 25px;
+                color: #000;
            }
+           h5{
+            font-size: 15px;
+            color:  rgb(175, 175, 175);
+       }
       }
 }
 

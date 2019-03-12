@@ -40,17 +40,16 @@
     <h3 text-center>
       <ion-icon name="wifi"></ion-icon>
         </h3>
-    <p text-center>
-      No internet connection! 
-    </p>
+    <p text-center> Something went wrong! </p>
+    <h5 text-center>Please try again after sometime.</h5>
   </div>
 </div>
 
 <ion-grid *ngIf="!noNetwork">
-    <h4 (click)="discountdealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Discount Deals</b></h4>
+    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Today's Deals</b></h4>
 
-    <ion-row>    
-    <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:3"  class="home_product_image_column">
+    <ion-row class="homeRow">    
+    <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:9"  class="home_product_image_column">
       <img class="home_product_image" src="data:image/png;base64,{{item.image}}"  alt="Image not available">
       <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
       <ion-row>
@@ -63,32 +62,12 @@
     </ion-col>
     </ion-row>
     
-
-<h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Daily Deals</b></h4>
-
-<ion-row>
-
-<ion-col  (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:3"  class="home_product_image_column">
-  <img class="home_product_image" src="data:image/png;base64,{{item.image}}" alt="Image not available">
-  <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
-  <ion-row>
-    <ion-col style="text-align:left; color: #2a8d2a;">
-      <del>$25</del>
-    </ion-col>
-    <ion-col style="text-align:right; color: #2a8d2a;">{{item.unitPrice | currency}}</ion-col>
-  </ion-row>
-  <div style="color:#2a8d2a; font-size:10px;"> <img style="width:14px" src="./assets/icon/tag.png">
-    Lightning Deal</div>
-</ion-col>
-</ion-row>
-
-
 <h4 (click)="categoryGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Categories</b></h4>
 
 <ion-row>
 
 <ion-col  (click)="eachCategory($event, item)" *ngFor="let item of category | slice:0:3" class="home_product_image_column">
-  <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+  <img class="home_product_image" src="data:image/png;base64,{{item.image}}"  alt="Image not available">
   <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</div>
 </ion-col>
 
@@ -102,11 +81,7 @@
         <ion-col no-padding>
             <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
              </button>
-        </ion-col>
-        <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor" (click)="profileGo()"><ion-icon name='person'></ion-icon>
-             </button>
-        </ion-col>
+        </ion-col>        
         <ion-col no-padding>
             <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
              </button>

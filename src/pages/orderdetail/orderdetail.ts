@@ -32,15 +32,7 @@ export class OrderdetailPage {
     this.navCtrl.push(SearchPage, { items: this.dealproducts });
   }
 
-  public profileGo() {
-    this.authService.isLoggedIn().then(val => {
-      if(val== null){
-        this.navCtrl.push(LoginPage)
-      }else{
-        this.navCtrl.push(ProfilePage)
-      }
-    });
-  }
+ 
 
   ionViewDidLoad() {
     this.http.get(this.apiData.api+'/newreach/product', {}, {})

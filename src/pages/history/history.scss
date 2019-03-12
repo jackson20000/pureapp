@@ -1,10 +1,25 @@
 page-history {
-    .border{
-        border: 1px solid #2a8d2a;
+    .headerDo{
+        border: 2px solid #2a8d2a;
         border-radius: 5px;
-        color: #2a8d2a
+        color: #fff;
+        background-color: #2a8d2a;
+        margin-bottom: 25px;
     }
-    .border p{
+
+    .textStyle{
+        font-size: 15px;
+    }
+    .headerDo p{
         margin-left: 15px;
+    }  
+    
+    .contentDo{
+        border: 1px dotted #fff;
+        border-radius: 5px;
+        color: #2a8d2a;
+        margin-top: 5px;
+        background-color: #fff;
+        width: 100%;
     }
 }
