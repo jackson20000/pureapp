@@ -43,12 +43,8 @@ export class LoginPage {
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
       content: "Loading..",
-      // duration: 2000
     });
     loader.present();
-
-    console.log("username: " + this.username);
-    console.log("password: " + this.password);
 
     let data = {
       'username': this.username,
@@ -68,15 +64,13 @@ export class LoginPage {
             subTitle: 'Invalid Login Credential',
             buttons: ['OK']
           });
-          alert.present();
         }
         else if (val.resp == "1") {
           this.usrData = { username: val.username, password: val.password, uid: val.uid };
           this.storage.set('userData', this.usrData);
-          this.storage.set('userData', this.usrData);
-          this.events.publish('loginSideBar');
           this.navCtrl.setRoot(HomePage);
         }
+        loader.dismiss();
       })
       .catch((error) => {
         const alert = this.alertCtrl.create({
@@ -87,7 +81,5 @@ export class LoginPage {
         alert.present();
       });
     loader.dismiss();
-  }
-
- 
+  } 
 }

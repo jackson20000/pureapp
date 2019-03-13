@@ -1,4 +1,25 @@
 page-cart {
+    .deliverySelectInstore{
+        background-color: #2a8d2a;
+        color: #fff;
+        text-align: center;
+        border-right: 1px solid #fff;
+        padding: 10px;
+        font-size: 16px;
+            }
+            .deliverySelectHome{
+                background-color: #2a8d2a;
+                color: #fff;
+                text-align: center;
+                padding: 10px;
+                font-size: 16px;
+                    }
+                    .error-box{
+                        color:red;
+                        margin-left: 18px;
+                        margin-top: 4px;
+                    }     
+                  
     .fixed-content,
     .scroll-content {
          background: #EAEAEA;

@@ -18,6 +18,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import 'rxjs/add/operator/map';
 
@@ -39,7 +40,9 @@ export class CartPage {
   dealproducts: any = [];
   data: Observable<any>;
   items: any = [];
- 
+  delivery: string;
+  authForm : FormGroup;
+
   constructor(
     private auth: AuthProvider,
     public navCtrl: NavController,
@@ -49,8 +52,13 @@ export class CartPage {
     private http: HTTP,
     public storage: Storage,
     public alertCtrl: AlertController,
-    private apiData: ApiDetailsProvider
+    private apiData: ApiDetailsProvider,
+    private fb: FormBuilder
   ) {
+
+    this.authForm = fb.group({     
+      'delivery' : [null, Validators.compose([Validators.required])]      
+		});
    
   }
 
@@ -117,8 +125,7 @@ export class CartPage {
   }
 
 
-  checkOut() {
-
+  checkOut(delivery) {     
     if (this.auth.uid == undefined || null || "") {
       const alerts = this.alertCtrl.create({
         title: 'Alert',
@@ -139,7 +146,8 @@ export class CartPage {
         'db': this.apiData.db,
         'username': this.auth.usrname,
         'password': this.auth.pwd,
-        'line': cartData
+        'line': cartData,
+        'delivery_type': delivery
       };
 
      
@@ -155,7 +163,8 @@ export class CartPage {
               subTitle: resp,
               buttons: ['OK']
             }); 
-            this.isEmptyCart = true;  
+            this.isEmptyCart = true; 
+            this.cartService.removeAllCartItems(); 
             this.navCtrl.setRoot(HomePage);
           })
           .catch(error =>{

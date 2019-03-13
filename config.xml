@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.pure.cannabis" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Pure Cannabis</name>
+    <name>Pure</name>
     <description>Pure Cannabis</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Socius IGB</author>
     <content src="index.html" />
@@ -15,10 +15,11 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="orientation" value="portrait" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -91,6 +92,7 @@
     </plugin>
     <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
     <plugin name="cordova-sqlite-storage" spec="2.5.2" />
+    <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

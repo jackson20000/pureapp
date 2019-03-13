@@ -19,27 +19,14 @@ export class ProfilePage {
   profileInfo: any = [];
   dealproducts: any = [];
   usrData: any;
-  constructor(private authService: AuthProvider, public navCtrl: NavController,
+  constructor(private auth: AuthProvider, public navCtrl: NavController,
      public navParams: NavParams, public http: HTTP, private loadingCtrl: LoadingController,
      private apiData:ApiDetailsProvider, private storage: Storage) {
-
-      storage.get('userData').then((val) => {
-        this.usrData = val;
-        alert( this.usrData.username)
-      });
-
-      let loader = this.loadingCtrl.create({
-        spinner: 'crescent',
-        content: "Loading..",
-      });
-      loader.present();
-  
-     
+           
       let data = {
         'db': this.apiData.db,
-        'username': this.usrData.username,
-        'password': this.usrData.password,
-        
+        'username': this.auth.usrname,
+        'password': this.auth.pwd,
       };
   
       let headers = {
@@ -49,14 +36,13 @@ export class ProfilePage {
       this.http.post(this.apiData.api+'/newreach/customer', data, headers)
         .then((data) => {
          this.profileInfo = JSON.parse(data.data); 
-             loader.dismiss();
     
         })
         .catch((error) => {
           console.log(error);
         });
   
-        //for search data
+        //Search data
         this.http.get(this.apiData.api+'/newreach/product', {}, {})
         .then(data => {
     
@@ -67,6 +53,7 @@ export class ProfilePage {
           
         })
         .catch(error => {
+          console.log(error);
         });
   
   }
@@ -83,7 +70,6 @@ export class ProfilePage {
 
   cartGo() {
     this.navCtrl.setRoot("CartPage")
-  }
-  
+  }  
 
 }

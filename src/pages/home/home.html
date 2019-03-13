@@ -13,7 +13,7 @@
 
 <ion-content>
 
-<ion-slides *ngIf="!noNetwork"  autoplay="3500" loop="true" speed="500" class="slides" pager="true">
+<ion-slides *ngIf="noNetwork"  autoplay="3500" loop="true" speed="500" class="slides" pager="true">
 <ion-slide>
 <img class="home_sliderbox" src="./assets/imgs/s1.jpg">
 </ion-slide>
@@ -35,7 +35,7 @@
   </ion-refresher-content>
 </ion-refresher>
 
-<div *ngIf="noNetwork" class="netError">
+<div *ngIf="!noNetwork" class="netError">
   <div class="network-error">
     <h3 text-center>
       <ion-icon name="wifi"></ion-icon>
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<ion-grid *ngIf="!noNetwork">
+<ion-grid *ngIf="noNetwork">
     <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Today's Deals</b></h4>
 
     <ion-row class="homeRow">    
@@ -77,11 +77,7 @@
 </ion-content>
 
 <ion-footer>
-    <ion-row>
-        <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
-             </button>
-        </ion-col>        
+    <ion-row>              
         <ion-col no-padding>
             <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
              </button>

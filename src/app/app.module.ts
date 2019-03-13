@@ -28,8 +28,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
-
+import { PublicDataProvider } from '../providers/public-data/public-data';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
     SearchPage,
     SignupPage,
     HistoryPage,
-    OrderdetailPage, 
     SearchPipe
   ],
   imports: [
@@ -64,7 +62,6 @@ import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
     ProfilePage,
     SearchPage,
     HistoryPage,
-    OrderdetailPage,       
     SignupPage
   ],
   providers: [
@@ -74,7 +71,8 @@ import { OrderdetailPage } from '../pages/orderdetail/orderdetail';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CartProvider,
     AuthProvider,
-    ApiDetailsProvider
+    ApiDetailsProvider,
+    PublicDataProvider
   ]
 })
 export class AppModule {}

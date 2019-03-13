@@ -7,7 +7,6 @@ import { LoginPage } from '../login/login';
 import { ProfilePage } from '../profile/profile';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
-import { OrderdetailPage } from '../orderdetail/orderdetail';
 import { Storage } from '@ionic/storage';
 @IonicPage()
 @Component({
@@ -51,7 +50,20 @@ export class HistoryPage {
       .catch(error => {
         console.log(error);
         loader.dismiss();
-      })      
+      })  
+      
+      this.http.get(this.apiData.api + '/newreach/product', {}, {})
+      .then(data => {
+
+        var json = data.data;
+        let obj = JSON.parse(json);
+
+        this.dealproducts = obj.products;
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   doRefresh(refresher) {
@@ -94,9 +106,6 @@ export class HistoryPage {
   public searchGo() {
     this.navCtrl.push(SearchPage, { items: this.dealproducts });
   }
-
-  detailGo() {
-    this.navCtrl.push(OrderdetailPage)
-  }
+  
 }
 

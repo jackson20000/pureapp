@@ -40,6 +40,9 @@
     },
     "ionic-plugin-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.pure.cannabis"
     }
   },
   "dependent_plugins": {}

@@ -1,9 +1,7 @@
 <ion-menu [content]="content">
     <ion-header>
         <ion-navbar color='navbarColor'>
-            <img class="proPic" src="data:image/png;base64,{{profileInfo.image}}" alt="">
-            <ion-title style="text-align:center; padding-bottom: 2%;">
-                {{profileInfo.profile_name}}
+            <ion-title style="text-align:center; padding-bottom: 2%;">               
             </ion-title>
         </ion-navbar>
     </ion-header>
@@ -13,10 +11,13 @@
             <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="homeGo()">
                 <ion-icon name='home'></ion-icon> &nbsp; Home
             </button>
-            <button *ngIf="!profileInfo.profile_name" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="profileGo()">
+                <ion-icon name="person"></ion-icon> &nbsp; Profile
+            </button>
+            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
                 <ion-icon name="person-add"></ion-icon> &nbsp; Signup
             </button>
-            <button *ngIf="!profileInfo.profile_name" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
+            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
                 (click)="loginGo()">
                 <ion-icon name="log-in"></ion-icon> &nbsp; Login
             </button>
@@ -28,7 +29,7 @@
                 Shopping
             </ion-list-header>
             <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="dailydealsGo()">
-                <ion-icon name='leaf'></ion-icon> &nbsp; Daily Deals
+                <ion-icon name='leaf'></ion-icon> &nbsp; Today's Deals
             </button>            
             <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="categoryGo()">
                 <ion-icon name="beer"></ion-icon> &nbsp; Category
@@ -36,13 +37,12 @@
             <button style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="cartGo()">
                 <ion-icon name="cart"></ion-icon> &nbsp; Cart
             </button>
-            <button *ngIf="profileInfo.profile_name" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
+            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
                 (click)="logout()">
                 <ion-icon name="log-out"></ion-icon> &nbsp; Logout
             </button>
         </ion-list>
     </ion-content>
-
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

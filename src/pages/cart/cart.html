@@ -1,9 +1,9 @@
 <ion-header>
 
   <ion-navbar color='navbarColor'>
-      <button ion-button menuToggle side="right"> 
-          <ion-icon name="menu"></ion-icon>
-        </button>
+    <button ion-button menuToggle side="right">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>My Cart</ion-title>
   </ion-navbar>
 
@@ -13,7 +13,7 @@
   <div *ngIf="isEmptyCart" class="empty-cart">
     <div class="empty-results">
       <h3 text-center>
-          <ion-icon name="cart"></ion-icon>
+        <ion-icon name="cart"></ion-icon>
       </h3>
       <p text-center>
         Your cart is empty
@@ -21,13 +21,22 @@
     </div>
   </div>
   <div *ngIf="!isEmptyCart" class="cart-itm-wrap">
-
+    <ion-item class="itemSelectBox">
+      <ion-label>Delivery mode</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="delivery" [formControl]="authForm.controls['delivery']"
+        [ngClass]="{'error-border':!authForm.controls['delivery'].valid}">
+        <ion-option value="instore" checked="true">Instore Pickup</ion-option>
+        <ion-option value="home_delivery">Home Delivery</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="error-box" *ngIf="authForm.controls['delivery'].hasError('required') && authForm.controls['delivery'].touched">
+      * Please choose an option.
+    </div>
     <ion-card *ngFor="let itm of  cartItems">
       <ion-card-content>
         <ion-row>
           <ion-col col-7>
             <h3 style="margin: 7px; font-size: 16px; color: #2a8d2a" text-left>{{itm.name}}</h3>
-
             <div class="itm-footer">
               <span (click)="removeItem(itm)" class="remove">
                 Remove
@@ -37,12 +46,11 @@
               </span>
             </div>
 
-
           </ion-col>
           <ion-col>
             <ion-item>
               <ion-avatar>
-                <img style="float: right"  src="data:image/png;base64,{{itm.thumb}}">
+                <img style="float: right" src="data:image/png;base64,{{itm.thumb}}">
               </ion-avatar>
             </ion-item>
             <p style="color:#333" text-right>
@@ -58,12 +66,12 @@
   <ion-grid *ngIf="!isEmptyCart">
     <ion-row>
       <ion-col style="text-align: center; color: #2a8d2a; font-size: 15px; font-weight: bold;">
-         Total Amount: &nbsp; &nbsp; {{totalAmount | currency}}
+        Total Amount: &nbsp; &nbsp; {{totalAmount | currency}}
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="addCart" (click)="checkOut()">
-        <button round=true ion-button full color='navbarColor'>
+      <ion-col class="addCart">
+        <button [disabled]="!authForm.valid" (click)="checkOut(delivery)" round=true ion-button full color='navbarColor'>
           Checkout
         </button>
 
@@ -75,9 +83,10 @@
 
 <ion-footer>
   <ion-row>
-      <ion-col no-padding>
-          <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon> &nbsp; Go to home
-           </button>
-      </ion-col> 
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor" (click)="homeGo()">
+        <ion-icon name='cart'></ion-icon> &nbsp; Continue Shopping
+      </button>
+    </ion-col>
   </ion-row>
 </ion-footer>

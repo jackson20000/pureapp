@@ -16,6 +16,8 @@ import { CartPage } from '../pages/cart/cart';
 import { Events } from 'ionic-angular';
 import { HistoryPage } from '../pages/history/history';
 import { ApiDetailsProvider } from '../providers/api-details/api-details';
+import { PublicDataProvider } from '../providers/public-data/public-data';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,47 +28,31 @@ export class MyApp {
   rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any, icon: any }>;
-
   data: Observable<any>;
-  profileInfo: any = [];
-  datas: any = [];
-  count: number = 0; 
+  count: number = 0;
   orderDetails: any;
+  profData: any;
   constructor(public events: Events, private auth: AuthProvider,
-     public alertCtrl: AlertController, public platform: Platform, 
-     public app: App, private loadingCtrl: LoadingController, 
-     public statusBar: StatusBar, public splashScreen: SplashScreen, 
-     public storage: Storage, public http: HTTP, private apiData:ApiDetailsProvider) {
-     
+    public alertCtrl: AlertController, public platform: Platform,
+    public app: App, private loadingCtrl: LoadingController,
+    public statusBar: StatusBar, public splashScreen: SplashScreen,
+    public storage: Storage, public http: HTTP, private apiData: ApiDetailsProvider,
+    public dataprov: PublicDataProvider) {
 
-    this.initializeApp();
-    let data = {
-      'db': this.apiData.db,
-      'username': "admin",
-      'password': "*LeoMax418777"
-    };
-
-    let headers = {
-      'Content-Type': 'application/json'
-    };
-    this.http.post(this.apiData.api+'/newreach/customer', data, headers)
-      .then((data) => {
-        this.datas = JSON.parse(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
+    platform.ready().then(() => {
+      statusBar.styleDefault();
+      splashScreen.hide();      
+      platform.ready().then(() => {
+        if (platform.is('android')) {
+          statusBar.overlaysWebView(false);
+          statusBar.styleLightContent();
+        }
       });
+  
 
-       this.events.subscribe('loginSideBar', () => {
-      this.profileInfo = this.datas;
-    });
-    this.events.subscribe('logoutSideBar', () => {
-      this.profileInfo.profile_name = null;
-      this.profileInfo.image = null;
-    });
+    })
+    //Back Button Function
 
-
-    //Back Button
     platform.registerBackButtonAction(() => {
 
       let nav = app.getActiveNavs()[0];
@@ -101,34 +87,15 @@ export class MyApp {
       else {
         nav.pop();
       }
-
     }, 5);
 
 
+
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-
-   
-  }
 
   logout() {
-    if (this.storage.remove('userData')) {
-      this.events.publish('logoutSideBar');
-      const alerts = this.alertCtrl.create({
-        title: 'Alert',
-        subTitle: "you're logged out",
-        buttons: ['OK']
-      });
-      alerts.present();
-    }
-    else {
-      alert("error");
-    }
+
   }
 
 
@@ -144,8 +111,22 @@ export class MyApp {
     this.nav.setRoot(HomePage)
   }
 
-  
-  orderGo(){    
+  profileGo() {
+    if (this.auth.uid == undefined || null || "") {
+      const alerts = this.alertCtrl.create({
+        title: 'Alert',
+        subTitle: "Please Login",
+        buttons: ['OK']
+      });
+      alerts.present();
+      this.nav.push(LoginPage);
+    }
+    else {
+      this.nav.push(ProfilePage);
+    }
+  }
+
+  orderGo() {
 
     if (this.auth.uid == undefined || null || "") {
       const alerts = this.alertCtrl.create({
@@ -156,9 +137,9 @@ export class MyApp {
       alerts.present();
       this.nav.push(LoginPage);
     }
-    else {  
-     this.nav.push(HistoryPage);
-      }
+    else {
+      this.nav.push(HistoryPage);
+    }
   }
 
   categoryGo() {
@@ -170,22 +151,7 @@ export class MyApp {
   }
 
   dailydealsGo() {
-    let loader = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: "Loading..",
-      duration: 2000
-    });
-    loader.present();
     this.nav.push(DailyDealsPage)
   }
-
-  
-
-  // openPage(page) {
-  //   // Reset the content nav to have just this page
-  //   // we wouldn't want the back button to show in this scenario
-  //   this.nav.setRoot(page.component);
-  // }
-
 
 }
