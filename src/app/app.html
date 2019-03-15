@@ -13,11 +13,11 @@
             </button>
             <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="profileGo()">
                 <ion-icon name="person"></ion-icon> &nbsp; Profile
-            </button>
-            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
+            </button>           
+            <button  *ngIf="this.check == true" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item (click)="signupGo()">
                 <ion-icon name="person-add"></ion-icon> &nbsp; Signup
             </button>
-            <button  style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
+            <button  *ngIf="this.check == true" style="background-color:#2a8d2a; color: #fff;" menuClose ion-item
                 (click)="loginGo()">
                 <ion-icon name="log-in"></ion-icon> &nbsp; Login
             </button>

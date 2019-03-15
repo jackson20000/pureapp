@@ -18,6 +18,7 @@ import { HistoryPage } from '../pages/history/history';
 import { ApiDetailsProvider } from '../providers/api-details/api-details';
 import { PublicDataProvider } from '../providers/public-data/public-data';
 import { ProfilePage } from '../pages/profile/profile';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,13 +33,18 @@ export class MyApp {
   count: number = 0;
   orderDetails: any;
   profData: any;
+  check:boolean;
+  dismissing: boolean;
+  spamming: boolean;
+  lastBack: any;
+
   constructor(public events: Events, private auth: AuthProvider,
     public alertCtrl: AlertController, public platform: Platform,
     public app: App, private loadingCtrl: LoadingController,
     public statusBar: StatusBar, public splashScreen: SplashScreen,
     public storage: Storage, public http: HTTP, private apiData: ApiDetailsProvider,
-    public dataprov: PublicDataProvider) {
-
+    public dataprov: PublicDataProvider, private toast: ToastController) {
+     
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();      
@@ -47,55 +53,44 @@ export class MyApp {
           statusBar.overlaysWebView(false);
           statusBar.styleLightContent();
         }
-      });
-  
-
+      }); 
     })
     //Back Button Function
 
     platform.registerBackButtonAction(() => {
+      const nav = app.getActiveNavs()[0]; 
+      const active = nav.getActive();
 
-      let nav = app.getActiveNavs()[0];
-      let activeView = nav.getActive();
-      if (activeView.name === "HomePage") {
+      let closeDelay = 2000;
+      let spamDelay = 500;
 
-        if (nav.canGoBack()) {
-          nav.pop();
-        } else {
-          if (this.count == 0) {
-            const alert = this.alertCtrl.create({
-              title: 'Confirmation',
-              message: 'Do you want to close the app?',
-              buttons: [{
-                text: 'Cancel',
-                role: 'cancel',
-                handler: () => {
-                  this.count = 0;
-                }
-              }, {
-                text: 'Close App',
-                handler: () => {
-                  this.platform.exitApp(); // Close this application
-                }
-              }]
-            });
-            alert.present();
-          }
-          this.count++;
+      if (active.isOverlay) {       
+        if (!this.dismissing) { 
+          active.dismiss().then(() => this.dismissing = false);
         }
+        this.dismissing = true;
+      } else if (((Date.now() - this.lastBack) < closeDelay) &&
+        (Date.now() - this.lastBack) > spamDelay) {       
+        platform.exitApp();
+      } else {
+        if (!this.spamming) { 
+          let t = toast.create({
+            message: "Press back agin to exit",
+            duration: closeDelay,
+            dismissOnPageChange: true
+          });
+          t.onDidDismiss(() => this.spamming = false);
+          t.present();
+        }
+        this.spamming = true;
       }
-      else {
-        nav.pop();
-      }
-    }, 5);
-
-
-
+      this.lastBack = Date.now();
+    });
   }
 
 
   logout() {
-
+  localStorage.clear(); 
   }
 
 
@@ -152,6 +147,10 @@ export class MyApp {
 
   dailydealsGo() {
     this.nav.push(DailyDealsPage)
+  }
+
+  ionViewDidLoad(){
+    this.check= this.auth.check;
   }
 
 }

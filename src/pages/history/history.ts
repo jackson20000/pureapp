@@ -18,6 +18,9 @@ export class HistoryPage {
   dealproducts: any = [];
   orderhistory: any = [];
   items: any = [];
+  cancel: boolean;
+  success: boolean;
+  pending: boolean;
   constructor(private auth: AuthProvider, public http: HTTP,
     public navCtrl: NavController, public navParams: NavParams,
     private apiData: ApiDetailsProvider, public storage: Storage,
@@ -45,6 +48,17 @@ export class HistoryPage {
         var resp = data.data;
         let obj = JSON.parse(resp);
         this.orderhistory = obj.history;
+        // this.orderhistory.forEach(element => {
+        //   if(element == 0){
+        //     this.cancel = true;
+        //   }
+        //   else if(element == 1){
+        //     this.success = true;
+        //   }
+        //   else if(element == 2){
+        //     this.pending = true;
+        //   }
+        // });
         loader.dismiss();
       })
       .catch(error => {

@@ -2,24 +2,69 @@ page-history {
     .headerDo{
         border: 2px solid #2a8d2a;
         border-radius: 5px;
-        color: #fff;
-        background-color: #2a8d2a;
+        color: #2a8d2a;
+        background-color: #fff;
         margin-bottom: 25px;
     }
+
+    .iconStyleSuccess{
+        margin-left: 10px;
+    }
+
+    .iconStyleCancel{
+        margin-left: 10px;
+    }
+
+    .iconStylePending{
+        margin-left: 10px;
+        }
 
     .textStyle{
         font-size: 15px;
     }
+
+    .textStyleSub{
+        border-radius: 5px;
+        border: 1px dotted #2a8d2a;
+        color: #2a8d2a;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .textStyleSuccess{
+        border-radius: 5px;
+        color: #fff;
+        background-color: #40ee40;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .textStyleCancel{
+        border-radius: 5px;
+        color: #fff;
+        background-color: #ee3f3f;
+        padding: 2px;
+        text-align: center;
+    }
+        
+    .textStylePending{
+        border-radius: 5px;
+        color: #fff;
+        background-color: #f1e318;
+        padding: 5px;
+        text-align: center;
+        margin-top: 7px;
+    }
+    
     .headerDo p{
         margin-left: 15px;
     }  
-    
+   
     .contentDo{
         border: 1px dotted #fff;
         border-radius: 5px;
-        color: #2a8d2a;
-        margin-top: 5px;
-        background-color: #fff;
+        color: #fff;
+        background-color: #2a8d2a;
         width: 100%;
     }
 }

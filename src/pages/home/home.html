@@ -38,15 +38,16 @@
 <div *ngIf="!noNetwork" class="netError">
   <div class="network-error">
     <h3 text-center>
-      <ion-icon name="wifi"></ion-icon>
-        </h3>
+      <img src="../../assets/icon/wifi.png">
+    </h3>
     <p text-center> Something went wrong! </p>
     <h5 text-center>Please try again after sometime.</h5>
   </div>
 </div>
 
 <ion-grid *ngIf="noNetwork">
-    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Today's Deals</b></h4>
+    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Today's Deals  <img style="max-width: 15%;" src="../../assets/icon/sale.png">
+    </b></h4>
 
     <ion-row class="homeRow">    
     <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:9"  class="home_product_image_column">

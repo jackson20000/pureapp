@@ -10,7 +10,7 @@ import { HTTP } from '@ionic-native/http';
 import { AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
-
+import { AuthProvider } from '../../providers/auth/auth';
 import 'rxjs/add/operator/map';
 import { HomePage } from '../home/home';
 
@@ -27,7 +27,7 @@ export class SignupPage {
   data1: Observable<any>;
   data3: Observable<any>;
   idtypedata: Observable<any>;
-  authForm : FormGroup;
+  authForm: FormGroup;
 
   firstname: string;
   lastname: string;
@@ -62,92 +62,95 @@ export class SignupPage {
   postPhoto3: any;
   postPhoto4: any;
 
-  constructor(private fb: FormBuilder,public alertCtrl: AlertController,public navCtrl: NavController,
-    public http: HTTP, public navParams: NavParams, private camera: Camera, 
-    private transfer: FileTransfer, private file: File, private fileChooser: FileChooser, 
-    private loadingCtrl: LoadingController, private apiData:ApiDetailsProvider) {
-
+  constructor(
+    private fb: FormBuilder,
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public http: HTTP,
+    public navParams: NavParams,
+    private camera: Camera,
+    private transfer: FileTransfer,
+    private file: File,
+    private fileChooser: FileChooser,
+    private loadingCtrl: LoadingController,
+    private apiData: ApiDetailsProvider,
+    private auth: AuthProvider
+  ) {
     this.authForm = fb.group({
-      'firstname' : [null, Validators.compose([Validators.required])],
-      'lastname' : [null, Validators.compose([Validators.required])],
-      'sex' : [null, Validators.compose([Validators.required])],
-      'dob' : [null, Validators.compose([Validators.required])],
-      'addr1' : [null, Validators.compose([Validators.required])],
-      'city' : [null, Validators.compose([Validators.required])],
-      'countrySelect' : [null, Validators.compose([Validators.required])],
-      'zip' : [null, Validators.compose([Validators.required])],
-      'email' : [null, Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-      'idtypeName' : [null, Validators.compose([Validators.required])],
-      'idnum' : [null, Validators.compose([Validators.required])],
-      'issuedPlace' : [null, Validators.compose([Validators.required])],
-      'idexpiry' : [null, Validators.compose([Validators.required])],
-      'medidnum' : [null, Validators.compose([Validators.required])],
-      'medexpiry' : [null, Validators.compose([Validators.required])],
-      'county' : [null, Validators.compose([Validators.required])],
-      'physicianName' : [null, Validators.compose([Validators.required])],
-      'physicianID' : [null, Validators.compose([Validators.required])]
-		});
+      'firstname': [null, Validators.compose([Validators.required])],
+      'lastname': [null, Validators.compose([Validators.required])],
+      'sex': [null, Validators.compose([Validators.required])],
+      'dob': [null, Validators.compose([Validators.required])],
+      'addr1': [null, Validators.compose([Validators.required])],
+      'city': [null, Validators.compose([Validators.required])],
+      'countrySelect': [null, Validators.compose([Validators.required])],
+      'zip': [null, Validators.compose([Validators.required])],
+      'email': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      'idtypeName': [null, Validators.compose([Validators.required])],
+      'idnum': [null, Validators.compose([Validators.required])],
+      'issuedPlace': [null, Validators.compose([Validators.required])],
+      'idexpiry': [null, Validators.compose([Validators.required])],
+      'medidnum': [null, Validators.compose([Validators.required])],
+      'medexpiry': [null, Validators.compose([Validators.required])],
+      'county': [null, Validators.compose([Validators.required])],
+      'physicianName': [null, Validators.compose([Validators.required])],
+      'physicianID': [null, Validators.compose([Validators.required])]
+    });
   }
-
 
   stateSelect(i) {
     this.stateList = i.states;
   }
 
-
-
   takePhoto() {
     const options: CameraOptions = {
       quality: 70,
+      targetWidth: 900,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.postPhoto1 = imageData;
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      // Handle error
     });
   }
 
   takePhoto1() {
     const options: CameraOptions = {
       quality: 70,
+      targetWidth: 900,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.postPhoto3 = imageData;
       this.myProfilephoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      // Handle error
     });
   }
 
   getImage() {
     const options: CameraOptions = {
       quality: 70,
+      targetWidth: 900,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       saveToPhotoAlbum: false
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.postPhoto1 = imageData;
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto);
     }, (err) => {
-      // Handle error
     });
   }
 
@@ -155,70 +158,40 @@ export class SignupPage {
   getImage1() {
     const options: CameraOptions = {
       quality: 70,
+      targetWidth: 900,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       saveToPhotoAlbum: false
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.postPhoto2 = imageData;
       this.myphoto1 = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto1);
     }, (err) => {
-      // Handle error
     });
   }
 
   getImage2() {
     const options: CameraOptions = {
       quality: 70,
+      targetWidth: 900,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       saveToPhotoAlbum: false
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.postPhoto3 = imageData;
       this.myphoto3 = 'data:image/jpeg;base64,' + imageData;
       console.log(this.myphoto1);
     }, (err) => {
-      // Handle error
     });
   }
 
-
-  // choose() {
-  //   this.fileChooser.open().then((uri) => {
-  //     alert(uri);
-
-  //     this.file.resolveLocalFilesystemUrl(uri).then((newUrl) => {
-  //       alert(JSON.stringify(newUrl));
-
-  //       let dirPath = newUrl.nativeURL;
-  //       let dirPathSegments = dirPath.split('/')
-  //       dirPathSegments.pop()
-  //       dirPath = dirPathSegments.join('/')
-  //       alert(dirPath);
-
-  //     })
-  //   })
-  // }
-
-
   register() {
-
-    let loader = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: "Loading..",
-      // duration: 2000
-    });
-    loader.present();
-
-
     // console.log("firstname: " + this.firstname);
     // console.log("lastname: " + this.lastname);
     // console.log("Profile photo: " + this.myProfilephoto);
@@ -242,11 +215,16 @@ export class SignupPage {
     // console.log("physicianName: " + this.physicianName);
     // console.log("physicianID: " + this.physicianID);
 
+    let loader = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: "Loading..",
+    });
+    loader.present();
 
     let data = {
-      'db': 'cannabis_db',
-      'username': 'admin',
-      'password': 'admin',
+      'db': this.apiData.db,
+      'username': this.auth.usrname,
+      'password': this.auth.pwd,
       'name': this.firstname,
       'login': this.email,
       'email': this.email,
@@ -260,7 +238,7 @@ export class SignupPage {
       'zip': this.zip,
       'gen': this.sex,
       'country_id': this.countrySelect,
-       'state_id' : this.stateSelection,
+      'state_id': this.stateSelection,
       'customer_type': this.customerType,
       'idType': this.idtypeName,
       'idNumber': this.idnum,
@@ -273,113 +251,58 @@ export class SignupPage {
       'medicalCounty': this.county,
       'medicalDob': this.dob,
       'medicalIdExpDate': this.medexpiry,
-      'medicalImage': this.postPhoto2,    
+      'medicalImage': this.postPhoto2,
       'medicalCertificateImage': this.postPhoto3,
       'medicalIssueName': this.physicianName,
-      'medicalIssueId': this.physicianID,
-      
-
+      'medicalIssueId': this.physicianID
     };
 
     let headers = {
       'Content-Type': 'application/json'
     };
 
-    this.http.post(this.apiData.api+'/newreach/customer/create', data, headers)
+    this.http.post(this.apiData.api + '/newreach/customer/create', data, headers)
       .then((data) => {
-        console.log(data);
         loader.dismiss();
-        //alert('Succesfully Registered!');
         const alerts = this.alertCtrl.create({
           title: 'Success',
           subTitle: 'Succesfully Registered!',
           buttons: ['OK']
         });
-        alert(JSON.stringify(data));
         alerts.present();
         this.navCtrl.setRoot(HomePage);
+        loader.dismiss();
       })
       .catch((error) => {
-        console.log(error);
+        const alerts = this.alertCtrl.create({
+          title: 'Oops!',
+          subTitle: 'Registration failed! Please try again later.',
+          buttons: ['OK']
+        });
+        alerts.present();  
+        loader.dismiss();
       });
-
-
-    // Other Method
-
-    // var url2 = 'http://192.168.2.21:8069/newreach/customer/medicalid';
-    // let postData2 =new FormData();    
-    // postData2.append('username', "admin");
-    // postData2.append('password', "admin"); 
-    // postData2.append('db', 'falcon_db');
-    // postData2.append('medicalidNumber', '45645');
-    // postData2.append('medicalFirstName', 'may');  
-    // postData2.append('medicalLastName', 'june');
-    // postData2.append('medicalCounty', 'feb');
-    // postData2.append('medicalDob', '11-10-2018'); 
-    // postData2.append('medicalIdExpDate', '21-10-2018');  
-    // postData2.append('medicalIssueName', 'jan');    
-    // postData2.append('medicalIssueId', '45445');   
-
-    // this.data2 = this.http.post(url2, postData2);
-    // this.data2.subscribe(data2 =>{
-    //   console.log(data2)
-    // })
-
   }
 
-
   ionViewDidLoad() {
-
-    // For testing in mobile use Ionic native HTTP
-
-
-    // For getting the list of countries
-
-    this.http.get(this.apiData.api+'/newreach/country/details', {}, {})
+    this.http.get(this.apiData.api + '/newreach/country/details', {}, {})
       .then(data => {
-
-        var json = data.data; // data received by server
+        var json = data.data;
         let obj = JSON.parse(json);
-
         this.countryList = obj.country;
       })
       .catch(error => {
-
       });
 
-
-    // // For getting the list of ID Types
-
-    this.http.get(this.apiData.api+'/newreach/idtype', {}, {})
+    // For getting the list of ID Types
+    this.http.get(this.apiData.api + '/newreach/idtype', {}, {})
       .then(data => {
-
-        var json = data.data; // data received by server
+        var json = data.data; 
         let obj = JSON.parse(json);
-
         this.idtype = obj.val;
       })
       .catch(error => {
-
       });
-
-
-
-    // For testing in chrome use HTTPClient
-
-
-    // this.data = this.http.get('http://192.168.2.21:8069/newreach/country/details')
-    // this.data.subscribe(data => {
-    //   this.countryList = data.country;
-    //   console.log(this.countryList);
-
-    // });
-
-    // this.data1 = this.http.get('http://192.168.2.21:8069/newreach/idtype')
-    // this.data1.subscribe(data1 => {
-    //   this.idtype = data1.val;
-    //   console.log(this.idtype)
-    // });
-
   }
 }
 

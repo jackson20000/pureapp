@@ -22,6 +22,7 @@ export class LoginPage {
   password: any;
   authForm: FormGroup;
   usrData: any;
+  check: boolean = true;
 
   constructor(public events: Events, private fb: FormBuilder, public alertCtrl: AlertController,
     public navCtrl: NavController, public navParams: NavParams, public http: HTTP,
@@ -68,6 +69,7 @@ export class LoginPage {
         else if (val.resp == "1") {
           this.usrData = { username: val.username, password: val.password, uid: val.uid };
           this.storage.set('userData', this.usrData);
+          this.storage.set('loginCheck', this.check);
           this.navCtrl.setRoot(HomePage);
         }
         loader.dismiss();
@@ -78,6 +80,7 @@ export class LoginPage {
           subTitle: 'Please Try Again',
           buttons: ['OK']
         });
+        this.auth.check = true;
         alert.present();
       });
     loader.dismiss();

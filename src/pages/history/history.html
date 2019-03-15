@@ -10,41 +10,42 @@
 
 <ion-content>
 
-<ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="Pull to refresh"
-          refreshingSpinner="circles"
-           pullMax="100" closeDuration="400" snapbackDuration="400">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            pullMax="100" closeDuration="400" snapbackDuration="400">
         </ion-refresher-content>
-      </ion-refresher>
-      
+    </ion-refresher>
+
     <ion-grid>
         <ion-row class="headerDo" *ngFor="let item of orderhistory">
-            <ion-col class="textStyle" col-8 auto>
-                <p>Order Id : {{item.order_id}}</p>
+            <ion-col class="textStyle" col-6 auto>
+                <p class="textStyleSub">Order Id : {{item.order_id}}</p>
                 <p>Date : {{item.date}}</p>
-                <p>Total Price : ${{item.total}}</p>               
+                <p>Total Price : ${{item.total}}</p>
+                <p *ngIf="item.delivery_status == 0">Delivery Status :<br><br><b class="textStyleCancel"> Order Cancelled</b></p>
+                <p *ngIf="item.delivery_status == 1">Delivery Status :<br><br><b class="textStyleSuccess"> Delivered</b> </p>
+                <p *ngIf="item.delivery_status == 2">Delivery Status :<br><br><b class="textStylePending"> Pending Delivery</b> </p>
+
             </ion-col>
-            <!-- <ion-col col-2 auto>
-                    <ion-icon  name="checkmark-circle"></ion-icon>
-                    <ion-icon name="close-circle"></ion-icon>
-                    <ion-icon name="alarm"></ion-icon>              
-                </ion-col> -->
+            <ion-col col-2 auto>
+                </ion-col>
             <ion-col col-4 auto>
                 <ngx-qrcode [qrc-value]="item.order_id">
-                </ngx-qrcode>
-            </ion-col>
+                </ngx-qrcode> <br>
+                <img class="iconStyleSuccess" *ngIf="item.delivery_status == 1" src="../../assets/icon/success.png">
+                <img class="iconStyleCancel" *ngIf="item.delivery_status == 0" src="../../assets/icon/cancel.png">
+                <img class="iconStylePending" *ngIf="item.delivery_status == 2" src="../../assets/icon/pending.png">
+              </ion-col>
 
             <ion-row class="contentDo" *ngFor="let i of item.lines">
-                    <ion-col col-12 auto>
-                        <p>Product name : {{i.product}}</p>
-                        <p>Quantity : {{i.qty}}</p>
-                        <p>Sub Total Price : ${{i.sub_total}}</p>                  
-                    </ion-col>               
-            </ion-row> 
+                <ion-col col-12 auto>
+                    <p>Product name : {{i.product}}</p>
+                    <p>Quantity : {{i.qty}}</p>
+                    <p>Sub Total Price : ${{i.sub_total}}</p>
+                </ion-col>
+            </ion-row>
         </ion-row>
-             
+
     </ion-grid>
 </ion-content>
 

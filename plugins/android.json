@@ -8,40 +8,40 @@
   },
   "installed_plugins": {
     "cordova-plugin-advanced-http": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-filechooser": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "ionic-plugin-keyboard": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.pure.cannabis"
     },
     "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.pure.cannabis"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.pure.cannabis"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.pure.cannabis"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.pure.cannabis"
+    },
+    "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.pure.cannabis"
     }
   },

@@ -9,17 +9,10 @@ export class AuthProvider {
   public uid: number;
   public usrname:string;
   public pwd:string;
+  public check: boolean = false;
 
   constructor(public storage: Storage) {
-              // this.storage.set('userData', this.loginData);
   }
-
-  // public isLoggedIn(){
-  // return this.storage.get('userData').then((val) => {
-  //     return val;
-  //   });
-  //   }
-
     
 
 }

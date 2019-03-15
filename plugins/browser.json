@@ -10,9 +10,6 @@
     "cordova-plugin-advanced-http": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
@@ -42,6 +39,9 @@
     },
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.pure.cannabis"
     }
   },
   "dependent_plugins": {}

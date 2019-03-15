@@ -22,6 +22,7 @@ import { PublicDataProvider } from '../../providers/public-data/public-data';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
   data: Observable<any>;
   dealproducts: any = [];
   category: any = [];
@@ -46,6 +47,7 @@ export class HomePage {
     let usrDetails = {
       username: null, password: null, uid: null
     }
+    
     this.storage.get('userData').then((val) => {
       usrDetails.uid = val.uid;      
       this.auth.uid = usrDetails.uid;
@@ -57,6 +59,9 @@ export class HomePage {
       this.auth.pwd = usrDetails.password;
     });   
     
+    this.storage.get('loginCheck').then((val) => {         
+      this.auth.check = val;
+    }); 
     
 
     let loader = this.loadingCtrl.create({
