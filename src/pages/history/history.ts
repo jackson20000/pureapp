@@ -64,8 +64,8 @@ export class HistoryPage {
       .catch(error => {
         console.log(error);
         loader.dismiss();
-      })  
-      
+      })
+
       this.http.get(this.apiData.api + '/newreach/product', {}, {})
       .then(data => {
 
@@ -101,13 +101,9 @@ export class HistoryPage {
       .catch(error => {
         console.log(error);
         refresher.complete();
-      })  
+      })
 
   }
-
-
- 
-
 
   cartGo() {
     this.navCtrl.setRoot("CartPage")
@@ -120,6 +116,6 @@ export class HistoryPage {
   public searchGo() {
     this.navCtrl.push(SearchPage, { items: this.dealproducts });
   }
-  
+
 }
 

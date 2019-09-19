@@ -21,18 +21,18 @@
     <img class="category_sliderbox" src="/assets/imgs/s3.png">
     </ion-slide>
     </ion-slides>
-    
+
 
 
   <ion-grid>
     <ion-row class="category_row">
 
       <ion-col  col-5 (click)="categoryProducts(item)"  *ngFor="let item of category" class="category_product_image_column">
-        <img class="category_product_image"  src="data:image/png;base64,{{item.image}}">
+        <img class="category_product_image"  src="data:image/png;base64,{{item.image}}" onError="this.src='./assets/imgs/placeholder.jpg';">
         <span style="display:block; color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</span>
-      </ion-col>     
+      </ion-col>
 
-    </ion-row>   
+    </ion-row>
   </ion-grid>
 
 </ion-content>
@@ -42,7 +42,7 @@
       <ion-col no-padding>
           <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
            </button>
-      </ion-col>      
+      </ion-col>
       <ion-col no-padding>
           <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
            </button>

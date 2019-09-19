@@ -24,7 +24,7 @@
     </ion-item>
     <div></div>
     <div class="error-box" *ngIf="authForm.controls['password'].hasError('required') && authForm.controls['password'].touched">* Password is required!</div>
-    
+
   </ion-list>
 
   <div padding>
@@ -33,5 +33,6 @@
   </form>
   <div padding class="center">
     <a (click)=goLogin()>New User? Register</a>
+    <a (click)=goForgotpwd() style="float: right;">forgot password?</a>
   </div>
 </ion-content>

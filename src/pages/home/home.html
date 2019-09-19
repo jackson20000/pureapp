@@ -1,91 +1,96 @@
 <ion-header>
 
   <ion-navbar color='navbarColor'>
-      <button ion-button menuToggle side="right"> 
-          <ion-icon name="menu"></ion-icon>
-        </button>
-    <ion-title>Home</ion-title>
+    <button ion-button menuToggle side="right">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> <ion-icon name='home'></ion-icon> &nbsp;Home</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-  
-
 <ion-content>
+  <ion-slides *ngIf="noNetwork" autoplay="3500" loop="true" speed="500" class="slides" pager="true">
+    <ion-slide>
+      <img class="home_sliderbox" src="./assets/imgs/s1.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img class="home_sliderbox" src="./assets/imgs/s2.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img class="home_sliderbox" src="./assets/imgs/s3.png">
+    </ion-slide>
+  </ion-slides>
 
-<ion-slides *ngIf="noNetwork"  autoplay="3500" loop="true" speed="500" class="slides" pager="true">
-<ion-slide>
-<img class="home_sliderbox" src="./assets/imgs/s1.jpg">
-</ion-slide>
-<ion-slide>
-<img class="home_sliderbox" src="./assets/imgs/s2.jpg">
-</ion-slide>
-<ion-slide>
-<img class="home_sliderbox" src="./assets/imgs/s3.png">
-</ion-slide>
-</ion-slides>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      pullMax="100" closeDuration="400" snapbackDuration="400">
+    </ion-refresher-content>
+  </ion-refresher>
 
-<ion-refresher (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content
-    pullingIcon="arrow-dropdown"
-    pullingText="Pull to refresh"
-    refreshingSpinner="circles"
-     pullMax="100" closeDuration="400" snapbackDuration="400">
-  </ion-refresher-content>
-</ion-refresher>
-
-<div *ngIf="!noNetwork" class="netError">
-  <div class="network-error">
-    <h3 text-center>
-      <img src="../../assets/icon/wifi.png">
-    </h3>
-    <p text-center> Something went wrong! </p>
-    <h5 text-center>Please try again after sometime.</h5>
+  <div *ngIf="!noNetwork" class="netError">
+    <div class="network-error">
+      <h3 text-center>
+        <img src="../../assets/icon/wifi.png">
+      </h3>
+      <p text-center> Something went wrong! </p>
+      <h5 text-center>Please try again after sometime.</h5>
+    </div>
   </div>
-</div>
 
-<ion-grid *ngIf="noNetwork">
-    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Today's Deals  <img style="max-width: 15%;" src="../../assets/icon/sale.png">
-    </b></h4>
+  <ion-grid *ngIf="noNetwork">
+    <h4 (click)="dailydealsGo()" style="color:#2a8d2a; padding-left: 1%; ">
+      <b>Today's Deals
+        <!-- <img style="
+          max-width: 7%;
+          margin-left: 7px;
+          margin-top: 3px;
+          position: absolute;"
+          src="../../assets/icon/sale.png"> -->
+      </b>
+    </h4>
+    <ion-row class="homeRow">
+      <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:9" class="home_product_image_column">
+        <img class="home_product_image" src="data:image/png;base64,{{item.image}}" onError="this.src='./assets/imgs/placeholder.jpg';" alt="Image not available">
+        <div style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
+        <ion-row>
+          <ion-col style="text-align:left; color: #2a8d2a;">
+            <del>$25</del>
+          </ion-col>
+          <ion-col style="text-align:right; color: #2a8d2a;">{{item.unitPrice | currency}}</ion-col>
+        </ion-row>
 
-    <ion-row class="homeRow">    
-    <ion-col (click)="eachProduct($event, item)" *ngFor="let item of dealproducts | slice:0:9"  class="home_product_image_column">
-      <img class="home_product_image" src="data:image/png;base64,{{item.image}}"  alt="Image not available">
-      <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{item.productName}}</div>
-      <ion-row>
-        <ion-col style="text-align:left; color: #2a8d2a;">
-          <del>$25</del>
-        </ion-col>
-        <ion-col style="text-align:right; color: #2a8d2a;">{{item.unitPrice | currency}}</ion-col>
-      </ion-row>
-      
-    </ion-col>
+      </ion-col>
     </ion-row>
-    
-<h4 (click)="categoryGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Categories</b></h4>
 
-<ion-row>
+    <h4 (click)="categoryGo()" style="color:#2a8d2a; padding-left: 1%; "><b>Categories</b>
 
-<ion-col  (click)="eachCategory($event, item)" *ngFor="let item of category | slice:0:3" class="home_product_image_column">
-  <img class="home_product_image" src="data:image/png;base64,{{item.image}}"  alt="Image not available">
-  <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</div>
-</ion-col>
+    </h4>
 
-</ion-row>
-</ion-grid> 
+    <ion-row>
+
+      <ion-col (click)="eachCategory($event, item)" *ngFor="let item of category | slice:0:3" class="home_product_image_column">
+        <img class="home_product_image" src="data:image/png;base64,{{item.image}}" onError="this.src='./assets/imgs/placeholder.jpg';" alt="Image not available">
+        <div style=" color:#2a8d2a; text-align: center; font-size: 13px;">{{item.name}}</div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
 
 <ion-footer>
-    <ion-row>              
-        <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
-             </button>
-        </ion-col>
-        <ion-col no-padding>
-            <button no-margin ion-button full large color="navbarColor" (click)="searchGo()"><ion-icon name='search'></ion-icon>
-             </button>
-        </ion-col>
-    </ion-row>
+  <ion-row>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor" (click)="cartGo()">
+        <ion-icon name='cart'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="navbarColor" (click)="searchGo()">
+        <ion-icon name='search'></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-footer>

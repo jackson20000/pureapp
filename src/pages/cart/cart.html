@@ -50,11 +50,11 @@
           <ion-col>
             <ion-item>
               <ion-avatar>
-                <img style="float: right" src="data:image/png;base64,{{itm.thumb}}">
+                <img style="float: right" src="data:image/png;base64,{{itm.thumb}}" onError="this.src='./assets/imgs/placeholder.jpg';">
               </ion-avatar>
             </ion-item>
             <p style="color:#333" text-right>
-              Qty: {{itm.count}}gm
+              Qty: {{itm.count}}
             </p>
           </ion-col>
 

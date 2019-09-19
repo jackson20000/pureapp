@@ -10,7 +10,7 @@
   <ion-grid>
     <ion-row >
       <ion-col col-5 (click)="productShow($event, item)" *ngFor="let item of allproductsList | search : terms"  class="home_product_image_column">
-        <img class="home_product_image" src="data:image/png;base64,{{item.image}}">
+        <img class="home_product_image" src="data:image/png;base64,{{item.image}}" onError="this.src='./assets/imgs/placeholder.jpg';">
         <div  style="color:#2a8d2a; text-align: center; font-size: 16px; color: #2a8d2a;">{{item.productName}}</div>
         <ion-row>
             <ion-col style=" text-align: center; color: #2a8d2a;">
@@ -19,9 +19,9 @@
           <ion-col style=" text-align: center; color: #2a8d2a;">
            {{item.unitPrice | currency }}
           </ion-col>
-        </ion-row>       
+        </ion-row>
       </ion-col>
-    </ion-row>    
+    </ion-row>
   </ion-grid>
 
 </ion-content>

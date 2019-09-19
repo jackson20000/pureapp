@@ -4,25 +4,25 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="category_content">    
+<ion-content padding class="category_content">
 
 
   <ion-grid>
     <ion-row >
 
       <ion-col col-5  (click)="eachProduct($event, i)" *ngFor="let i of allItems "  class="home_product_image_column">
-        <img class="home_product_image" src="data:image/png;base64,{{i.image}}"   alt="Image not available">
+        <img class="home_product_image" src="data:image/png;base64,{{i.image}}" onError="this.src='./assets/imgs/placeholder.jpg';" alt="Image not available">
         <div  style="color:#2a8d2a; text-align: center; font-size: 13px;">{{i.productName}}</div>
         <ion-row>
           <ion-col style="text-align:left; color: #2a8d2a;">
             <del>$25</del>
           </ion-col>
           <ion-col style="text-align:right; color: #2a8d2a;">{{i.unitPrice | currency}}</ion-col>
-        </ion-row>        
+        </ion-row>
       </ion-col>
 
     </ion-row>
-    
+
   </ion-grid>
 
 </ion-content>
@@ -31,7 +31,7 @@
       <ion-col no-padding>
           <button no-margin ion-button full large color="navbarColor" (click)="homeGo()" ><ion-icon name='home'></ion-icon>
            </button>
-      </ion-col>     
+      </ion-col>
       <ion-col no-padding>
           <button no-margin ion-button full large color="navbarColor" (click)="cartGo()"><ion-icon name='cart'></ion-icon>
            </button>

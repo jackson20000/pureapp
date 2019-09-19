@@ -32,15 +32,16 @@
             <ion-col col-4 auto>
                 <ngx-qrcode [qrc-value]="item.order_id">
                 </ngx-qrcode> <br>
-                <img class="iconStyleSuccess" *ngIf="item.delivery_status == 1" src="../../assets/icon/success.png">
-                <img class="iconStyleCancel" *ngIf="item.delivery_status == 0" src="../../assets/icon/cancel.png">
-                <img class="iconStylePending" *ngIf="item.delivery_status == 2" src="../../assets/icon/pending.png">
+                <!-- <img class="iconStyleSuccess" *ngIf="item.delivery_status == 1" src="../../assets/icon/success.png"> -->
+                <!-- <img class="iconStyleCancel" *ngIf="item.delivery_status == 0" src="../../assets/icon/cancel.png"> -->
+                <!-- <img class="iconStylePending" *ngIf="item.delivery_status == 2" src="../../assets/icon/pending.png"> -->
               </ion-col>
 
             <ion-row class="contentDo" *ngFor="let i of item.lines">
                 <ion-col col-12 auto>
                     <p>Product name : {{i.product}}</p>
                     <p>Quantity : {{i.qty}}</p>
+                    <!-- <p>Tax Amount : ${{i.amount_tax}}</p> -->
                     <p>Sub Total Price : ${{i.sub_total}}</p>
                 </ion-col>
             </ion-row>

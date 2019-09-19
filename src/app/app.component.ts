@@ -19,6 +19,7 @@ import { ApiDetailsProvider } from '../providers/api-details/api-details';
 import { PublicDataProvider } from '../providers/public-data/public-data';
 import { ProfilePage } from '../pages/profile/profile';
 import { ToastController } from 'ionic-angular';
+import { PendingPaymentPage } from '../pages/pending-payment/pending-payment';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +27,7 @@ import { ToastController } from 'ionic-angular';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{ title: string, component: any, icon: any }>;
   data: Observable<any>;
@@ -44,38 +45,40 @@ export class MyApp {
     public statusBar: StatusBar, public splashScreen: SplashScreen,
     public storage: Storage, public http: HTTP, private apiData: ApiDetailsProvider,
     public dataprov: PublicDataProvider, private toast: ToastController) {
-     
+
     platform.ready().then(() => {
       statusBar.styleDefault();
-      splashScreen.hide();      
+      splashScreen.hide();
       platform.ready().then(() => {
         if (platform.is('android')) {
           statusBar.overlaysWebView(false);
           statusBar.styleLightContent();
         }
-      }); 
+      });
     })
     //Back Button Function
 
     platform.registerBackButtonAction(() => {
-      const nav = app.getActiveNavs()[0]; 
+      const nav = app.getActiveNavs()[0];
       const active = nav.getActive();
+
+      if (active.name === "HomePage") {
 
       let closeDelay = 2000;
       let spamDelay = 500;
 
-      if (active.isOverlay) {       
-        if (!this.dismissing) { 
+      if (active.isOverlay) {
+        if (!this.dismissing) {
           active.dismiss().then(() => this.dismissing = false);
         }
         this.dismissing = true;
       } else if (((Date.now() - this.lastBack) < closeDelay) &&
-        (Date.now() - this.lastBack) > spamDelay) {       
+        (Date.now() - this.lastBack) > spamDelay) {
         platform.exitApp();
       } else {
-        if (!this.spamming) { 
+        if (!this.spamming) {
           let t = toast.create({
-            message: "Press back agin to exit",
+            message: "Press back again to exit",
             duration: closeDelay,
             dismissOnPageChange: true
           });
@@ -85,12 +88,18 @@ export class MyApp {
         this.spamming = true;
       }
       this.lastBack = Date.now();
+
+    }
+    else {
+      nav.pop();
+    }
     });
   }
 
 
   logout() {
-  localStorage.clear(); 
+  localStorage.clear();
+  this.nav.setRoot(LoginPage);
   }
 
 
@@ -100,6 +109,10 @@ export class MyApp {
 
   signupGo() {
     this.nav.push(SignupPage)
+  }
+
+  pendingpayGo() {
+    this.nav.push("PendingPaymentPage")
   }
 
   homeGo() {
@@ -141,7 +154,7 @@ export class MyApp {
     this.nav.push(CategoryPage)
   }
 
-  cartGo() {
+  cartGo() {localStorage
     this.nav.setRoot("CartPage")
   }
 

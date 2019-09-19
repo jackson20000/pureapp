@@ -10,10 +10,10 @@
 <ion-content>
 
   <ion-list>
- 
+
 
     <!-- ***** ID Details ***** -->
-  
+
     <ion-list-header>
       Basic Information
     </ion-list-header>
@@ -31,8 +31,8 @@
     <div class="error-box" *ngIf="authForm.controls['lastname'].hasError('required') && authForm.controls['lastname'].touched">* This field is required!</div>
 
     <div padding>
-        <button ion-button (click)="takePhoto1()" full color="primary">Capture profile picture</button>  
-        <p align="center"><img style="border-radius: 50%; height: 12em; width: 12em;" src="{{myProfilephoto}}" alt=""></p>      
+        <button ion-button color='navbarColor' (click)="takePhoto1()" full color="primary">Capture profile picture</button>
+        <p align="center"><img style="border-radius: 50%; height: 12em; width: 12em;" src="{{myProfilephoto}}" alt=""></p>
     </div>
 
     <ion-item class="itemSelectBox">
@@ -47,10 +47,10 @@
 
     <ion-item>
       <ion-label floating>Date of Birth</ion-label>
-      <ion-datetime displayFormat="DD MMM, YYYY" min="1918" [(ngModel)]="dob" name="dob" [formControl]="authForm.controls['dob']" [ngClass]="{'error-border':!authForm.controls['dob'].valid}"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM, YYYY" min="1918" [(ngModel)]="dob" max="{{today}}" name="dob" [formControl]="authForm.controls['dob']" [ngClass]="{'error-border':!authForm.controls['dob'].valid}"></ion-datetime>
     </ion-item>
     <div class="error-box" *ngIf="authForm.controls['dob'].hasError('required') && authForm.controls['dob'].touched">* This field is required!</div>
-   
+
 
     <ion-item>
       <ion-label floating>Street Name 1</ion-label>
@@ -76,7 +76,7 @@
       </ion-select>
     </ion-item>
     <div class="error-box" *ngIf="authForm.controls['countrySelect'].hasError('required') && authForm.controls['countrySelect'].touched">* This field is required!</div>
-    
+
     <ion-item  class="itemSelectBox">
         <ion-label>State</ion-label>
         <ion-select [(ngModel)]="stateSelection" >
@@ -87,7 +87,7 @@
       <ion-label floating>ZIP Code</ion-label>
       <ion-input type="number" [(ngModel)]="zip" name="zip" [formControl]="authForm.controls['zip']" [ngClass]="{'error-border':!authForm.controls['zip'].valid}"></ion-input>
     </ion-item>
-    <div class="error-box" *ngIf="authForm.controls['zip'].hasError('required') && authForm.controls['zip'].touched">* This field is required!</div> 
+    <div class="error-box" *ngIf="authForm.controls['zip'].hasError('required') && authForm.controls['zip'].touched">* This field is required!</div>
 
     <ion-item>
       <ion-label floating>E-mail</ion-label>
@@ -95,7 +95,7 @@
     </ion-item>
     <div class="error-box" *ngIf="authForm.controls['email'].hasError('required') && authForm.controls['email'].touched">* This field is required!</div>
     <div class="error-box" *ngIf="authForm.controls['email'].hasError('pattern') && authForm.controls['email'].touched">* Format is incorrect</div>
-    
+
     <ion-list class="radioButton" [(ngModel)]="customerType" radio-group >
       <ion-item>
         <ion-label>Recreational
@@ -122,16 +122,16 @@
     <ion-input type="number" [(ngModel)]="idnum" name="id" [formControl]="authForm.controls['idnum']" [ngClass]="{'error-border':!authForm.controls['idnum'].valid}"></ion-input>
   </ion-item>
   <div class="error-box" *ngIf="authForm.controls['idnum'].hasError('required') && authForm.controls['idnum'].touched">* This field is required!</div>
-  
+
   <ion-item>
     <ion-label floating>ID Issued Place</ion-label>
     <ion-input type="text" [(ngModel)]="issuedPlace" name="place" [formControl]="authForm.controls['issuedPlace']" [ngClass]="{'error-border':!authForm.controls['lastname'].valid}"></ion-input>
   </ion-item>
   <div class="error-box" *ngIf="authForm.controls['issuedPlace'].hasError('required') && authForm.controls['issuedPlace'].touched">* This field is required!</div>
-  
+
   <ion-item>
     <ion-label floating>ID Expiry Date</ion-label>
-    <ion-datetime displayFormat="DD MMM, YYYY" min="2018" max="2040-12-31" [(ngModel)]="idexpiry" name="idexpiry" [formControl]="authForm.controls['idexpiry']" [ngClass]="{'error-border':!authForm.controls['idexpiry'].valid}"></ion-datetime>
+    <ion-datetime displayFormat="DD MMM, YYYY" min="{{myDate}}" max="2040-12-31" [(ngModel)]="idexpiry" name="idexpiry" [formControl]="authForm.controls['idexpiry']" [ngClass]="{'error-border':!authForm.controls['idexpiry'].valid}"></ion-datetime>
 
   </ion-item>
   <div class="error-box" *ngIf="authForm.controls['idexpiry'].hasError('required') && authForm.controls['idexpiry'].touched">* This field is required!</div>
@@ -139,31 +139,31 @@
   <!-- <img [src]="idCapture" alt=""/> -->
 
   <div padding>
-      <button ion-button (click)="takePhoto()" full color="primary">Take Photo</button>
+      <button ion-button color='navbarColor' (click)="takePhoto()" full color="primary">Take Photo</button>
       <p style="text-align: center; color: #2a8d2a;" >OR</p>
-      <button ion-button (click)="getImage()" full color="primary">Get Photo From Library</button>
+      <button ion-button color='navbarColor' (click)="getImage()" full color="primary">Get Photo From Library</button>
 
       <p align="center"><img padding src="{{ myphoto }}" alt=""></p>
-    
+
     </div>
 
 
 
 
-  <ion-list>
+  <ion-list *ngIf="customerType == 'medical_customer'">
     <!-- ***** Medical ID Details ***** -->
     <ion-list-header>
       Medical ID Details
     </ion-list-header>
 
-    <!-- <ion-item  class="itemSelectBox">   
-        <ion-label>Type of Medical ID to be uploaded</ion-label>   
+    <!-- <ion-item  class="itemSelectBox">
+        <ion-label>Type of Medical ID to be uploaded</ion-label>
       <ion-select [(ngModel)]="medicalidtypeName">
         <ion-option value="mmid">California MMID</ion-option>
         <ion-option value="letter">Physician's Letter</ion-option>
       </ion-select>
     </ion-item> -->
-    
+
 
     <ion-item>
       <ion-label floating>Medical ID Card Number</ion-label>
@@ -199,12 +199,12 @@
 
 
     <div padding>
-        <button ion-button color='primary' (click)="getImage1()" block >Upload Medical Id</button>
+        <button ion-button color='navbarColor' (click)="getImage1()" block >Upload Medical Id</button>
         <p align="center"><img padding src="{{ myphoto1 }}" alt=""></p>
-          <button ion-button color='primary' (click)="getImage2()" block >Upload Physician's letter</button>
+          <button ion-button color='navbarColor' (click)="getImage2()" block >Upload Physician's letter</button>
           <p align="center"><img padding src="{{ myphoto3 }}" alt=""></p>
 
-          <!-- <p style="text-align: center; color: #2a8d2a;" >OR</p>    
+          <!-- <p style="text-align: center; color: #2a8d2a;" >OR</p>
           <button ion-button color='primary' (click)="choose()" block >Upload Pdf</button> -->
         </div>
   </ion-list>

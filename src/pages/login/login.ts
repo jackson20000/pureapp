@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Events } from 'ionic-angular';
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ForgotpasswordPage } from '../forgotpassword/forgotpassword';
 
 
 @IonicPage()
@@ -84,5 +85,9 @@ export class LoginPage {
         alert.present();
       });
     loader.dismiss();
-  } 
+  }
+
+  goForgotpwd(){
+    this.navCtrl.push(ForgotpasswordPage)
+  }
 }

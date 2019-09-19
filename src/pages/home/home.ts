@@ -22,7 +22,7 @@ import { PublicDataProvider } from '../../providers/public-data/public-data';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  
+
   data: Observable<any>;
   dealproducts: any = [];
   category: any = [];
@@ -37,19 +37,26 @@ export class HomePage {
   profileInfo: any = [];
   datas: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public auth: AuthProvider,
-    public http: HTTP, private loadingCtrl: LoadingController,
-    private apiData: ApiDetailsProvider, private storage: Storage,
-    public alertCtrl: AlertController, public events: Events, public dataprov: PublicDataProvider) {
+    public http: HTTP,
+    private loadingCtrl: LoadingController,
+    private apiData: ApiDetailsProvider,
+    private storage: Storage,
+    public alertCtrl: AlertController,
+    public events: Events,
+    public dataprov: PublicDataProvider
+    ) {
 
 
     let usrDetails = {
       username: null, password: null, uid: null
     }
-    
+
     this.storage.get('userData').then((val) => {
-      usrDetails.uid = val.uid;      
+      usrDetails.uid = val.uid;
       this.auth.uid = usrDetails.uid;
 
       usrDetails.username = val.username;
@@ -57,12 +64,12 @@ export class HomePage {
 
       usrDetails.password = val.password;
       this.auth.pwd = usrDetails.password;
-    });   
-    
-    this.storage.get('loginCheck').then((val) => {         
+    });
+
+    this.storage.get('loginCheck').then((val) => {
       this.auth.check = val;
-    }); 
-    
+    });
+
 
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -111,7 +118,7 @@ export class HomePage {
       });
 
   }
- 
+
   cartGo() {
     this.navCtrl.setRoot("CartPage")
   }
@@ -179,7 +186,7 @@ export class HomePage {
 
   }
 
- 
+
 }
 
 

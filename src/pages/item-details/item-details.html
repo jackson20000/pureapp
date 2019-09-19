@@ -8,43 +8,34 @@
 
 <ion-content style=" color: #0e830e;">
 
-  <img class="product_details_image" src="data:image/png;base64,{{selectProduct?.image}}"  alt="Image not available">
+  <img class="product_details_image" src="data:image/png;base64,{{selectProduct?.image}}" onError="this.src='./assets/imgs/placeholder.jpg';"  alt="Image not available">
 
   <div class="card product-detail">
 
     <div text-center padding margin-top class="border-bottom">
       <h2>{{selectProduct?.productName}}</h2>
       <h3 class="price" color="danger" margin-top>{{ selectProduct?.unitPrice | currency}}/gm</h3>
-    </div>       
+    </div>
 
     <ion-row padding>
       <ion-col col-6>
         <h6 style="color:#0e830e;">
-         Enter quantity to be purchased in grams: 
+         Enter quantity to be purchased in grams:
         </h6>
       </ion-col>
       <ion-col col-2>
-       
+
       </ion-col>
       <ion-col col-4 >
-        <!-- <button (click)="decreaseProductCount()" ion-button small>
-          -
-        </button> -->
-        
-        <ion-input type="number" class="quantity_val" [(ngModel)]="productCount"></ion-input>
-
-        <!-- <span class="quantity_val">{{productCount}}</span>
-
-        <button (click)="incrementProductCount()" ion-button small>
-          +
-        </button> -->
+        <ion-input type="number" class="quantity_val" [(ngModel)]="productCount" required="required"></ion-input>
       </ion-col>
     </ion-row>
 
   </div>
 
   <div >
-    <p style="font-size: 16px; text-align: justify; margin-bottom: 5%; padding-left: 10px; padding-right: 10px;">{{ selectProduct?.description }}</p>
+    <p *ngIf="selectProduct?.description" style="font-size: 16px; text-align: justify; margin-bottom: 5%; padding-left: 10px; padding-right: 10px;">{{ selectProduct?.description }}</p>
+    <p *ngIf="!selectProduct?.description" style="font-size: 16px; text-align: justify; margin-bottom: 5%; padding-left: 10px; padding-right: 10px;"></p>
   </div>
 
 

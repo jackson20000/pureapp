@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiDetailsProvider } from '../../providers/api-details/api-details';
 import { AuthProvider } from '../../providers/auth/auth';
 import 'rxjs/add/operator/map';
-import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-signup',
@@ -61,6 +61,9 @@ export class SignupPage {
   postPhoto2: any;
   postPhoto3: any;
   postPhoto4: any;
+  myDate: String = new Date().toISOString();
+  today: any = new Date();
+
 
   constructor(
     private fb: FormBuilder,
@@ -90,12 +93,14 @@ export class SignupPage {
       'idnum': [null, Validators.compose([Validators.required])],
       'issuedPlace': [null, Validators.compose([Validators.required])],
       'idexpiry': [null, Validators.compose([Validators.required])],
-      'medidnum': [null, Validators.compose([Validators.required])],
-      'medexpiry': [null, Validators.compose([Validators.required])],
-      'county': [null, Validators.compose([Validators.required])],
-      'physicianName': [null, Validators.compose([Validators.required])],
-      'physicianID': [null, Validators.compose([Validators.required])]
+      'medidnum': [null, Validators.compose([])],
+      'medexpiry': [null, Validators.compose([])],
+      'county': [null, Validators.compose([])],
+      'physicianName': [null, Validators.compose([])],
+      'physicianID': [null, Validators.compose([])]
     });
+    this.today.setFullYear( this.today.getFullYear() - 18 );
+    this.today = this.today.toISOString();
   }
 
   stateSelect(i) {
@@ -192,28 +197,6 @@ export class SignupPage {
   }
 
   register() {
-    // console.log("firstname: " + this.firstname);
-    // console.log("lastname: " + this.lastname);
-    // console.log("Profile photo: " + this.myProfilephoto);
-    // console.log("sex: " + this.sex);
-    // console.log("dob: " + this.dob);
-    // console.log("addr1: " + this.addr1);
-    // console.log("addr2: " + this.addr2);
-    // console.log("city: " + this.city);
-    // console.log("countrySelect: " + this.countrySelect);
-    // console.log("stateSelection: " + this.stateSelection);
-    // console.log("zip: " + this.zip);
-    // console.log("email: " + this.email);
-    // console.log("Customertype: " + this.customerType);
-    // console.log("idtypeName: " + this.idtypeName);
-    // console.log("Idnum: " + this.idnum);
-    // console.log("issuedPlace: " + this.issuedPlace);
-    // console.log("idexpiry: " + this.idexpiry);
-    // console.log("medidnum: " + this.medidnum);
-    // console.log("medexpiry: " + this.medexpiry);
-    // console.log("medicalCounty: " + this.county);
-    // console.log("physicianName: " + this.physicianName);
-    // console.log("physicianID: " + this.physicianID);
 
     let loader = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -270,7 +253,7 @@ export class SignupPage {
           buttons: ['OK']
         });
         alerts.present();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(LoginPage);
         loader.dismiss();
       })
       .catch((error) => {
@@ -279,7 +262,8 @@ export class SignupPage {
           subTitle: 'Registration failed! Please try again later.',
           buttons: ['OK']
         });
-        alerts.present();  
+        alert(JSON.stringify(error));
+        alerts.present();
         loader.dismiss();
       });
   }
@@ -297,7 +281,7 @@ export class SignupPage {
     // For getting the list of ID Types
     this.http.get(this.apiData.api + '/newreach/idtype', {}, {})
       .then(data => {
-        var json = data.data; 
+        var json = data.data;
         let obj = JSON.parse(json);
         this.idtype = obj.val;
       })

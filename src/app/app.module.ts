@@ -29,6 +29,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { PublicDataProvider } from '../providers/public-data/public-data';
+import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
+import { ConfirmpasswordPage } from '../pages/confirmpassword/confirmpassword';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { PublicDataProvider } from '../providers/public-data/public-data';
     SearchPage,
     SignupPage,
     HistoryPage,
-    SearchPipe
+    SearchPipe,
+    ForgotpasswordPage,
+    ConfirmpasswordPage
   ],
   imports: [
     BrowserModule, NgxQRCodeModule,
@@ -62,7 +66,9 @@ import { PublicDataProvider } from '../providers/public-data/public-data';
     ProfilePage,
     SearchPage,
     HistoryPage,
-    SignupPage
+    SignupPage,
+    ForgotpasswordPage,
+    ConfirmpasswordPage
   ],
   providers: [
     StatusBar,
